@@ -7,7 +7,4 @@ INCLUDEPATH += $$P
 	LIBS += -lwinmm -lws2_32 -lShell32 -lAdvapi32
 	contains(QMAKE_TARGET.arch, x86_64): LIBS += $$files($$P/dx9sdk/Lib/x64/*.lib)
 	else: LIBS += $$files($$P/dx9sdk/Lib/x86/*.lib)
-
-	# Packaging
-	ICON = $$P/Windows/ppsspp.rc
 }
