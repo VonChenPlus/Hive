@@ -6,6 +6,7 @@ clone_depth: 5
 
 environment:
   QTDIR: C:\Qt\5.4\msvc2013_64_opengl
+  PATH： %PATH%;%QTDIR%\bin;C:\MinGW\bin
 
 platform:
   - x64
@@ -13,9 +14,7 @@ platform:
 configuration:
   - Debug
 
-install:
-  - git submodule update --init --recursive --depth 20
-
 before_build:
+  - git submodule update --init --recursive --depth 20
   - cd QT
   - qmake -r -tp vc HiveQt.pro
