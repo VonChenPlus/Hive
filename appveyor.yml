@@ -6,7 +6,7 @@ clone_depth: 5
 
 environment:
   QTDIR: C:\Qt\5.4\msvc2013_64_opengl
-  PATH： %PATH%;%QTDIR%\bin;C:\MinGW\bin
+  PATH: %PATH%;%QTDIR%\bin;C:\MinGW\bin
 
 platform:
   - x64
