@@ -1,11 +1,9 @@
 # This file is to add features deemed necessary that don't exist in qmake.conf
 # There is no linux setting in qmake.conf
 
-# For our purposes, maemo5 and meego perform the same.
-maemo5|contains(MEEGO_EDITION,harmattan): CONFIG += maemo
-
 # All supported platforms that require tweaks
 PLATFORM_NAME="generic"
+unix: PLATFORM_NAME="linux"
 win32: PLATFORM_NAME="Windows"
 
 !equals(PLATFORM_NAME, "generic"): include($$PLATFORM_NAME".pri")

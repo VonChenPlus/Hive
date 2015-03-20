@@ -1,15 +1,7 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2015-03-08T11:36:56
-#
-#-------------------------------------------------
-
 TARGET = Hive
 
+# Main Qt modules
 QT       += core gui opengl
-
-symbian: LIBS += -lNative.lib
-else: LIBS += -lNative
 
 include(Settings.pri)
 
@@ -29,46 +21,11 @@ greaterThan(QT_MAJOR_VERSION,4) {
 		QT += systeminfo
 		DEFINES += QT_HAS_SYSTEMINFO
 	}
-	mobile_platform: QT += sensors
-} else:!maemo5:mobile_platform {
-	CONFIG += mobility
-	MOBILITY += sensors
-	symbian: MOBILITY += systeminfo feedback
 }
 
 # External (platform-dependant) libs
 
-macx|equals(PLATFORM_NAME, "linux") {
-	PRE_TARGETDEPS += $$CONFIG_DIR/libCommon.a $$CONFIG_DIR/libCore.a $$CONFIG_DIR/libGPU.a $$CONFIG_DIR/libNative.a
-	CONFIG += link_pkgconfig
-	packagesExist(sdl2) {
-		DEFINES += SDL
-		SOURCES += $$P/SDL/SDLJoystick.cpp
-		HEADERS += $$P/SDL/SDLJoystick.h
-		PKGCONFIG += sdl2
-		macx {
-			LIBS += -F/Library/Frameworks -framework SDL
-			INCLUDEPATH += /Library/Frameworks/SDL.framework/Versions/A/Headers
-		}
-	}
-}
-
-unix:contains(QT_CONFIG, system-zlib) {
-	LIBS += -lz
-}
-
-# Qt Multimedia (if SDL is not found)
-!contains(DEFINES, SDL) {
-	lessThan(QT_MAJOR_VERSION,5):!exists($$[QT_INSTALL_HEADERS]/QtMultimedia) {
-		# Fallback to mobility audio
-		CONFIG += mobility
-		MOBILITY += multimedia
-	}
-	else: QT += multimedia
-}
-
-INCLUDEPATH += $$P $$P/native
-
+# Main
 SOURCES +=\
         mainwindow.cpp \
     QTMain.cpp

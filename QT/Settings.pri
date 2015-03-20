@@ -1,4 +1,4 @@
-VERSION = 1.0.1.0
+VERSION = 1.0.0.0
 DEFINES += USING_QT_UI
 
 # Global specific
@@ -17,26 +17,13 @@ P = $$_PRO_FILE_PWD_/..
 include(Platform/ArchDetection.pri)
 # Work out platform name
 include(Platform/OSDetection.pri)
-# OS dependent paths
-!system_ffmpeg: INCLUDEPATH += $$P/ffmpeg/$${PLATFORM_NAME}/$${PLATFORM_ARCH}/include
-
-!contains(CONFIG, staticlib) {
-	QMAKE_LIBDIR += $$CONFIG_DIR
-	!system_ffmpeg: QMAKE_LIBDIR += $$P/ffmpeg/$${PLATFORM_NAME}/$${PLATFORM_ARCH}/lib/
-	contains(DEFINES, USE_FFMPEG): LIBS+=  -lavformat -lavcodec -lavutil -lswresample -lswscale
-	equals(PLATFORM_NAME, "linux"):arm|android: LIBS += -lEGL
-}
 
 # Work out the git version in a way that works on every QMake
-symbian {
-	exists($$P/.git): GIT_VERSION = $$system(git describe --always)
-	isEmpty(GIT_VERSION): GIT_VERSION = $$VERSION
-} else {
-	# QMake seems to change how it handles quotes with every version. This works for most systems:
-	exists($$P/.git): GIT_VERSION = '\\"$$system(git describe --always)\\"'
-	isEmpty(GIT_VERSION): GIT_VERSION = '\\"$$VERSION\\"'
-}
-DEFINES += PPSSPP_GIT_VERSION=\"$$GIT_VERSION\"
+# QMake seems to change how it handles quotes with every version. This works for most systems:
+exists($$P/.git): GIT_VERSION = '\\"$$system(git describe --always)\\"'
+isEmpty(GIT_VERSION): GIT_VERSION = '\\"$$VERSION\\"'
+
+DEFINES += HIVE_GIT_VERSION=\"$$GIT_VERSION\"
 
 # Optimisations
 win32-msvc* {
@@ -60,7 +47,6 @@ contains(QT_CONFIG, opengles.) {
 		CONFIG += mobile_platform
 	}
 }
-mobile_platform: DEFINES += MOBILE_DEVICE
 
 # Handle flags for both C and C++
 QMAKE_CFLAGS += $$QMAKE_ALLFLAGS
