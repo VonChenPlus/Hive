@@ -4,5 +4,5 @@
 	}
 
 	# Executable
-	LIBS += -ldl -lrt
+	LIBS += -ldl -lrt $$CONFIG_DIR/libNative.a
 }
