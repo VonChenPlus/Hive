@@ -26,10 +26,7 @@ greaterThan(QT_MAJOR_VERSION,4) {
 # External (platform-dependant) libs
 
 # Main
-SOURCES +=\
-        mainwindow.cpp \
-    QTMain.cpp
+SOURCES += $$P/QT/*.cpp
+HEADERS += $$P/QT/*.h
 
-HEADERS  += mainwindow.h
-
-FORMS    +=
+INCLUDEPATH += $$P/native

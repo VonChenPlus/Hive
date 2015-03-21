@@ -2,6 +2,8 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
+#include "base/NativeApp.h"
+
 float CalculateDPIScale()
 {
     // Sane default rather than check DPI
@@ -24,6 +26,8 @@ int main(int argc, char *argv[])
     if (res.width() < res.height())
         res.transpose();
     
+    NativeInit();
+
     MainWindow w;
     w.show();
 
