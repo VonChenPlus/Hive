@@ -4,8 +4,8 @@ os:
 language: cpp
 
 script:
-- cp  -f native\native.pro QT\
+- cp -f native/native.pro QT/
 - cd QT
 - qmake -v
-- qmake -r -tp vc HiveQt.pro
+- qmake -r HiveQt.pro
 - make -j4
