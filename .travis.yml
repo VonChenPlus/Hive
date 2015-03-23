@@ -4,7 +4,6 @@ os:
 language: cpp
 
 script:
-- set -e
 - cp  -f native\native.pro QT\
 - cd QT
 - qmake -v
