@@ -1,0 +1,16 @@
+os:
+  - linux
+
+language: cpp
+
+before_install:
+
+install:
+
+script:
+- set -e
+- cp  -f native\native.pro QT\
+- cd QT
+- qmake -v
+- qmake -r -tp vc HiveQt.pro
+- make -j4
