@@ -4,8 +4,9 @@ os:
 language: cpp
 
 install:
+- sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 - sudo apt-get -qq update
-- sudo apt-get -qq install build-essential gcc-4.8 g++-4.8 make
+- sudo apt-get -qq install -qq install g++-4.9
 
 script:
 - cp -f native/native.pro QT/
