@@ -4,6 +4,7 @@ os:
 language: cpp
 
 install:
+- sudo apt-get -qq update
 - sudo apt-get -qq install build-essential gcc-4.8 g++-4.8 make
 
 script:
