@@ -3,6 +3,9 @@ os:
 
 language: cpp
 
+install:
+- sudo apt-get -qq install build-essential gcc-4.8 g++-4.8 make
+
 script:
 - cp -f native/native.pro QT/
 - cd QT
