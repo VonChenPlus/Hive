@@ -3,10 +3,10 @@ os:
 
 language: cpp
 
-install:
+before_install:
 - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 - sudo apt-get -qq update
-- sudo apt-get -qq install -qq install g++-4.9
+- sudo apt-get -qq install g++-4.9 xorg-dev libglu1-mesa-dev libxcursor-dev
 
 script:
 - cp -f native/native.pro QT/
