@@ -3,10 +3,6 @@ os:
 
 language: cpp
 
-before_install:
-
-install:
-
 script:
 - set -e
 - cp  -f native\native.pro QT\
