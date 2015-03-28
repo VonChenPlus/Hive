@@ -29,4 +29,4 @@ greaterThan(QT_MAJOR_VERSION,4) {
 SOURCES += $$P/QT/*.cpp
 HEADERS += $$P/QT/*.h
 
-INCLUDEPATH += $$P/native
+INCLUDEPATH += $$P/Native
