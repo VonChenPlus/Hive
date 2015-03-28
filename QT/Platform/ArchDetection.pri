@@ -4,7 +4,7 @@ PLATFORM_ARCH="generic"
 
 contains(QT_ARCH, ".*86.*")|contains(QMAKE_TARGET.arch, ".*86.*") {
 	!win32-msvc*: QMAKE_ALLFLAGS += -msse2
-	else: QMAKE_ALLFLAGS += /arch:SSE2
+
 	CONFIG += i86
 
 	contains(QT_ARCH, x86_64)|contains(QMAKE_TARGET.arch, x86_64) {
@@ -12,6 +12,7 @@ contains(QT_ARCH, ".*86.*")|contains(QMAKE_TARGET.arch, ".*86.*") {
 		DEFINES += _M_X64 _ARCH_64
 	}
 	else {
+                QMAKE_ALLFLAGS += /arch:SSE2
 		PLATFORM_ARCH = x86
 		DEFINES += _M_IX86 _ARCH_32
 	}
