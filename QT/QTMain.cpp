@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
-#include "base/NativeApp.h"
+#include "BASE/NativeApp.h"
 
 float CalculateDPIScale()
 {
