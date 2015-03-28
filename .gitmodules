@@ -1,1 +1,3 @@
-
+[submodule "Native"]
+	path = Native
+	url = https://github.com/VonChenPlus/Native.git
