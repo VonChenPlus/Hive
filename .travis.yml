@@ -16,4 +16,4 @@ script:
 - cd QT
 - qmake -qt=qt5 -v
 - qmake -qt=qt5 -r HiveQt.pro
-- make -j4
+- make
