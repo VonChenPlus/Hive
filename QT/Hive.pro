@@ -26,7 +26,13 @@ greaterThan(QT_MAJOR_VERSION,4) {
 # External (platform-dependant) libs
 
 # Main
-SOURCES += $$P/QT/*.cpp
-HEADERS += $$P/QT/*.h
+SOURCES += $$P/QT/mainwindow.cpp \
+    $$P/QT/QTMain.cpp \
+    $$P/QT/MainUI.cpp
+HEADERS += $$P/QT/mainwindow.h \
+    $$P/QT/MainUI.h
+
+# DrawText Imple from Native
+SOURCES += $$P/Native/GFX/DrawText.cpp
 
 INCLUDEPATH += $$P/Native
