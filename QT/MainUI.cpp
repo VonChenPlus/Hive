@@ -70,6 +70,9 @@ bool MainUI::event(QEvent *e) {
     TouchInput input;
     switch(e->type())
     {
+    case QEvent::MouseButtonDblClick:
+        emit doubleClick();
+        break;
     case QEvent::MouseButtonPress:
     case QEvent::MouseButtonRelease:
         inputstate_.pointer_down[0] = (e->type() == QEvent::MouseButtonPress);

@@ -17,6 +17,7 @@ public:
     ~MainUI();
 
 signals:
+    void doubleClick();
     void newFrame();
 
 protected:

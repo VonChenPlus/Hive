@@ -4,16 +4,6 @@
 
 #include "BASE/NativeApp.h"
 
-float CalculateDPIScale()
-{
-    // Sane default rather than check DPI
-#ifdef USING_GLES2
-    return 1.2f;
-#else
-    return 1.0f;
-#endif
-}
-
 int main(int argc, char *argv[])
 {
 #if defined(Q_OS_LINUX) && !defined(MAEMO)
@@ -26,7 +16,7 @@ int main(int argc, char *argv[])
     if (res.width() < res.height())
         res.transpose();
     
-    NativeInit();
+    NativeInit(res.width(), res.height());
 
     MainWindow w;
     w.show();
