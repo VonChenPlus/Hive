@@ -32,6 +32,9 @@ SOURCES += $$P/QT/mainwindow.cpp \
 HEADERS += $$P/QT/mainwindow.h \
     $$P/QT/MainUI.h
 
+RESOURCES += \
+    $$P/QT/HiveRes.qrc
+
 # DrawText Imple from Native
 SOURCES += $$P/Native/GFX/DrawText.cpp
 

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../ASSETS/UIAtlas.zim</file>
+    </qresource>
+</RCC>
