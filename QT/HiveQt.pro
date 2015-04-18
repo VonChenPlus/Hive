@@ -1,3 +1,3 @@
 TEMPLATE = subdirs
-SUBDIRS = Native.pro Hive.pro
+SUBDIRS = ../Native/Native.pro Hive.pro
 Hive.depends = Native.pro
