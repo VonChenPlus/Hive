@@ -82,6 +82,35 @@ MainUI::MainUI(QWidget *parent)
     GLOBAL::_UITheme = make_shared<Theme>();
     GLOBAL::_DrawBuf2D = make_shared<DrawBuffer>();
     GLOBAL::_DrawBuf2DFront = make_shared<DrawBuffer>();
+
+    // custom init
+    GLOBAL::uiTheme().uiFont = UI::FontStyle(UBUNTU24, "", 20);
+    GLOBAL::uiTheme().uiFontSmall = UI::FontStyle(UBUNTU24, "", 14);
+    GLOBAL::uiTheme().uiFontSmaller = UI::FontStyle(UBUNTU24, "", 11);
+
+    GLOBAL::uiTheme().checkOn = I_CHECKEDBOX;
+    GLOBAL::uiTheme().checkOff = I_SQUARE;
+    GLOBAL::uiTheme().whiteImage = I_SOLIDWHITE;
+    GLOBAL::uiTheme().sliderKnob = I_CIRCLE;
+    GLOBAL::uiTheme().dropShadow4Grid = I_DROP_SHADOW;
+
+    GLOBAL::uiTheme().itemStyle.background = UI::Drawable(0x55000000);
+    GLOBAL::uiTheme().itemStyle.fgColor = 0xFFFFFFFF;
+    GLOBAL::uiTheme().itemFocusedStyle.background = UI::Drawable(0xFFedc24c);
+    GLOBAL::uiTheme().itemDownStyle.background = UI::Drawable(0xFFbd9939);
+    GLOBAL::uiTheme().itemDownStyle.fgColor = 0xFFFFFFFF;
+    GLOBAL::uiTheme().itemDisabledStyle.background = UI::Drawable(0x55E0D4AF);
+    GLOBAL::uiTheme().itemDisabledStyle.fgColor = 0x80EEEEEE;
+    GLOBAL::uiTheme().itemHighlightedStyle.background = UI::Drawable(0x55bdBB39);
+    GLOBAL::uiTheme().itemHighlightedStyle.fgColor = 0xFFFFFFFF;
+
+    GLOBAL::uiTheme().buttonStyle = GLOBAL::uiTheme().itemStyle;
+    GLOBAL::uiTheme().buttonFocusedStyle = GLOBAL::uiTheme().itemFocusedStyle;
+    GLOBAL::uiTheme().buttonDownStyle = GLOBAL::uiTheme().itemDownStyle;
+    GLOBAL::uiTheme().buttonDisabledStyle = GLOBAL::uiTheme().itemDisabledStyle;
+    GLOBAL::uiTheme().buttonHighlightedStyle = GLOBAL::uiTheme().itemHighlightedStyle;
+
+    GLOBAL::uiTheme().popupTitle.fgColor = 0xFFE3BE59;
 }
 
 MainUI::~MainUI() {
@@ -172,11 +201,11 @@ void MainUI::initializeGL()
 
     NativeInitGraphics();
 
-    // custom init
     GLOBAL::drawBuffer2D().setAtlas(&GLOBAL::uiAtlas());
     GLOBAL::drawBuffer2DFront().setAtlas(&GLOBAL::uiAtlas());
     GLOBAL::drawBuffer2D().init(&GLOBAL::thin3DContext());
     GLOBAL::drawBuffer2DFront().init(&GLOBAL::thin3DContext());
+
     QFile asset(QString(":/ASSETS/UIAtlas.zim"));
     asset.open(QIODevice::ReadOnly);
     uint8_t *contents = new uint8_t[asset.size() + 1];
@@ -196,34 +225,6 @@ void MainUI::initializeGL()
         GLOBAL::uiContext().text()->setFont("Tahoma", 20, 0);
 
     GLOBAL::screenManager().setUIContext(&GLOBAL::uiContext());
-
-    GLOBAL::uiTheme().uiFont = UI::FontStyle(UBUNTU24, "", 20);
-    GLOBAL::uiTheme().uiFontSmall = UI::FontStyle(UBUNTU24, "", 14);
-    GLOBAL::uiTheme().uiFontSmaller = UI::FontStyle(UBUNTU24, "", 11);
-
-    GLOBAL::uiTheme().checkOn = I_CHECKEDBOX;
-    GLOBAL::uiTheme().checkOff = I_SQUARE;
-    GLOBAL::uiTheme().whiteImage = I_SOLIDWHITE;
-    GLOBAL::uiTheme().sliderKnob = I_CIRCLE;
-    GLOBAL::uiTheme().dropShadow4Grid = I_DROP_SHADOW;
-
-    GLOBAL::uiTheme().itemStyle.background = UI::Drawable(0x55000000);
-    GLOBAL::uiTheme().itemStyle.fgColor = 0xFFFFFFFF;
-    GLOBAL::uiTheme().itemFocusedStyle.background = UI::Drawable(0xFFedc24c);
-    GLOBAL::uiTheme().itemDownStyle.background = UI::Drawable(0xFFbd9939);
-    GLOBAL::uiTheme().itemDownStyle.fgColor = 0xFFFFFFFF;
-    GLOBAL::uiTheme().itemDisabledStyle.background = UI::Drawable(0x55E0D4AF);
-    GLOBAL::uiTheme().itemDisabledStyle.fgColor = 0x80EEEEEE;
-    GLOBAL::uiTheme().itemHighlightedStyle.background = UI::Drawable(0x55bdBB39);
-    GLOBAL::uiTheme().itemHighlightedStyle.fgColor = 0xFFFFFFFF;
-
-    GLOBAL::uiTheme().buttonStyle = GLOBAL::uiTheme().itemStyle;
-    GLOBAL::uiTheme().buttonFocusedStyle = GLOBAL::uiTheme().itemFocusedStyle;
-    GLOBAL::uiTheme().buttonDownStyle = GLOBAL::uiTheme().itemDownStyle;
-    GLOBAL::uiTheme().buttonDisabledStyle = GLOBAL::uiTheme().itemDisabledStyle;
-    GLOBAL::uiTheme().buttonHighlightedStyle = GLOBAL::uiTheme().itemHighlightedStyle;
-
-    GLOBAL::uiTheme().popupTitle.fgColor = 0xFFE3BE59;
 }
 
 void MainUI::paintGL()
