@@ -28,14 +28,14 @@ greaterThan(QT_MAJOR_VERSION,4) {
 # Main
 SOURCES += $$P/QT/mainwindow.cpp \
     $$P/QT/QTMain.cpp \
-    $$P/QT/MainUI.cpp
+    $$P/QT/MainUI.cpp \
+    $$P/QT/QTTextDrawer.cpp
+
 HEADERS += $$P/QT/mainwindow.h \
-    $$P/QT/MainUI.h
+    $$P/QT/MainUI.h \
+    $$P/QT/QTTextDrawer.h
 
 RESOURCES += \
     $$P/QT/HiveRes.qrc
-
-# DrawText Imple from Native
-SOURCES += $$P/Native/GFX/DrawText.cpp
 
 INCLUDEPATH += $$P/Native

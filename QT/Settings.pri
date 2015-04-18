@@ -1,5 +1,4 @@
 VERSION = 1.0.0.0
-DEFINES += USING_QT_UI
 
 # Global specific
 win32:CONFIG(release, debug|release): CONFIG_DIR = $$join(OUT_PWD,,,/release)

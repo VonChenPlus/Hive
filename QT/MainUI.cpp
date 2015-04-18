@@ -34,6 +34,7 @@ using THIN3D::T3DShaderSetPreset;
 using THIN3D::T3DImageType;
 #include "UI/ScreenManager.h"
 using UI::ScreenManager;
+#include "QTTextDrawer.h"
 
 namespace GLOBAL
 {
@@ -220,7 +221,7 @@ void MainUI::initializeGL()
     GLOBAL::uiContext().init(&GLOBAL::thin3DContext(),
         GLOBAL::thin3DContext().getShaderSetPreset(T3DShaderSetPreset::SS_TEXTURE_COLOR_2D),
         GLOBAL::thin3DContext().getShaderSetPreset(T3DShaderSetPreset::SS_COLOR_2D),
-        &GLOBAL::uiTexture(), &GLOBAL::drawBuffer2D(), &GLOBAL::drawBuffer2DFront());
+        &GLOBAL::uiTexture(), &GLOBAL::drawBuffer2D(), &GLOBAL::drawBuffer2DFront(), new QTTextDrawer(&GLOBAL::thin3DContext()));
     if (GLOBAL::uiContext().text())
         GLOBAL::uiContext().text()->setFont("Tahoma", 20, 0);
 
