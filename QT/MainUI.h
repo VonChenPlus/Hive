@@ -7,7 +7,7 @@
 #include <QMouseEvent>
 #include <QGLWidget>
 
-#include "INPUT/InputState.h"
+#include "UI/InputState.h"
 
 class MainUI : public QGLWidget
 {
@@ -42,7 +42,7 @@ private:
     void updateRunLoop();
 
 private:
-    _INPUT::InputState inputstate_;
+    UI::InputState inputstate_;
 };
 
 #endif // MAINUI_H

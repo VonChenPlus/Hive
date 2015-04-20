@@ -5,12 +5,12 @@ using std::shared_ptr;
 using std::make_shared;
 
 #include "BASE/NativeApp.h"
-using _INPUT::TouchInput;
-using _INPUT::TOUCH_DOWN;
-using _INPUT::TOUCH_UP;
-using _INPUT::TOUCH_MOVE;
-using _INPUT::KeyInput;
-using _INPUT::DEVICE_ID_KEYBOARD;
+using UI::TouchInput;
+using UI::TOUCH_DOWN;
+using UI::TOUCH_UP;
+using UI::TOUCH_MOVE;
+using UI::KeyInput;
+using UI::DEVICE_ID_KEYBOARD;
 #include "BASE/NKCodeFromQt.h"
 #include "UTILS/TIME/Time.h"
 using UTILS::TIME::time_update;
