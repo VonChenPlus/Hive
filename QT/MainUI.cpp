@@ -35,6 +35,7 @@ using THIN3D::T3DImageType;
 #include "UI/ScreenManager.h"
 using UI::ScreenManager;
 #include "QTTextDrawer.h"
+#include "../UI/LogoScreen.h"
 
 namespace GLOBAL
 {
@@ -226,6 +227,7 @@ void MainUI::initializeGL()
         GLOBAL::uiContext().text()->setFont("Tahoma", 20, 0);
 
     GLOBAL::screenManager().setUIContext(&GLOBAL::uiContext());
+    GLOBAL::screenManager().switchScreen(new LogoScreen);
 }
 
 void MainUI::paintGL()
