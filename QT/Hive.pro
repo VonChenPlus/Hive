@@ -30,12 +30,12 @@ SOURCES += $$P/QT/MainWindow.cpp \
     $$P/QT/QTMain.cpp \
     $$P/QT/MainUI.cpp \
     $$P/QT/QTTextDrawer.cpp \
-    ../UI/LogoScreen.cpp
+    $$P/UI/LogoScreen.cpp
 
 HEADERS += $$P/QT/MainWindow.h \
     $$P/QT/MainUI.h \
     $$P/QT/QTTextDrawer.h \
-    ../UI/LogoScreen.h
+    $$P/UI/LogoScreen.h
 
 RESOURCES += \
     $$P/QT/HiveRes.qrc
