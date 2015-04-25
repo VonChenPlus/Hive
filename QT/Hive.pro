@@ -37,9 +37,6 @@ HEADERS += $$P/QT/MainWindow.h \
     $$P/QT/QTTextDrawer.h \
     $$P/UI/LogoScreen.h
 
-RESOURCES += \
-    $$P/QT/HiveRes.qrc
-
 INCLUDEPATH += $$P/Native
 
 DISTFILES +=

@@ -200,26 +200,12 @@ void MainUI::initializeGL()
     GLOBAL::drawBuffer2D().init(&GLOBAL::thin3DContext());
     GLOBAL::drawBuffer2DFront().init(&GLOBAL::thin3DContext());
 
-    //QImage image("C:\\test3.png");
-    //IMAGE::SaveZIM("C:\\UIAtlas.zim", image.width(), image.height(), 4 * image.width(), IMAGE::ZIM_DITHER | IMAGE::ZIM_ZLIB_COMPRESSED, image.constBits());
-
-    
-    QFile asset(QString(":/ASSETS/UIAtlas.zim"));
-    asset.open(QIODevice::ReadOnly);
-    uint8_t *contents = new uint8_t[asset.size() + 1];
-    memcpy(contents, (uint8_t*) asset.readAll().data(), asset.size());
-    contents[asset.size()] = 0;
-    GLOBAL::_UITexture = shared_ptr<Thin3DTexture>(GLOBAL::thin3DContext().createTextureFromFileData(contents, asset.size(), T3DImageType::ZIM));
-    delete [] contents;
-    asset.close();
-    
-
     GLOBAL::_UIContext = make_shared<UIContext>();
     GLOBAL::uiContext().theme = &GLOBAL::uiTheme();
     GLOBAL::uiContext().init(&GLOBAL::thin3DContext(),
         GLOBAL::thin3DContext().getShaderSetPreset(T3DShaderSetPreset::SS_TEXTURE_COLOR_2D),
         GLOBAL::thin3DContext().getShaderSetPreset(T3DShaderSetPreset::SS_COLOR_2D),
-        &GLOBAL::uiTexture(), &GLOBAL::drawBuffer2D(), &GLOBAL::drawBuffer2DFront(), new QTTextDrawer(&GLOBAL::thin3DContext()));
+        NULLPTR, &GLOBAL::drawBuffer2D(), &GLOBAL::drawBuffer2DFront(), new QTTextDrawer(&GLOBAL::thin3DContext()));
     if (GLOBAL::uiContext().text())
         GLOBAL::uiContext().text()->setFont("Tahoma", 20, 0);
 
