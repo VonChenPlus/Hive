@@ -36,6 +36,7 @@ using THIN3D::T3DImageType;
 using UI::ScreenManager;
 #include "QTTextDrawer.h"
 #include "../UI/LogoScreen.h"
+#include "IMAGE/TinyZim.h"
 
 namespace GLOBAL
 {
@@ -55,10 +56,6 @@ namespace GLOBAL
     DrawBuffer &drawBuffer2D() { return *_DrawBuf2D; }
     shared_ptr<DrawBuffer> _DrawBuf2DFront;	// for things that need to be on top of the rest
     DrawBuffer &drawBuffer2DFront() { return *_DrawBuf2DFront; }
-    shared_ptr<Atlas> _UIAtlas;
-    shared_ptr<AtlasImage> _UIAtlasImage[34];
-    Atlas &uiAtlas() { return *_UIAtlas; }
-    shared_ptr<AtlasImage> *uiAtlasImage() { return _UIAtlasImage; }
     shared_ptr<Theme> _UITheme;
     Theme &uiTheme() { return *_UITheme; }
     shared_ptr<UIContext> _UIContext;
@@ -78,9 +75,6 @@ MainUI::MainUI(QWidget *parent)
     setFocusPolicy(Qt::StrongFocus);
     startTimer(16);
 
-    GLOBAL::_UIAtlas = make_shared<Atlas>();
-    for (int index = 0; index < 34; index++)
-        GLOBAL::_UIAtlasImage[index] = make_shared<AtlasImage>();
     GLOBAL::_UITheme = make_shared<Theme>();
     GLOBAL::_DrawBuf2D = make_shared<DrawBuffer>();
     GLOBAL::_DrawBuf2DFront = make_shared<DrawBuffer>();
@@ -203,11 +197,13 @@ void MainUI::initializeGL()
 
     NativeInitGraphics();
 
-    GLOBAL::drawBuffer2D().setAtlas(&GLOBAL::uiAtlas());
-    GLOBAL::drawBuffer2DFront().setAtlas(&GLOBAL::uiAtlas());
     GLOBAL::drawBuffer2D().init(&GLOBAL::thin3DContext());
     GLOBAL::drawBuffer2DFront().init(&GLOBAL::thin3DContext());
 
+    //QImage image("C:\\test3.png");
+    //IMAGE::SaveZIM("C:\\UIAtlas.zim", image.width(), image.height(), 4 * image.width(), IMAGE::ZIM_DITHER | IMAGE::ZIM_ZLIB_COMPRESSED, image.constBits());
+
+    
     QFile asset(QString(":/ASSETS/UIAtlas.zim"));
     asset.open(QIODevice::ReadOnly);
     uint8_t *contents = new uint8_t[asset.size() + 1];
@@ -216,6 +212,7 @@ void MainUI::initializeGL()
     GLOBAL::_UITexture = shared_ptr<Thin3DTexture>(GLOBAL::thin3DContext().createTextureFromFileData(contents, asset.size(), T3DImageType::ZIM));
     delete [] contents;
     asset.close();
+    
 
     GLOBAL::_UIContext = make_shared<UIContext>();
     GLOBAL::uiContext().theme = &GLOBAL::uiTheme();

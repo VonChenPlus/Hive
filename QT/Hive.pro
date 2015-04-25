@@ -41,3 +41,5 @@ RESOURCES += \
     $$P/QT/HiveRes.qrc
 
 INCLUDEPATH += $$P/Native
+
+DISTFILES +=
