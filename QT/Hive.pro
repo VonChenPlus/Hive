@@ -39,4 +39,7 @@ HEADERS += $$P/QT/MainWindow.h \
 
 INCLUDEPATH += $$P/Native
 
-DISTFILES +=
+RC_FILE += Hive.rc
+
+DISTFILES += \
+    Hive.rc

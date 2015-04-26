@@ -1,0 +1,7 @@
+#ifndef HIVERC_H
+#define HIVERC_H
+
+IDI_ICON1 ICON DISCARDABLE "HIVE.ico"
+
+#endif // HIVERC_H
+
