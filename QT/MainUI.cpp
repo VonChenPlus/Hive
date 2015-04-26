@@ -200,12 +200,45 @@ void MainUI::initializeGL()
     GLOBAL::drawBuffer2D().init(&GLOBAL::thin3DContext());
     GLOBAL::drawBuffer2DFront().init(&GLOBAL::thin3DContext());
 
+    //QImage image("C:\\test2.png");
+    //int width = image.width();
+    //int height = image.height();
+    //uchar *buffer = new uchar[width * height * 4];
+    //memset(buffer, 0, width * height * 4);
+    //for (int i = 0; i < height; i++) {
+    //    for (int j = 0; j < width; j++) {
+    //        const uchar *src = image.constScanLine(i) + j * 4;
+    //        uchar *dst = buffer + i *width * 4 + j * 4;
+    //        dst[0] = src[2];
+    //        dst[1] = src[1];
+    //        dst[2] = src[0];
+    //        dst[3] = src[3];
+    //    }
+    //}
+    //IMAGE::SaveZIM("C:\\UIAtlas.zim", width, height, 4 * width, IMAGE::ZIM_DITHER | IMAGE::ZIM_ZLIB_COMPRESSED, buffer);
+
+    //QFile asset("C:\\UIAtlas.zim");
+    //asset.open(QIODevice::ReadOnly);
+    //uint8_t *contents = new uint8_t[asset.size() + 1];
+    //memcpy(contents, (uint8_t*) asset.readAll().data(), asset.size());
+    //contents[asset.size()] = 0;
+    //FILE *file = fopen("C:\\data.txt", "w+");
+    //for (int i = 0; i < asset.size(); i++) {
+    //    fprintf(file, "0x%x,", contents[i]);
+    //    if (i % 16 == 0)
+    //        fprintf(file, "\n");
+    //}
+    //fclose(file);
+    //GLOBAL::_UITexture = shared_ptr<Thin3DTexture>(GLOBAL::thin3DContext().createTextureFromFileData(contents, asset.size(), T3DImageType::ZIM));
+    //delete [] contents;
+    //asset.close();
+
     GLOBAL::_UIContext = make_shared<UIContext>();
     GLOBAL::uiContext().theme = &GLOBAL::uiTheme();
     GLOBAL::uiContext().init(&GLOBAL::thin3DContext(),
         GLOBAL::thin3DContext().getShaderSetPreset(T3DShaderSetPreset::SS_TEXTURE_COLOR_2D),
         GLOBAL::thin3DContext().getShaderSetPreset(T3DShaderSetPreset::SS_COLOR_2D),
-        NULLPTR, &GLOBAL::drawBuffer2D(), &GLOBAL::drawBuffer2DFront(), new QTTextDrawer(&GLOBAL::thin3DContext()));
+        NULL, &GLOBAL::drawBuffer2D(), &GLOBAL::drawBuffer2DFront(), new QTTextDrawer(&GLOBAL::thin3DContext()));
     if (GLOBAL::uiContext().text())
         GLOBAL::uiContext().text()->setFont("Tahoma", 20, 0);
 

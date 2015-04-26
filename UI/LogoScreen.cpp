@@ -65,7 +65,3 @@ void LogoScreen::render() {
     dc.end();
     dc.flush();
 }
-
-void LogoScreen::drawBackground(UIContext &, int) {
-
-}

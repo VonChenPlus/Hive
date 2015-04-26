@@ -13,7 +13,6 @@ public:
     virtual void render() override;
     virtual void sendMessage(const char *message, const char *value) override;
     virtual void createViews() override {}
-    virtual void drawBackground(UI::UIContext &, int alpha = 1.0) override;
 
 private:
     void next();
