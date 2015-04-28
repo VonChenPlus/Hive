@@ -4,7 +4,7 @@
 #include "UI/UIScreen.h"
 #include "UI/InputState.h"
 
-class LogoScreen : public UI::UIScreen {
+class LogoScreen : public UI::UIScreenWithBackground {
 public:
     LogoScreen()
         : frames_(0), switched_(false) {}
