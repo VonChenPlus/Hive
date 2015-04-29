@@ -83,9 +83,7 @@ MainUI::MainUI(QWidget *parent)
     GLOBAL::uiTheme().uiFontSmaller = UI::FontStyle(UBUNTU24, "", 11);
 
     GLOBAL::uiTheme().checkOn = I_CHECKEDBOX;
-    GLOBAL::uiTheme().checkOff = I_SQUARE;
     GLOBAL::uiTheme().whiteImage = I_SOLIDWHITE;
-    GLOBAL::uiTheme().sliderKnob = I_CIRCLE;
     GLOBAL::uiTheme().dropShadow4Grid = I_DROP_SHADOW;
 
     GLOBAL::uiTheme().itemStyle.background = UI::Drawable(0x55000000);
