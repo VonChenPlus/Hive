@@ -11,7 +11,7 @@ public:
 
 protected:
     bool key(const UI::KeyInput &key) override;
-    virtual void render() override;
+    //virtual void render() override;
     virtual void createViews() override {}
 
 private:

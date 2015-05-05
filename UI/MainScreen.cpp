@@ -7,14 +7,3 @@ using UI::UIContext;
 bool MainScreen::key(const KeyInput &) {
     return false;
 }
-
-void MainScreen::render() {
-    UIScreen::render();
-    UIContext &dc = *screenManager()->getUIContext();
-    
-    dc.begin();
-
-    drawBackground(dc);
-
-    dc.end();
-}
