@@ -11,8 +11,10 @@ using UI::InputState;
 using UI::KeyInput;
 using UI::DEVICE_ID_MOUSE;
 using UI::UIContext;
+#include "MainScreen.h"
 
 void LogoScreen::next() {
+    screenManager()->switchScreen(new MainScreen());
 }
 
 void LogoScreen::update(InputState &input_state) {

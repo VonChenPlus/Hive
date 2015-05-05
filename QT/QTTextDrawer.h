@@ -3,7 +3,7 @@
 
 #include "GFX/TextDrawer.h"
 
-class QTTextDrawer : public GFX::TextDrawer
+class QTTextDrawer final : public GFX::TextDrawer
 {
 public:
     QTTextDrawer(THIN3D::Thin3DContext *thin3d);

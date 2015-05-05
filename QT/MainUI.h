@@ -9,7 +9,7 @@
 
 #include "UI/InputState.h"
 
-class MainUI : public QGLWidget
+class MainUI final : public QGLWidget
 {
     Q_OBJECT
 public:
