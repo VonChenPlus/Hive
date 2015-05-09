@@ -174,11 +174,21 @@ bool MainUI::event(QEvent *e) {
     case QEvent::Wheel:
         NativeKey(KeyInput(DEVICE_ID_MOUSE, ((QWheelEvent*)e)->delta()<0 ? NKCODE_EXT_MOUSEWHEEL_DOWN : NKCODE_EXT_MOUSEWHEEL_UP, KEY_DOWN));
         break;
-    case QEvent::KeyPress:
-        NativeKey(KeyInput(DEVICE_ID_KEYBOARD, KeyMapRawQttoNative.find(((QKeyEvent*)e)->key())->second, KEY_DOWN));
+    case QEvent::KeyPress: {
+        std::map<int, int>::const_iterator it = KeyMapRawQttoNative.find(((QKeyEvent*) e)->key());
+        if (it != KeyMapRawQttoNative.end())
+            NativeKey(KeyInput(DEVICE_ID_KEYBOARD, it->second, KEY_DOWN));
+        else
+            NativeKey(KeyInput(DEVICE_ID_KEYBOARD, ((QKeyEvent*) e)->key(), KEY_CHAR));
+    }
         break;
-    case QEvent::KeyRelease:
-        NativeKey(KeyInput(DEVICE_ID_KEYBOARD, KeyMapRawQttoNative.find(((QKeyEvent*)e)->key())->second, KEY_UP));
+    case QEvent::KeyRelease: {
+        std::map<int, int>::const_iterator it = KeyMapRawQttoNative.find(((QKeyEvent*) e)->key());
+        if (it != KeyMapRawQttoNative.end())
+            NativeKey(KeyInput(DEVICE_ID_KEYBOARD, it->second, KEY_UP));
+        else
+            NativeKey(KeyInput(DEVICE_ID_KEYBOARD, ((QKeyEvent*) e)->key(), KEY_UP));
+    }
         break;
     default:
         return QWidget::event(e);

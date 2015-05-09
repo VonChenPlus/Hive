@@ -34,10 +34,10 @@ private:
         emit newFrame();
     }
 
-    bool event(QEvent *e);
+    bool event(QEvent *e) override;
 
-    void initializeGL();
-    void paintGL();
+    void initializeGL() override;
+    void paintGL() override;
 
     void updateRunLoop();
 
