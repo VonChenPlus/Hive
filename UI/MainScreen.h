@@ -15,13 +15,12 @@ public:
     UI::Event OnChange;
 
 private:
-    bool showButtons() const override { return false; }
-    virtual void onCompleted(UI::DialogResult result) override;
+    bool key(const UI::KeyInput &key) override;
+    bool onCompleted(UI::DialogResult result) override;
     UI::TextEdit *edit_;
     std::string *value_;
     std::string textEditValue_;
     std::string placeholder_;
-    int step_;
     int maxLen_;
 };
 
@@ -32,7 +31,9 @@ public:
     ~MainScreen() {}
 
 protected:
+    bool key(const UI::KeyInput &key) override;
     virtual void createViews() override;
+    UI::EventReturn HandleChange(UI::EventParams &e);
 
 private:
     std::string placeholder_;

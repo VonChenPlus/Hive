@@ -147,7 +147,8 @@ bool MainUI::event(QEvent *e) {
     switch(e->type())
     {
     case QEvent::MouseButtonDblClick:
-        emit doubleClick();
+        // DO NOT NEED THIS NOW
+        //emit doubleClick();
         break;
     case QEvent::MouseButtonPress:
     case QEvent::MouseButtonRelease:

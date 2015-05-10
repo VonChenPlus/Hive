@@ -14,10 +14,12 @@ using UI::WRAP_CONTENT;
 using UI::DialogResult;
 using UI::DR_OK;
 using UI::EventParams;
+using UI::KEY_DOWN;
 
 namespace UI
 {
     extern void SetFocusedView(View *view, bool force = false);
+    extern bool IsEscapeKeyCode(int keyCode);
 }
 
 void TextEditPopupScreen::createPopupContents(UI::ViewGroup *parent) {
@@ -30,20 +32,37 @@ void TextEditPopupScreen::createPopupContents(UI::ViewGroup *parent) {
     UI::SetFocusedView(edit_);
 }
 
-void TextEditPopupScreen::onCompleted(DialogResult result) {
+bool TextEditPopupScreen::key(const KeyInput &key) {
+    if ((key.flags & KEY_DOWN) && UI::IsEscapeKeyCode(key.keyCode))
+        return false;
+    return PopupScreen::key(key);
+}
+
+bool TextEditPopupScreen::onCompleted(DialogResult result) {
     if (result == DR_OK) {
         *value_ = edit_->getText();
         EventParams e;
         e.v = edit_;
         OnChange.trigger(e);
+        return true;
     }
+    return false;
 }
 
 MainScreen::MainScreen() {
     text_ = "192.168.1.1";
 }
 
+bool MainScreen::key(const UI::KeyInput &) {
+    return false;
+}
+
 void MainScreen::createViews() {
     TextEditPopupScreen *popupScreen = new TextEditPopupScreen(&text_, placeholder_, "IP Address", 100);
+    popupScreen->OnChange.handle(this, &MainScreen::HandleChange);
     screenManager()->push(popupScreen);
+}
+
+UI::EventReturn MainScreen::HandleChange(UI::EventParams &e) {
+    return UI::EVENT_DONE;
 }
