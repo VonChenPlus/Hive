@@ -24,7 +24,7 @@ namespace UI
 
 void TextEditPopupScreen::createPopupContents(UI::ViewGroup *parent) {
     textEditValue_ = *value_;
-    LinearLayout *lin = parent->add(new LinearLayout(ORIENT_HORIZONTAL, new LinearLayoutParams((fSize) 300, WRAP_CONTENT)));
+    LinearLayout *lin = parent->add(new LinearLayout(ORIENT_HORIZONTAL, new LinearLayoutParams(300.0, WRAP_CONTENT)));
     edit_ = new TextEdit(textEditValue_, placeholder_, new LinearLayoutParams(1.0f));
     edit_->setMaxLen(maxLen_);
     lin->add(edit_);
@@ -63,6 +63,6 @@ void MainScreen::createViews() {
     screenManager()->push(popupScreen);
 }
 
-UI::EventReturn MainScreen::HandleChange(UI::EventParams &e) {
+UI::EventReturn MainScreen::HandleChange(UI::EventParams &) {
     return UI::EVENT_DONE;
 }
