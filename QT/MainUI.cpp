@@ -13,7 +13,7 @@ using UI::KeyInput;
 using UI::DEVICE_ID_KEYBOARD;
 #include "BASE/NKCodeFromQt.h"
 #include "UTILS/TIME/Time.h"
-using UTILS::TIME::time_update;
+using UTILS::TIME::TimeUpdate;
 #include "GFX/DrawBuffer.h"
 using GFX::DrawBuffer;
 #include "GFX/Texture.h"
@@ -222,7 +222,7 @@ void MainUI::initializeGL()
 
 void MainUI::paintGL()
 {
-    time_update();
+    TimeUpdate();
     updateRunLoop();
 }
 
