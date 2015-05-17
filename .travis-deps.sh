@@ -12,4 +12,6 @@ if [ "$TRAVIS_OS_NAME" = "linux" -o -z "$TRAVIS_OS_NAME" ]; then
     sudo apt-get -qq install g++-4.9 xorg-dev libglu1-mesa-dev libxcursor-dev
     sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90
 elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    brew tap homebrew/versions
+    brew install qt5 glfw3 pkgconfig
 fi
