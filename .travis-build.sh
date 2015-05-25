@@ -12,6 +12,6 @@ if [ "$CXX" = "g++" ]; then
 elif [ "$CXX" = "clang++" ]; then
     cd QT
     qmake -qt=qt5 -v
-    qmake -qt=qt5 -makefile HiveQt.pro -spec macx-llvm
+    qmake -qt=qt5 -makefile HiveQt.pro -spec macx-clang
     make
 fi
