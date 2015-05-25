@@ -1,6 +1,6 @@
 #include "MainScreen.h"
 
-#include "UI/ScreenManager.h"
+#include "SGF/UI/ScreenManager.h"
 using UI::TextEdit;
 using UI::KeyInput;
 using UI::UIContext;

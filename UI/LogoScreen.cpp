@@ -1,9 +1,9 @@
 #include "LogoScreen.h"
-#include "UI/UIContext.h"
-#include "UI/ScreenManager.h"
+#include "SGF/UI/UIContext.h"
+#include "SGF/UI/ScreenManager.h"
 #include "MATH/Bounds.h"
 using MATH::Bounds;
-#include "GFX/DrawBuffer.h"
+#include "SGF/GFX/DrawBuffer.h"
 using GFX::DrawBuffer;
 using GFX::ALIGN_CENTER;
 #include "UTILS/COLOR/Color.h"

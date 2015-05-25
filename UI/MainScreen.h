@@ -1,9 +1,9 @@
 #ifndef MAINSCREEN_H
 #define MAINSCREEN_H
 
-#include "UI/UIScreen.h"
-#include "UI/PopScreen.h"
-#include "UI/CONTROLS/TextEdit.h"
+#include "SGF/UI/UIScreen.h"
+#include "SGF/UI/PopScreen.h"
+#include "SGF/UI/CONTROLS/TextEdit.h"
 
 class TextEditPopupScreen : public UI::PopupScreen
 {
