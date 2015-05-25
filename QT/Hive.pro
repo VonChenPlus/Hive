@@ -8,11 +8,6 @@ include(Settings.pri)
 # To support Sailfish which is stuck on GCC 4.6
 linux-g++:system($$QMAKE_CXX --version | grep "4.6."): DEFINES+=override
 
-lessThan(QT_MAJOR_VERSION, 5) {
-	macx: error(PPSSPP requires Qt5 for OS X but $$[QT_VERSION] was detected.)
-	else:lessThan(QT_MINOR_VERSION, 7): error(PPSSPP requires Qt 4.7 or newer but Qt $$[QT_VERSION] was detected.)
-}
-
 # Extra Qt modules
 greaterThan(QT_MAJOR_VERSION,4) {
 	QT += widgets
