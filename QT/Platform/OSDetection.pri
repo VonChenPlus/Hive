@@ -3,7 +3,7 @@
 
 # All supported platforms that require tweaks
 PLATFORM_NAME="generic"
-unix: PLATFORM_NAME="linux"
+unix: PLATFORM_NAME="Linux"
 win32: PLATFORM_NAME="Windows"
 
 !equals(PLATFORM_NAME, "generic"): include($$PLATFORM_NAME".pri")
