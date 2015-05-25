@@ -13,6 +13,6 @@ elif [ "$TRAVIS_OS_NAME" = "osx" ]; then
     export Qt5_DIR=$(brew --prefix)/opt/qt5
     cd QT
     qmake -qt=qt5 -v
-    qmake -qt=qt5 -r HiveQt.pro
-    xcodebuild -configuration Release
+    qmake -makefile HiveQt.pro -spec macx-llvm
+    make
 fi
