@@ -3,7 +3,6 @@ language: cpp
 sudo: required
 
 compiler:
-  - clang
   - g++
 
 before_install:
