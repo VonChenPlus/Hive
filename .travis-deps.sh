@@ -4,7 +4,7 @@ set -e
 set -x
 
 #if OS is linux or is not set
-if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+if [ "$TRAVIS_OS_NAME" = "linux" -o -z "$TRAVIS_OS_NAME" ]; then
     sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
     sudo add-apt-repository ppa:ubuntu-sdk-team/ppa -y
     sudo apt-get -qq update
