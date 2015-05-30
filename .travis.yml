@@ -1,13 +1,10 @@
-os:
-  - linux
-  - osx
-
 language: cpp
 
-sudo: required
+os: 
+  - osx
+  - linux
 
-compiler:
-  - g++
+sudo: required
 
 before_install:
  - sh .travis-deps.sh
