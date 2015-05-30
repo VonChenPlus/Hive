@@ -21,16 +21,13 @@ greaterThan(QT_MAJOR_VERSION,4) {
 # External (platform-dependant) libs
 
 # Main
-SOURCES += $$P/QT/MainWindow.cpp \
-    $$P/QT/QTMain.cpp \
-    $$P/QT/MainUI.cpp \
-    $$P/QT/QTTextDrawer.cpp \
-    $$P/UI/*.cpp
+SOURCES += $$P/QT/*.cpp \
+    $$P/UI/*.cpp \
+    $$P/RFB/*.cpp
 
-HEADERS += $$P/QT/MainWindow.h \
-    $$P/QT/MainUI.h \
-    $$P/QT/QTTextDrawer.h \
-    $$P/UI/*.h
+HEADERS += $$P/QT/*.h \
+    $$P/UI/*.h \
+    $$P/RFB/*.h
 
 INCLUDEPATH += $$P/Native
 
