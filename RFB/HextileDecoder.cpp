@@ -1,5 +1,7 @@
 #include "HextileDecoder.h"
 
+#include <memory>
+
 namespace RFB
 {
     HextileDecoder::HextileDecoder() {
@@ -9,13 +11,18 @@ namespace RFB
     }
 
     void HextileDecoder::readRect(const MATH::Rect &block, DataHandler &handle) {
-        NBYTE *buffer = new NBYTE[16 * 16 * 4];
+        NBYTE buffer[16 * 16 * 4];
         switch (handle.pixelSize()) {
-            case 8: hextileDecode<uint8>(block, handle.getBuffer(), buffer, handle); break;
-            case 16: hextileDecode<uint16>(block, handle.getBuffer(), buffer, handle); break;
+            case 8:
+                hextileDecode<uint8>(block, handle.getBuffer(), buffer, handle);
+                break;
+            case 16:
+                hextileDecode<uint16>(block, handle.getBuffer(), buffer, handle);
+                break;
             case 32:
             default:
-                hextileDecode<uint32>(block, handle.getBuffer(), buffer, handle); break;
+                hextileDecode<uint32>(block, handle.getBuffer(), buffer, handle);
+                break;
         }
     }
 }
