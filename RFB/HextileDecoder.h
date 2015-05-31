@@ -37,18 +37,16 @@ namespace RFB
             PIXEL fg = 0;
 
             for (currBlock.topLeft.y = blocks.topLeft.y; currBlock.topLeft.y < blocks.bottomRight.y; currBlock.topLeft.y += BLOCKSIZE) {
-
                 currBlock.bottomRight.y = std::min(blocks.bottomRight.y, currBlock.topLeft.y + BLOCKSIZE);
 
                 for (currBlock.topLeft.x = blocks.topLeft.x; currBlock.topLeft.x < blocks.bottomRight.x; currBlock.topLeft.x += BLOCKSIZE) {
-
-                  currBlock.bottomRight.x = std::min(blocks.bottomRight.x, currBlock.topLeft.x + BLOCKSIZE);
+                    currBlock.bottomRight.x = std::min(blocks.bottomRight.x, currBlock.topLeft.x + BLOCKSIZE);
 
                     int tileType = 0;
                     inBuffer.take(sizeof(int), (NBYTE *)&tileType);
                     if (tileType & HEXTILERAW) {
                         inBuffer.take(currBlock.area() * sizeof(PIXEL), interBuffer);
-                        handler.handle(currBlock, interBuffer);
+                        handler.handleImage(currBlock, interBuffer);
                         continue;
                     }
 
@@ -87,7 +85,7 @@ namespace RFB
                         }
                     }
 
-                    handler.handle(currBlock, interBuffer);
+                    handler.handleImage(currBlock, interBuffer);
                 }
             }
         }

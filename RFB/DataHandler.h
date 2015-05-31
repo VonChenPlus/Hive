@@ -14,7 +14,8 @@ namespace RFB
         virtual ~DataHandler() {}
 
         virtual NBuffer &getBuffer() const = 0;
-        virtual void handle(const MATH::Rect &block, NBYTE *buffer) = 0;
+        virtual void handleImage(const MATH::Rect &block, NBYTE *buffer) = 0;
+        virtual void handleFill(const MATH::Rect &block, int buffer) = 0;
         size_t pixelSize() const { return pixelSize_; }
 
     protected:
