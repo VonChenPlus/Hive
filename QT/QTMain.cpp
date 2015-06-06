@@ -3,6 +3,7 @@
 #include <QDesktopWidget>
 
 #include "BASE/NativeApp.h"
+#include "THREAD/NThread.h"
 
 int main(int argc, char *argv[])
 {
