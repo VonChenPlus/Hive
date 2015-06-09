@@ -15,7 +15,7 @@ namespace RFB
         void take(Size length, NBYTE *dest, bool wait = true) override;
 
     private:
-        void overrun(Size length, bool wait = true);
+        void fillBuffer(Size length, bool wait = true);
 
     private:
         NBuffer *inBuffer_;

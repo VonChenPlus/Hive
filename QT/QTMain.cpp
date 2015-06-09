@@ -3,12 +3,16 @@
 #include <QDesktopWidget>
 
 #include "BASE/NativeApp.h"
+#include "../RFB/ProtocolConnection.h"
 
 int main(int argc, char *argv[])
 {
 #if defined(Q_OS_LINUX) && !defined(MAEMO)
     QApplication::setAttribute(Qt::AA_X11InitThreads, true);
 #endif
+
+    RFB::ProtocolConnection connect("192.168.1.103", 5900);
+    connect.process();
 
     QApplication a(argc, argv);
 

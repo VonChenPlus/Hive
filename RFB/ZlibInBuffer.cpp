@@ -22,11 +22,11 @@ namespace RFB
     }
 
     void ZlibInBuffer::take(Size length, NBYTE *dest, bool wait) {
-        check(length);
+        checkBuffer(length);
         NBuffer::take(length, dest, wait);
     }
 
-    void ZlibInBuffer::overrun(Size, bool wait) {
+    void ZlibInBuffer::fillBuffer(Size, bool wait) {
         rawBuffer_.clear();
         const Size BLOCKSIZE = 8192;
         inBuffer_->take(BLOCKSIZE, rawBuffer_, wait);
