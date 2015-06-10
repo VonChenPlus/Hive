@@ -1,7 +1,7 @@
 #ifndef QTTEXTDRAWER_H
 #define QTTEXTDRAWER_H
 
-#include "SGF/GFX/TextDrawer.h"
+#include "SMARTGRAPH/GFX/TextDrawer.h"
 
 class QTTextDrawer final : public GFX::TextDrawer
 {

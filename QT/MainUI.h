@@ -7,7 +7,7 @@
 #include <QMouseEvent>
 #include <QGLWidget>
 
-#include "SGF/UI/InputState.h"
+#include "SMARTGRAPH/UI/InputState.h"
 
 class MainUI final : public QGLWidget
 {

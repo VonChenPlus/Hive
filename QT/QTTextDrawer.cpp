@@ -8,7 +8,7 @@
 using GFX::TextDrawer;
 using GFX::TextDrawerFontContext;
 using GFX::TextStringEntry;
-#include "SGF/THIN3D/Thin3D.h"
+#include "SMARTGRAPH/THIN3D/Thin3D.h"
 using THIN3D::Thin3DContext;
 
 QTTextDrawer::QTTextDrawer(Thin3DContext *thin3d)
