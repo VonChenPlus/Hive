@@ -13,9 +13,15 @@ namespace RFB
     }
 
     void ProtocolInfo::setVersion(const std::string &version) {
+#ifdef WIN32
         sscanf_s(version.c_str(), "RFB %03d.%03d\n",
                  &majorVersion_,
                  &minorVersion_);
+#else
+        sscanf(version.c_str(), "RFB %03d.%03d\n",
+               &majorVersion_,
+               &minorVersion_);
+#endif
     }
 
     void ProtocolInfo::setVersion(int major, int minor) {
