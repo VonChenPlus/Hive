@@ -12,9 +12,18 @@ namespace RFB
         ~ProtocolInfo();
 
         void setVersion(const std::string &version);
+        void setVersion(int major, int minor);
+
+        bool isVersion(int major, int minor);
+        bool beforeVersion(int major, int minor);
+        bool afterVersion(int major, int minor);
+
+        int majorVersion() { return majorVersion_; }
+        int minorVerison() { return minorVersion_; }
 
     private:
-        std::string version_;
+        int majorVersion_;
+        int minorVersion_;
     };
 }
 

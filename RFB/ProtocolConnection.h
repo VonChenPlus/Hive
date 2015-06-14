@@ -51,14 +51,16 @@ namespace RFB
 
     private:
         void initialise();
+
         void addSecType(SecurityType secType);
 
         void processVersion();
+        void processSecurityTypes();
 
     private:
         bool closed_;
         IO::TCPSocket sock_;
-        IO::FDInBuffer buffer_;
+        IO::FDInBuffer inBuffer_;
         std::string serverName_;
 
         std::vector<SecurityType> secTypes_;
