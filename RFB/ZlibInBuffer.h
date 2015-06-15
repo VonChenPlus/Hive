@@ -6,7 +6,7 @@
 
 namespace RFB
 {
-    class ZlibInBuffer final : protected NBuffer
+    class ZlibInBuffer final : protected NInBuffer
     {
     public:
         ZlibInBuffer(NBuffer *inBuffer);
