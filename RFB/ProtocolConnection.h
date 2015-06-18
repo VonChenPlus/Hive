@@ -6,6 +6,7 @@
 #include "BASE/Native.h"
 #include "IO/TCPSocket.h"
 #include "IO/FDInBuffer.h"
+#include "IO/FDOutBuffer.h"
 #include "ProtocolInfo.h"
 
 namespace RFB
@@ -61,6 +62,7 @@ namespace RFB
         bool closed_;
         IO::TCPSocket sock_;
         IO::FDInBuffer inBuffer_;
+        IO::FDOutBuffer outBuffer_;
         std::string serverName_;
 
         std::vector<SecurityType> secTypes_;

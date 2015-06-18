@@ -8,7 +8,8 @@ namespace RFB
     ProtocolConnection::ProtocolConnection(const char *host, int port)
         : closed_(false)
         , sock_(host, port)
-        , inBuffer_(sock_.getSock()) {
+        , inBuffer_(sock_.getSock())
+        , outBuffer_(sock_.getSock()) {
         if (!TCPSocket::isConnected(sock_.getSock())) {
             throw _NException_Normal("RFB Protocol Connect Failed!");
         }
@@ -45,7 +46,7 @@ namespace RFB
 
     void ProtocolConnection::initialise() {
         serverName_ = sock_.getPeerEndpoint();
-        useProtocol3_3 = true;
+        useProtocol3_3 = false;
 
         // - Set which auth schemes we support, in order of preference
         addSecType(secTypeVncAuth);
@@ -78,6 +79,12 @@ namespace RFB
         else if (protocolInfo_.afterVersion(3, 8)) {
             protocolInfo_.setVersion(3, 8);
         }
+
+        std::string rfbVersion = StringFromFormat("RFB %03d.%03d\n",
+                                                  protocolInfo_.majorVersion(),
+                                                  protocolInfo_.minorVerison());
+        outBuffer_.append(rfbVersion.size(), rfbVersion.c_str());
+        outBuffer_.flushBuffer(rfbVersion.size());
 
         protocolState_ = SECURITY_TYPES;
     }
@@ -116,6 +123,10 @@ namespace RFB
                 throw _NException_Normal("RFB Secure Type Error!");
             }
 
+            // If we haven't already chosen a secType, try this one
+            // If we are using the client's preference for types,
+            // we keep trying types, to find the one that matches and
+            // which appears first in the client's list of supported types.
             for (int index = 0; index < nServerSecTypes; ++index) {
                 uint8 serverSecType = secTypeInvalid;
                 inBuffer_.take(sizeof(uint8), (NBYTE *)&serverSecType);
@@ -127,9 +138,18 @@ namespace RFB
                 }
             }
 
+            // Inform the server of our decision
             if (secType != secTypeInvalid) {
-
+                outBuffer_.append(sizeof(uint8), (NBYTE *)&secType);
+                outBuffer_.flushBuffer(sizeof(uint8));
             }
         }
+
+        if (secType == secTypeInvalid) {
+            protocolState_ = INVALID;
+            throw _NException_Normal("RFB No matching security types!");
+        }
+
+        protocolState_ = SECURITY;
     }
 }
