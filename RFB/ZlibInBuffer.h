@@ -6,19 +6,19 @@
 
 namespace RFB
 {
-    class ZlibInBuffer final : protected NInBuffer
+    class ZlibInBuffer final : public NInBuffer
     {
     public:
-        ZlibInBuffer(NBuffer *inBuffer);
+        ZlibInBuffer(NInBuffer *inBuffer);
         ~ZlibInBuffer();
 
-        void take(Size length, NBYTE *dest, bool wait = true) override;
+        void read(Size length, NBYTE *dest, bool wait = true) override;
 
     private:
         void fillBuffer(Size length, bool wait = true);
 
     private:
-        NBuffer *inBuffer_;
+        NInBuffer *inBuffer_;
         NBuffer rawBuffer_;
         z_stream_s* zipstream_;
     };

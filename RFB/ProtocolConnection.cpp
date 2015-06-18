@@ -63,7 +63,7 @@ namespace RFB
         // Protocol Version Length is 12
         std::string protocolVersion;
         protocolVersion.resize(12);
-        inBuffer_.take(12, &protocolVersion[0]);
+        inBuffer_.readAny(12, &protocolVersion[0]);
         protocolInfo_.setVersion(protocolVersion);
 
         // The only official RFB protocol versions are currently 3.3, 3.7 and 3.8
@@ -83,7 +83,7 @@ namespace RFB
         std::string rfbVersion = StringFromFormat("RFB %03d.%03d\n",
                                                   protocolInfo_.majorVersion(),
                                                   protocolInfo_.minorVerison());
-        outBuffer_.append(rfbVersion.size(), rfbVersion.c_str());
+        outBuffer_.writeAny(rfbVersion.size(), rfbVersion.c_str());
         outBuffer_.flushBuffer(rfbVersion.size());
 
         protocolState_ = SECURITY_TYPES;
@@ -94,7 +94,7 @@ namespace RFB
 
         // legacy 3.3 server may only offer "vnc authentication" or "none"
         if (protocolInfo_.isVersion(3, 3)) {
-            inBuffer_.take(sizeof(int), (NBYTE *)&secType);
+            inBuffer_.readAny(sizeof(int), &secType);
             if (secType == secTypeInvalid) {
                 protocolState_ = INVALID;
                 throw _NException_Normal("RFB Secure Type Error!");
@@ -117,7 +117,7 @@ namespace RFB
         // >=3.7 server will offer us a list
         else {
             int nServerSecTypes = 0;
-            inBuffer_.take(sizeof(uint8), (NBYTE *)&nServerSecTypes);
+            inBuffer_.readAny(sizeof(uint8), &nServerSecTypes);
             if (nServerSecTypes == 0) {
                 protocolState_ = INVALID;
                 throw _NException_Normal("RFB Secure Type Error!");
@@ -129,7 +129,7 @@ namespace RFB
             // which appears first in the client's list of supported types.
             for (int index = 0; index < nServerSecTypes; ++index) {
                 uint8 serverSecType = secTypeInvalid;
-                inBuffer_.take(sizeof(uint8), (NBYTE *)&serverSecType);
+                inBuffer_.readAny(sizeof(uint8), &serverSecType);
                 for (const auto &iter : secTypes_) {
                     if (iter == serverSecType) {
                         secType = serverSecType;
@@ -140,7 +140,7 @@ namespace RFB
 
             // Inform the server of our decision
             if (secType != secTypeInvalid) {
-                outBuffer_.append(sizeof(uint8), (NBYTE *)&secType);
+                outBuffer_.writeAny(sizeof(uint8), &secType);
                 outBuffer_.flushBuffer(sizeof(uint8));
             }
         }

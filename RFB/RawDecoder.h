@@ -19,7 +19,7 @@ namespace RFB
 
     private:
         template <typename PIXEL, int BLOCKSIZE = 16>
-        void rawDecode(const MATH::Rect &blocks, NBuffer &inBuffer,
+        void rawDecode(const MATH::Rect &blocks, NInBuffer &inBuffer,
                            NBYTE *interBuffer, RFB::DataHandler &handler) {
             MATH::Rect currBlock;
 
@@ -29,7 +29,7 @@ namespace RFB
                 for (currBlock.topLeft.x = blocks.topLeft.x; currBlock.topLeft.x < blocks.bottomRight.x; currBlock.topLeft.x += BLOCKSIZE) {
                     currBlock.bottomRight.x = std::min(blocks.bottomRight.x, currBlock.topLeft.x + BLOCKSIZE);
 
-                    inBuffer.take(currBlock.area() * sizeof(PIXEL), interBuffer);
+                    inBuffer.readAny(currBlock.area() * sizeof(PIXEL), interBuffer);
                     handler.handleImage(currBlock, interBuffer);
                 }
             }

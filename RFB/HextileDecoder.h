@@ -30,7 +30,7 @@ namespace RFB
         };
 
         template <typename PIXEL, int BLOCKSIZE = 16>
-        void hextileDecode(const MATH::Rect &blocks, NBuffer &inBuffer,
+        void hextileDecode(const MATH::Rect &blocks, NInBuffer &inBuffer,
                            NBYTE *interBuffer, RFB::DataHandler &handler) {
             MATH::Rect currBlock;
             PIXEL bg = 0;
@@ -43,34 +43,34 @@ namespace RFB
                     currBlock.bottomRight.x = std::min(blocks.bottomRight.x, currBlock.topLeft.x + BLOCKSIZE);
 
                     int tileType = 0;
-                    inBuffer.take(sizeof(int), (NBYTE *)&tileType);
+                    inBuffer.readAny(sizeof(int), &tileType);
                     if (tileType & HEXTILERAW) {
-                        inBuffer.take(currBlock.area() * sizeof(PIXEL), interBuffer);
+                        inBuffer.readAny(currBlock.area() * sizeof(PIXEL), interBuffer);
                         handler.handleImage(currBlock, interBuffer);
                         continue;
                     }
 
                     if (tileType & HEXTILEBGSPECIFIED)
-                        inBuffer.take(sizeof(PIXEL), (NBYTE *)&bg);
+                        inBuffer.readAny(sizeof(PIXEL), &bg);
 
                     int area = currBlock.area();
                     PIXEL *dataPtr = (PIXEL *)interBuffer;
                     while (area-- > 0) *dataPtr++ = bg;
 
                     if (tileType & HEXTILEFGSPECIFIED)
-                        inBuffer.take(sizeof(PIXEL), (NBYTE *)&fg);
+                        inBuffer.readAny(sizeof(PIXEL), &fg);
 
                     if (tileType & HEXTILEANYSUBRECTS) {
                         int nSubrects = 0;
-                        inBuffer.take(sizeof(int), (NBYTE *)&nSubrects);
+                        inBuffer.readAny(sizeof(int), &nSubrects);
 
                         for (int i = 0; i < nSubrects; i++) {
                             if (tileType & HEXTILESUBRECTSCOLOURED)
-                                inBuffer.take(sizeof(PIXEL), (NBYTE *)&fg);
+                                inBuffer.readAny(sizeof(PIXEL), &fg);
 
                             int xy, wh;
-                            inBuffer.take(sizeof(int), (NBYTE *)&xy);
-                            inBuffer.take(sizeof(int), (NBYTE *)&wh);
+                            inBuffer.readAny(sizeof(int), &xy);
+                            inBuffer.readAny(sizeof(int), &wh);
                             int x = ((xy >> 4) & 0xF);
                             int y = (xy & 0xF);
                             int w = ((wh >> 4) & 0xF) + 1;

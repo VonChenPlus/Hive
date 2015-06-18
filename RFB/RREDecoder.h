@@ -19,22 +19,22 @@ namespace RFB
 
     private:
         template <typename PIXEL>
-        void rreDecode(const MATH::Rect &blocks, NBuffer &inBuffer, RFB::DataHandler &handler) {
+        void rreDecode(const MATH::Rect &blocks, NInBuffer &inBuffer, RFB::DataHandler &handler) {
             int nSubrects = 0;
-            inBuffer.take(sizeof(int), (NBYTE *)&nSubrects);
+            inBuffer.readAny(sizeof(int), &nSubrects);
             PIXEL bg;
-            inBuffer.take(sizeof(PIXEL), (NBYTE *)&bg);
+            inBuffer.readAny(sizeof(PIXEL), &bg);
             handler.handleFill(blocks, bg);
 
             for (int index = 0; index < nSubrects; ++index) {
                 PIXEL pix;
                 MATH::Rect currBlock;
-                inBuffer.take(sizeof(PIXEL), (NBYTE *)&pix);
+                inBuffer.readAny(sizeof(PIXEL), &pix);
                 int xPos, yPos, width, height;
-                inBuffer.take(sizeof(uint16), (NBYTE *)&xPos);
-                inBuffer.take(sizeof(uint16), (NBYTE *)&yPos);
-                inBuffer.take(sizeof(uint16), (NBYTE *)&width);
-                inBuffer.take(sizeof(uint16), (NBYTE *)&height);
+                inBuffer.readAny(sizeof(uint16), &xPos);
+                inBuffer.readAny(sizeof(uint16), &yPos);
+                inBuffer.readAny(sizeof(uint16), &width);
+                inBuffer.readAny(sizeof(uint16), &height);
                 currBlock.setRect(xPos, yPos, width, height);
                 handler.handleFill(currBlock, pix);
             }

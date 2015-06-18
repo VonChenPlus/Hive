@@ -20,11 +20,11 @@ namespace RFB
 
     private:
         template <typename PIXEL, int BLOCKSIZE = 64>
-        void ZRLEDecode(const MATH::Rect &blocks, NBuffer &inBuffer,
+        void ZRLEDecode(const MATH::Rect &blocks, NInBuffer &inBuffer,
                            NBYTE *interBuffer, RFB::DataHandler &handler) {
             MATH::Rect currBlock;
             int length = 0;
-            inBuffer.take(sizeof(int), (NBYTE *)&length);
+            inBuffer.readAny(sizeof(int), &length);
             ZlibInBuffer zlibBuffer(&inBuffer);
 
             for (currBlock.topLeft.y = blocks.topLeft.y; currBlock.topLeft.y < blocks.bottomRight.y; currBlock.topLeft.y += BLOCKSIZE) {
@@ -34,12 +34,12 @@ namespace RFB
                     currBlock.bottomRight.x = std::min(blocks.bottomRight.x, currBlock.topLeft.x + BLOCKSIZE);
 
                     int mode = 0;
-                    zlibBuffer.take(sizeof(int8), (NBYTE *)&mode);
+                    zlibBuffer.readAny(sizeof(int8), &mode);
                     bool rle = !!(mode & 0x80);
                     int palSize = mode & 0x7F;
                     PIXEL palette[128];
                     for (int i = 0; i < palSize; i++) {
-                        zlibBuffer.take(sizeof(PIXEL), (NBYTE *)&palette[i]);
+                        zlibBuffer.readAny(sizeof(PIXEL), &palette[i]);
                     }
 
                     if (palSize == 1) {
@@ -51,7 +51,7 @@ namespace RFB
                     if (!rle) {
                         if (palSize == 0) {
                             // raw
-                            zlibBuffer.take(currBlock.area() * sizeof(PIXEL) / 8, interBuffer);
+                            zlibBuffer.read(currBlock.area() * sizeof(PIXEL) / 8, interBuffer);
                         }
                         else {
                             // packed pixels
@@ -64,7 +64,7 @@ namespace RFB
                                 uint8 nbits = 0;
                                 while (dataPtr < endOfLine) {
                                     if (nbits == 0) {
-                                        zlibBuffer.take(sizeof(uint8), (NBYTE *)&byte);
+                                        zlibBuffer.readAny(sizeof(uint8), &byte);
                                         nbits = 8;
                                     }
                                     nbits -= bppp;
@@ -82,11 +82,11 @@ namespace RFB
                             // plain RLE
                             while (dataPtr < endOfBlock) {
                                 PIXEL pix = 0;
-                                zlibBuffer.take(sizeof(PIXEL), (NBYTE *)&pix);
+                                zlibBuffer.readAny(sizeof(PIXEL), &pix);
                                 int len = 1;
                                 int byte;
                                 do {
-                                    zlibBuffer.take(sizeof(uint8), (NBYTE *)&byte);
+                                    zlibBuffer.readAny(sizeof(uint8), &byte);
                                     len += byte;
                                 } while (byte == 255);
 
@@ -101,12 +101,12 @@ namespace RFB
                             // palette RLE
                             while (dataPtr < endOfBlock) {
                                 int index = 0;
-                                zlibBuffer.take(sizeof(int), (NBYTE *)&index);
+                                zlibBuffer.readAny(sizeof(int), &index);
                                 int len = 1;
                                 if (index & 0x80) {
                                     int byte;
                                     do {
-                                        zlibBuffer.take(sizeof(uint8), (NBYTE *)&byte);
+                                        zlibBuffer.readAny(sizeof(uint8), &byte);
                                         len += byte;
                                     } while (byte == 255);
 
