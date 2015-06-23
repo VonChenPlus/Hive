@@ -37,7 +37,7 @@ namespace RFB
         NOutBuffer &getOutBuffer() { return outBuffer_; }
 
     private:
-        void initialise();
+        void initialize();
 
         void addSecType(SecurityType secType);
         ProtocolSecurity *getSecHandler(SecurityType secType);

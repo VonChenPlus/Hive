@@ -44,7 +44,7 @@ namespace RFB
         }
     }
 
-    void ProtocolConnection::initialise() {
+    void ProtocolConnection::initialize() {
         serverName_ = sock_.getPeerEndpoint();
         useProtocol3_3 = false;
 
