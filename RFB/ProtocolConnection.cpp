@@ -59,6 +59,17 @@ namespace RFB
         secTypes_.push_back(secType);
     }
 
+    ProtocolSecurity *ProtocolConnection::getSecHandler(SecurityType secType) {
+        switch (secType) {
+          case secTypeNone:
+            return new ProtocolSecurityNone();
+          case secTypeVncAuth:
+            return new ProtocolSecurityVncAuth(NULLPTR);
+          default:
+            throw _NException_Normal("Unsupported secType?");
+        }
+    }
+
     void ProtocolConnection::processVersion() {
         // Protocol Version Length is 12
         std::string protocolVersion;
@@ -90,7 +101,7 @@ namespace RFB
     }
 
     void ProtocolConnection::processSecurityTypes() {
-        int secType = secTypeInvalid;
+        SecurityType secType = secTypeInvalid;
 
         // legacy 3.3 server may only offer "vnc authentication" or "none"
         if (protocolInfo_.isVersion(3, 3)) {
@@ -128,7 +139,7 @@ namespace RFB
             // we keep trying types, to find the one that matches and
             // which appears first in the client's list of supported types.
             for (int index = 0; index < nServerSecTypes; ++index) {
-                uint8 serverSecType = secTypeInvalid;
+                SecurityType serverSecType = secTypeInvalid;
                 inBuffer_.readAny(sizeof(uint8), &serverSecType);
                 for (const auto &iter : secTypes_) {
                     if (iter == serverSecType) {
@@ -151,5 +162,6 @@ namespace RFB
         }
 
         protocolState_ = SECURITY;
+        securityHandler_ = getSecHandler(secType);
     }
 }

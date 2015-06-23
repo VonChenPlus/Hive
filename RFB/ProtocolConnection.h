@@ -8,27 +8,10 @@
 #include "IO/FDInBuffer.h"
 #include "IO/FDOutBuffer.h"
 #include "ProtocolInfo.h"
+#include "ProtocolSecurity.h"
 
 namespace RFB
 {
-    enum SecurityType
-    {
-        secTypeInvalid = 0,
-
-        secTypeNone = 1,
-        secTypeVncAuth = 2,
-
-        secTypeRA2 = 5,
-        secTypeRA2ne = 6,
-
-        secTypeSSPI = 7,
-        secTypeSSPIne = 8,
-
-        secTypeTight = 16,
-        secTypeUltra = 17,
-        secTypeTLS = 18
-    };
-
     enum ProtocolState
     {
         UNINITIALISED,
@@ -50,10 +33,14 @@ namespace RFB
         void process();
         bool isCloseed() { return closed_; }
 
+        NInBuffer &getInBuffer() { return inBuffer_; }
+        NOutBuffer &getOutBuffer() { return outBuffer_; }
+
     private:
         void initialise();
 
         void addSecType(SecurityType secType);
+        ProtocolSecurity *getSecHandler(SecurityType secType);
 
         void processVersion();
         void processSecurityTypes();
@@ -66,6 +53,8 @@ namespace RFB
         std::string serverName_;
 
         std::vector<SecurityType> secTypes_;
+        ProtocolSecurity *securityHandler_;
+
         bool useProtocol3_3;
         ProtocolState protocolState_;
         ProtocolInfo protocolInfo_;
