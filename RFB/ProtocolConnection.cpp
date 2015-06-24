@@ -14,7 +14,7 @@ namespace RFB
             throw _NException_Normal("RFB Protocol Connect Failed!");
         }
 
-        initialise();
+        initialize();
     }
 
     ProtocolConnection::~ProtocolConnection() {
