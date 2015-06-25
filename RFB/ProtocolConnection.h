@@ -44,6 +44,8 @@ namespace RFB
 
         void processVersion();
         void processSecurityTypes();
+        void processSecurity();
+        void processSecurityResult();
 
     private:
         bool closed_;

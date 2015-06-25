@@ -2,6 +2,7 @@ TARGET = Hive
 
 # Main Qt modules
 QT       += core gui opengl
+CONFIG -= flat
 
 include(Settings.pri)
 

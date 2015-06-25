@@ -13,12 +13,12 @@ namespace RFB
         if (!TCPSocket::isConnected(sock_.getSock())) {
             throw _NException_Normal("RFB Protocol Connect Failed!");
         }
-
         initialize();
     }
 
     ProtocolConnection::~ProtocolConnection() {
-
+        delete securityHandler_;
+        securityHandler_ = NULLPTR;
     }
 
     void ProtocolConnection::process() {
@@ -30,6 +30,7 @@ namespace RFB
             processSecurityTypes();
             break;
         case SECURITY:
+            processSecurity();
             break;
         case SECURITY_RESULT:
             break;
@@ -51,6 +52,8 @@ namespace RFB
         // - Set which auth schemes we support, in order of preference
         addSecType(secTypeVncAuth);
         addSecType(secTypeNone);
+
+        securityHandler_ = NULLPTR;
 
         protocolState_ = PROTOCOL_VERSION;
     }
@@ -163,5 +166,45 @@ namespace RFB
 
         protocolState_ = SECURITY;
         securityHandler_ = getSecHandler(secType);
+    }
+
+    void ProtocolConnection::processSecurity() {
+        if (securityHandler_ && securityHandler_->process(*this)) {
+            protocolState_ = SECURITY_RESULT;
+        }
+
+        throw _NException_Normal("Security Handler Error!");
+    }
+
+    void ProtocolConnection::processSecurityResult() {
+        SecurityResult result = secResultUnknown;
+        if (protocolInfo_.beforeVersion(3, 8) && securityHandler_->getType() == secTypeNone) {
+            result = secResultOK;
+        }
+        else {
+            inBuffer_.readAny(sizeof(uint32), &result);
+        }
+
+        switch (result) {
+        case secResultOK:
+
+            break;
+        case secResultFailed:
+        case secResultTooMany:
+        default: {
+            std::string errorMsg;
+            if (protocolInfo_.beforeVersion(3, 8)) {
+                errorMsg = "Authentication failure";
+            }
+            else {
+                Size errorLen = 0;
+                inBuffer_.readAny(sizeof(errorLen), &errorLen);
+                errorMsg.resize(errorLen + 1);
+                inBuffer_.readAny(errorLen, &errorMsg[0]);
+            }
+            protocolState_ = INVALID;
+            throw _NException_Normal(errorMsg);
+        }
+        }
     }
 }

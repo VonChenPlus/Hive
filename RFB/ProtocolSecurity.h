@@ -23,6 +23,14 @@ namespace RFB
         secTypeTLS = 18
     };
 
+    enum SecurityResult
+    {
+        secResultUnknown = -1,
+        secResultOK = 0,
+        secResultFailed = 1,
+        secResultTooMany = 2
+    };
+
     class ProtocolSecurity
     {
     public:
