@@ -33,6 +33,7 @@ namespace RFB
             processSecurity();
             break;
         case SECURITY_RESULT:
+            processSecurityResult();
             break;
         case INITIALISATION:
             break;
@@ -171,6 +172,7 @@ namespace RFB
     void ProtocolConnection::processSecurity() {
         if (securityHandler_ && securityHandler_->process(*this)) {
             protocolState_ = SECURITY_RESULT;
+            return;
         }
 
         throw _NException_Normal("Security Handler Error!");
@@ -197,7 +199,7 @@ namespace RFB
                 errorMsg = "Authentication failure";
             }
             else {
-                Size errorLen = 0;
+                uint32 errorLen = 0;
                 inBuffer_.readAny(sizeof(errorLen), &errorLen);
                 errorMsg.resize(errorLen + 1);
                 inBuffer_.readAny(errorLen, &errorMsg[0]);

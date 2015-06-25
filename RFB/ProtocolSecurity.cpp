@@ -33,7 +33,7 @@ namespace RFB
         uint8 challenge[vncAuthChallengeSize] = {0};
         conn.getInBuffer().readAny(vncAuthChallengeSize, challenge);
 
-        char *passwd = NULLPTR;
+        char *passwd = "123";
         pwdGetter_->getUserPasswd(NULLPTR, &passwd);
 
         if (!passwd)
