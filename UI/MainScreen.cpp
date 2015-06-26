@@ -1,6 +1,6 @@
 #include "MainScreen.h"
 
-#include "SMARTGRAPH/UI/ScreenManager.h"
+#include "GRAPH/UI/ScreenManager.h"
 using UI::TextEdit;
 using UI::KeyInput;
 using UI::UIContext;

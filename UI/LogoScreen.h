@@ -1,8 +1,8 @@
 #ifndef LOGOSCREEN_H
 #define LOGOSCREEN_H
 
-#include "SMARTGRAPH/UI/UIScreen.h"
-#include "SMARTGRAPH/UI/InputState.h"
+#include "GRAPH/UI/UIScreen.h"
+#include "GRAPH/UI/InputState.h"
 
 class LogoScreen final : public UI::UIScreenWithBackground {
 public:
