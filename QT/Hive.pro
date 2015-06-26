@@ -30,7 +30,7 @@ HEADERS += $$P/QT/*.h \
     $$P/UI/*.h \
     $$P/RFB/*.h
 
-INCLUDEPATH += $$P/Native
+INCLUDEPATH += $$P/Honey
 
 RC_FILE += Hive.rc
 

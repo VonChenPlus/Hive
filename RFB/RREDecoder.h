@@ -1,7 +1,7 @@
 #ifndef RREDECODER_H
 #define RREDECODER_H
 
-#include "BASE/Native.h"
+#include "BASE/Honey.h"
 #include "MATH/NRect.h"
 #include "BASE/NBuffer.h"
 #include "../RFB/DataHandler.h"

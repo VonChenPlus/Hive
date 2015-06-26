@@ -1,7 +1,7 @@
 #ifndef PROTOCOLINFO_H
 #define PROTOCOLINFO_H
 
-#include "BASE/Native.h"
+#include "BASE/Honey.h"
 
 namespace RFB
 {

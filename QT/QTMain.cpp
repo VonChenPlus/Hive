@@ -11,10 +11,6 @@ int main(int argc, char *argv[])
     QApplication::setAttribute(Qt::AA_X11InitThreads, true);
 #endif
 
-    RFB::ProtocolConnection connect("192.168.1.101", 5900);
-    while (true)
-        connect.process();
-
     QApplication a(argc, argv);
 
     QSize res = QApplication::desktop()->screenGeometry().size();

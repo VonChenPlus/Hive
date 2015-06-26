@@ -1,7 +1,7 @@
 #ifndef ZRLEDECODER_H
 #define ZRLEDECODER_H
 
-#include "BASE/Native.h"
+#include "BASE/Honey.h"
 #include "MATH/NRect.h"
 #include "BASE/NBuffer.h"
 #include "../RFB/DataHandler.h"

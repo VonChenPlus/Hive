@@ -4,5 +4,5 @@
         }
 
         # Executable
-	LIBS += -ldl -lrt $$P/Native/libNative.a
+        LIBS += -ldl -lrt $$P/Honey/libHoney.a
 }
