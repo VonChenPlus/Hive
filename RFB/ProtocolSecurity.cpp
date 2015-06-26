@@ -25,7 +25,7 @@ namespace RFB
     ProtocolSecurityVncAuth::ProtocolSecurityVncAuth(UserPasswdGetter *pwdGetter)
         : pwdGetter_(pwdGetter) {
         if (pwdGetter_)
-            throw _NException_Normal("Password Getter can not be NULL!");
+            throw _HException_Normal("Password Getter can not be NULL!");
     }
 
     bool ProtocolSecurityVncAuth::process(ProtocolConnection &conn) {
@@ -37,7 +37,7 @@ namespace RFB
         pwdGetter_->getUserPasswd(NULLPTR, &passwd);
 
         if (!passwd)
-            throw _NException_Normal("UnHandler Exception!");
+            throw _HException_Normal("UnHandler Exception!");
 
         // Calculate the correct response
         uint8 key[8] = {0};

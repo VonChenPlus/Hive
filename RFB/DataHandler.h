@@ -3,7 +3,7 @@
 
 #include "BASE/Honey.h"
 #include "MATH/NRect.h"
-#include "BASE/NBuffer.h"
+#include "BASE/HBuffer.h"
 
 namespace RFB
 {
@@ -13,7 +13,7 @@ namespace RFB
         DataHandler(size_t pixelSize) { pixelSize_ = pixelSize; }
         virtual ~DataHandler() {}
 
-        virtual NInBuffer &getBuffer() const = 0;
+        virtual HInBuffer &getBuffer() const = 0;
         virtual void handleImage(const MATH::Rect &block, NBYTE *buffer) = 0;
         virtual void handleFill(const MATH::Rect &block, int buffer) = 0;
         size_t pixelSize() const { return pixelSize_; }

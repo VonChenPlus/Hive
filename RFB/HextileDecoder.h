@@ -5,7 +5,7 @@
 
 #include "BASE/Honey.h"
 #include "MATH/NRect.h"
-#include "BASE/NBuffer.h"
+#include "BASE/HBuffer.h"
 #include "../RFB/DataHandler.h"
 #include "../RFB/Decoder.h"
 
@@ -30,7 +30,7 @@ namespace RFB
         };
 
         template <typename PIXEL, int BLOCKSIZE = 16>
-        void hextileDecode(const MATH::Rect &blocks, NInBuffer &inBuffer,
+        void hextileDecode(const MATH::Rect &blocks, HInBuffer &inBuffer,
                            NBYTE *interBuffer, RFB::DataHandler &handler) {
             MATH::Rect currBlock;
             PIXEL bg = 0;

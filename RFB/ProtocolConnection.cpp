@@ -1,6 +1,6 @@
 #include "ProtocolConnection.h"
 using IO::TCPSocket;
-#include "UTILS/STRING/NString.h"
+#include "UTILS/STRING/HString.h"
 using UTILS::STRING::StringFromFormat;
 
 namespace RFB
@@ -11,7 +11,7 @@ namespace RFB
         , inBuffer_(sock_.getSock())
         , outBuffer_(sock_.getSock()) {
         if (!TCPSocket::isConnected(sock_.getSock())) {
-            throw _NException_Normal("RFB Protocol Connect Failed!");
+            throw _HException_Normal("RFB Protocol Connect Failed!");
         }
         initialize();
     }
@@ -40,9 +40,9 @@ namespace RFB
         case NORMAL:
             break;
         case UNINITIALISED:
-            throw _NException_Normal("Protocol not initialised yet!");
+            throw _HException_Normal("Protocol not initialised yet!");
         default:
-            throw _NException_Normal("Invalid Protocol State!");
+            throw _HException_Normal("Invalid Protocol State!");
         }
     }
 
@@ -70,7 +70,7 @@ namespace RFB
           case secTypeVncAuth:
             return new ProtocolSecurityVncAuth(NULLPTR);
           default:
-            throw _NException_Normal("Unsupported secType?");
+            throw _HException_Normal("Unsupported secType?");
         }
     }
 
@@ -84,7 +84,7 @@ namespace RFB
         // The only official RFB protocol versions are currently 3.3, 3.7 and 3.8
         if (protocolInfo_.beforeVersion(3, 3)) {
             protocolState_ = INVALID;
-            throw _NException_Normal(StringFromFormat("Server gave unsupported RFB protocol version %d.%d",
+            throw _HException_Normal(StringFromFormat("Server gave unsupported RFB protocol version %d.%d",
                                      protocolInfo_.majorVersion(),
                                      protocolInfo_.minorVerison()));
         }
@@ -112,7 +112,7 @@ namespace RFB
             inBuffer_.readAny(sizeof(int), &secType);
             if (secType == secTypeInvalid) {
                 protocolState_ = INVALID;
-                throw _NException_Normal("RFB Secure Type Error!");
+                throw _HException_Normal("RFB Secure Type Error!");
             }
             else if (secType == secTypeNone || secType == secTypeVncAuth) {
                 bool validType = false;
@@ -126,7 +126,7 @@ namespace RFB
                     secType = secTypeInvalid;
             }
             else {
-                throw _NException_Normal("Unknown 3.3 RFB Secure Type!");
+                throw _HException_Normal("Unknown 3.3 RFB Secure Type!");
             }
         }
         // >=3.7 server will offer us a list
@@ -135,7 +135,7 @@ namespace RFB
             inBuffer_.readAny(sizeof(uint8), &nServerSecTypes);
             if (nServerSecTypes == 0) {
                 protocolState_ = INVALID;
-                throw _NException_Normal("RFB Secure Type Error!");
+                throw _HException_Normal("RFB Secure Type Error!");
             }
 
             // If we haven't already chosen a secType, try this one
@@ -162,7 +162,7 @@ namespace RFB
 
         if (secType == secTypeInvalid) {
             protocolState_ = INVALID;
-            throw _NException_Normal("RFB No matching security types!");
+            throw _HException_Normal("RFB No matching security types!");
         }
 
         protocolState_ = SECURITY;
@@ -175,7 +175,7 @@ namespace RFB
             return;
         }
 
-        throw _NException_Normal("Security Handler Error!");
+        throw _HException_Normal("Security Handler Error!");
     }
 
     void ProtocolConnection::processSecurityResult() {
@@ -205,7 +205,7 @@ namespace RFB
                 inBuffer_.readAny(errorLen, &errorMsg[0]);
             }
             protocolState_ = INVALID;
-            throw _NException_Normal(errorMsg);
+            throw _HException_Normal(errorMsg);
         }
         }
     }

@@ -2,7 +2,7 @@
 
 namespace RFB
 {
-    ZlibInBuffer::ZlibInBuffer(NInBuffer *inBuffer)
+    ZlibInBuffer::ZlibInBuffer(HInBuffer *inBuffer)
         : inBuffer_(inBuffer) {
         zipstream_ = new z_stream;
         zipstream_->zalloc    = Z_NULL;
@@ -12,7 +12,7 @@ namespace RFB
         zipstream_->avail_in  = 0;
         if (inflateInit(zipstream_) != Z_OK) {
             delete zipstream_;
-            throw _NException_Normal("ZlibInStream: inflateInit failed");
+            throw _HException_Normal("ZlibInStream: inflateInit failed");
         }
     }
 
@@ -23,7 +23,7 @@ namespace RFB
 
     void ZlibInBuffer::read(Size length, NBYTE *dest, bool wait) {
         checkBuffer(length);
-        NBuffer::read(length, dest, wait);
+        HBuffer::read(length, dest, wait);
     }
 
     void ZlibInBuffer::fillBuffer(Size, bool wait) {
@@ -38,7 +38,7 @@ namespace RFB
         zipstream_->avail_out = uInt(size() - curLen);
         int rc = inflate(zipstream_, Z_SYNC_FLUSH);
         if (rc != Z_OK) {
-            throw _NException_Normal("ZlibInStream: inflate failed");
+            throw _HException_Normal("ZlibInStream: inflate failed");
         }
     }
 }

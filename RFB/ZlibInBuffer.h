@@ -1,15 +1,15 @@
 #ifndef ZLIBINBUFFER_H
 #define ZLIBINBUFFER_H
 
-#include "BASE/NBuffer.h"
+#include "BASE/HBuffer.h"
 #include "EXTERNALS/zlib/zlib.h"
 
 namespace RFB
 {
-    class ZlibInBuffer final : public NInBuffer
+    class ZlibInBuffer final : public HInBuffer
     {
     public:
-        ZlibInBuffer(NInBuffer *inBuffer);
+        ZlibInBuffer(HInBuffer *inBuffer);
         ~ZlibInBuffer();
 
         void read(Size length, NBYTE *dest, bool wait = true) override;
@@ -18,8 +18,8 @@ namespace RFB
         void fillBuffer(Size length, bool wait = true);
 
     private:
-        NInBuffer *inBuffer_;
-        NBuffer rawBuffer_;
+        HInBuffer *inBuffer_;
+        HBuffer rawBuffer_;
         z_stream_s* zipstream_;
     };
 }

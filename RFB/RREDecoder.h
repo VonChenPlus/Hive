@@ -3,7 +3,7 @@
 
 #include "BASE/Honey.h"
 #include "MATH/NRect.h"
-#include "BASE/NBuffer.h"
+#include "BASE/HBuffer.h"
 #include "../RFB/DataHandler.h"
 #include "../RFB/Decoder.h"
 
@@ -19,7 +19,7 @@ namespace RFB
 
     private:
         template <typename PIXEL>
-        void rreDecode(const MATH::Rect &blocks, NInBuffer &inBuffer, RFB::DataHandler &handler) {
+        void rreDecode(const MATH::Rect &blocks, HInBuffer &inBuffer, RFB::DataHandler &handler) {
             int nSubrects = 0;
             inBuffer.readAny(sizeof(int), &nSubrects);
             PIXEL bg;

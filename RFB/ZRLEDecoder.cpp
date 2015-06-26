@@ -18,7 +18,7 @@ namespace RFB
                 ZRLEDecode<uint16>(block, handle.getBuffer(), buffer, handle);
                 break;
             case 24:
-                throw _NException_Normal("Unsupport ZRLEDecoder pixelSize");
+                throw _HException_Normal("Unsupport ZRLEDecoder pixelSize");
             case 32:
             default:
                 ZRLEDecode<uint32>(block, handle.getBuffer(), buffer, handle);

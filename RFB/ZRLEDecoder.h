@@ -3,7 +3,7 @@
 
 #include "BASE/Honey.h"
 #include "MATH/NRect.h"
-#include "BASE/NBuffer.h"
+#include "BASE/HBuffer.h"
 #include "../RFB/DataHandler.h"
 #include "../RFB/Decoder.h"
 #include "ZlibInBuffer.h"
@@ -20,7 +20,7 @@ namespace RFB
 
     private:
         template <typename PIXEL, int BLOCKSIZE = 64>
-        void ZRLEDecode(const MATH::Rect &blocks, NInBuffer &inBuffer,
+        void ZRLEDecode(const MATH::Rect &blocks, HInBuffer &inBuffer,
                            NBYTE *interBuffer, RFB::DataHandler &handler) {
             MATH::Rect currBlock;
             int length = 0;
@@ -91,7 +91,7 @@ namespace RFB
                                 } while (byte == 255);
 
                                 if (len > endOfBlock - dataPtr) {
-                                    throw _NException_Normal("ZRLEDecode Error!");
+                                    throw _HException_Normal("ZRLEDecode Error!");
                                 }
 
                                 while (len-- > 0) *dataPtr++ = pix;
@@ -111,7 +111,7 @@ namespace RFB
                                     } while (byte == 255);
 
                                     if (len > endOfBlock - dataPtr) {
-                                        throw _NException_Normal("ZRLEDecode Error!");
+                                        throw _HException_Normal("ZRLEDecode Error!");
                                     }
                                 }
 

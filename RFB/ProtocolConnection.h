@@ -33,8 +33,8 @@ namespace RFB
         void process();
         bool isCloseed() { return closed_; }
 
-        NInBuffer &getInBuffer() { return inBuffer_; }
-        NOutBuffer &getOutBuffer() { return outBuffer_; }
+        HInBuffer &getInBuffer() { return inBuffer_; }
+        HOutBuffer &getOutBuffer() { return outBuffer_; }
 
     private:
         void initialize();
