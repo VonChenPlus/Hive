@@ -10,6 +10,9 @@ int main(int argc, char *argv[])
 #if defined(Q_OS_LINUX) && !defined(MAEMO)
     QApplication::setAttribute(Qt::AA_X11InitThreads, true);
 #endif
+    RFB::ProtocolConnection rfb("192.168.1.103", 5900);
+    while (true)
+        rfb.process();
 
     QApplication a(argc, argv);
 

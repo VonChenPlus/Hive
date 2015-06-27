@@ -20,7 +20,7 @@ namespace RFB
     private:
         template <typename PIXEL, int BLOCKSIZE = 16>
         void rawDecode(const MATH::Rect &blocks, HInBuffer &inBuffer,
-                           NBYTE *interBuffer, RFB::DataHandler &handler) {
+                           HBYTE *interBuffer, RFB::DataHandler &handler) {
             MATH::Rect currBlock;
 
             for (currBlock.topLeft.y = blocks.topLeft.y; currBlock.topLeft.y < blocks.bottomRight.y; currBlock.topLeft.y += BLOCKSIZE) {

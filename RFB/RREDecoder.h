@@ -21,20 +21,20 @@ namespace RFB
         template <typename PIXEL>
         void rreDecode(const MATH::Rect &blocks, HInBuffer &inBuffer, RFB::DataHandler &handler) {
             int nSubrects = 0;
-            inBuffer.readAny(sizeof(int), &nSubrects);
+            inBuffer.readOne(&nSubrects);
             PIXEL bg;
-            inBuffer.readAny(sizeof(PIXEL), &bg);
+            inBuffer.readOne(&bg);
             handler.handleFill(blocks, bg);
 
             for (int index = 0; index < nSubrects; ++index) {
                 PIXEL pix;
                 MATH::Rect currBlock;
-                inBuffer.readAny(sizeof(PIXEL), &pix);
-                int xPos, yPos, width, height;
-                inBuffer.readAny(sizeof(uint16), &xPos);
-                inBuffer.readAny(sizeof(uint16), &yPos);
-                inBuffer.readAny(sizeof(uint16), &width);
-                inBuffer.readAny(sizeof(uint16), &height);
+                inBuffer.readOne(&pix);
+                uint16 xPos, yPos, width, height;
+                inBuffer.readOne(&xPos);
+                inBuffer.readOne(&yPos);
+                inBuffer.readOne(&width);
+                inBuffer.readOne(&height);
                 currBlock.setRect(xPos, yPos, width, height);
                 handler.handleFill(currBlock, pix);
             }

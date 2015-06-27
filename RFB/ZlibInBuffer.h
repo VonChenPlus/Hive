@@ -12,7 +12,7 @@ namespace RFB
         ZlibInBuffer(HInBuffer *inBuffer);
         ~ZlibInBuffer();
 
-        void read(Size length, NBYTE *dest, bool wait = true) override;
+        void read(Size length, HBYTE *dest, bool wait = true);
 
     private:
         void fillBuffer(Size length, bool wait = true);

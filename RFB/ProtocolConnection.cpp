@@ -189,7 +189,7 @@ namespace RFB
 
         switch (result) {
         case secResultOK:
-
+            // TODO
             break;
         case secResultFailed:
         case secResultTooMany:
@@ -200,7 +200,7 @@ namespace RFB
             }
             else {
                 uint32 errorLen = 0;
-                inBuffer_.readAny(sizeof(errorLen), &errorLen);
+                inBuffer_.readOne(&errorLen);
                 errorMsg.resize(errorLen + 1);
                 inBuffer_.readAny(errorLen, &errorMsg[0]);
             }

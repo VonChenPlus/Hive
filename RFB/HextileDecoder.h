@@ -31,7 +31,7 @@ namespace RFB
 
         template <typename PIXEL, int BLOCKSIZE = 16>
         void hextileDecode(const MATH::Rect &blocks, HInBuffer &inBuffer,
-                           NBYTE *interBuffer, RFB::DataHandler &handler) {
+                           HBYTE *interBuffer, RFB::DataHandler &handler) {
             MATH::Rect currBlock;
             PIXEL bg = 0;
             PIXEL fg = 0;
@@ -43,7 +43,7 @@ namespace RFB
                     currBlock.bottomRight.x = std::min(blocks.bottomRight.x, currBlock.topLeft.x + BLOCKSIZE);
 
                     int tileType = 0;
-                    inBuffer.readAny(sizeof(int), &tileType);
+                    inBuffer.readOne(&tileType);
                     if (tileType & HEXTILERAW) {
                         inBuffer.readAny(currBlock.area() * sizeof(PIXEL), interBuffer);
                         handler.handleImage(currBlock, interBuffer);
@@ -51,26 +51,26 @@ namespace RFB
                     }
 
                     if (tileType & HEXTILEBGSPECIFIED)
-                        inBuffer.readAny(sizeof(PIXEL), &bg);
+                        inBuffer.readOne(&bg);
 
                     int area = currBlock.area();
                     PIXEL *dataPtr = (PIXEL *)interBuffer;
                     while (area-- > 0) *dataPtr++ = bg;
 
                     if (tileType & HEXTILEFGSPECIFIED)
-                        inBuffer.readAny(sizeof(PIXEL), &fg);
+                        inBuffer.readOne(&fg);
 
                     if (tileType & HEXTILEANYSUBRECTS) {
                         int nSubrects = 0;
-                        inBuffer.readAny(sizeof(int), &nSubrects);
+                        inBuffer.readOne(&nSubrects);
 
                         for (int i = 0; i < nSubrects; i++) {
                             if (tileType & HEXTILESUBRECTSCOLOURED)
-                                inBuffer.readAny(sizeof(PIXEL), &fg);
+                                inBuffer.readOne(&fg);
 
                             int xy, wh;
-                            inBuffer.readAny(sizeof(int), &xy);
-                            inBuffer.readAny(sizeof(int), &wh);
+                            inBuffer.readOne(&xy);
+                            inBuffer.readOne(&wh);
                             int x = ((xy >> 4) & 0xF);
                             int y = (xy & 0xF);
                             int w = ((wh >> 4) & 0xF) + 1;
