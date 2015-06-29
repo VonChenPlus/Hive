@@ -41,5 +41,10 @@ namespace RFB
     bool ProtocolInfo::afterVersion(int major, int minor) {
         return !beforeVersion(major, minor);
     }
+
+    void ProtocolInfo::setDesktopSize(uint16 width, uint16 height) {
+        width_ = width;
+        height_ = height;
+    }
 }
 

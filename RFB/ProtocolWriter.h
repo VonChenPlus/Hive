@@ -3,11 +3,18 @@
 
 namespace RFB
 {
+    class ProtocolConnection;
+
     class ProtocolWriter
     {
     public:
-        ProtocolWriter();
+        ProtocolWriter(ProtocolConnection &connection);
         ~ProtocolWriter();
+
+        void initClient(bool shared);
+
+    private:
+        ProtocolConnection &connection_;
     };
 }
 

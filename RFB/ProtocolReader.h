@@ -3,11 +3,17 @@
 
 namespace RFB
 {
+    class ProtocolConnection;
+
     class ProtocolReader
     {
     public:
-        ProtocolReader();
+        ProtocolReader(ProtocolConnection &connection);
         ~ProtocolReader();
+
+        void readServerInitInfo();
+    private:
+        ProtocolConnection &connection_;
     };
 }
 

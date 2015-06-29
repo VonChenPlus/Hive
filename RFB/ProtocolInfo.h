@@ -2,6 +2,7 @@
 #define PROTOCOLINFO_H
 
 #include "BASE/Honey.h"
+#include "PixelFormat.h"
 
 namespace RFB
 {
@@ -21,9 +22,22 @@ namespace RFB
         int majorVersion() { return majorVersion_; }
         int minorVerison() { return minorVersion_; }
 
+        void setDesktopSize(uint16 width, uint16 height);
+
+        void setPixelFormat(const PixelFormat &format) { pixelFormat_ = format; }
+
+        void setName(const std::string name) { name_ = name; }
+
     private:
         int majorVersion_;
         int minorVersion_;
+
+        uint16 width_;
+        uint16 height_;
+
+        PixelFormat pixelFormat_;
+
+        std::string name_;
     };
 }
 

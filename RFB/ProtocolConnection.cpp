@@ -17,8 +17,6 @@ namespace RFB
     }
 
     ProtocolConnection::~ProtocolConnection() {
-        delete securityHandler_;
-        securityHandler_ = NULLPTR;
     }
 
     void ProtocolConnection::process() {
@@ -36,6 +34,7 @@ namespace RFB
             processSecurityResult();
             break;
         case INITIALISATION:
+            processInit();
             break;
         case NORMAL:
             break;
@@ -49,12 +48,11 @@ namespace RFB
     void ProtocolConnection::initialize() {
         serverName_ = sock_.getPeerEndpoint();
         useProtocol3_3 = false;
+        shared_ = false;
 
         // - Set which auth schemes we support, in order of preference
         addSecType(secTypeVncAuth);
         addSecType(secTypeNone);
-
-        securityHandler_ = NULLPTR;
 
         protocolState_ = PROTOCOL_VERSION;
     }
@@ -63,12 +61,12 @@ namespace RFB
         secTypes_.push_back(secType);
     }
 
-    ProtocolSecurity *ProtocolConnection::getSecHandler(SecurityType secType) {
+    std::shared_ptr<ProtocolSecurity> ProtocolConnection::getSecHandler(SecurityType secType) {
         switch (secType) {
           case secTypeNone:
-            return new ProtocolSecurityNone();
+            return std::make_shared<ProtocolSecurityNone>();
           case secTypeVncAuth:
-            return new ProtocolSecurityVncAuth(NULLPTR);
+            return std::make_shared<ProtocolSecurityVncAuth>((UserPasswdGetter *)NULLPTR);
           default:
             throw _HException_Normal("Unsupported secType?");
         }
@@ -156,7 +154,7 @@ namespace RFB
             // Inform the server of our decision
             if (secType != secTypeInvalid) {
                 outBuffer_.writeAny(sizeof(uint8), &secType);
-                outBuffer_.flushBuffer(sizeof(uint8));
+                outBuffer_.flushBuffer();
             }
         }
 
@@ -189,11 +187,14 @@ namespace RFB
 
         switch (result) {
         case secResultOK:
-            // TODO
+            protocolState_ = INITIALISATION;
+            writer_ = std::make_shared<ProtocolWriter>(*this);
+            reader_ = std::make_shared<ProtocolReader>(*this);
+            writer_->initClient(shared_);
             break;
         case secResultFailed:
         case secResultTooMany:
-        default: {
+        default:
             std::string errorMsg;
             if (protocolInfo_.beforeVersion(3, 8)) {
                 errorMsg = "Authentication failure";
@@ -207,6 +208,9 @@ namespace RFB
             protocolState_ = INVALID;
             throw _HException_Normal(errorMsg);
         }
-        }
+    }
+
+    void ProtocolConnection::processInit() {
+        reader_->readServerInitInfo();
     }
 }
