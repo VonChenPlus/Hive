@@ -188,9 +188,6 @@ namespace RFB
         switch (result) {
         case secResultOK:
             protocolState_ = INITIALISATION;
-            writer_ = std::make_shared<ProtocolWriter>(*this);
-            reader_ = std::make_shared<ProtocolReader>(*this);
-            writer_->initClient(shared_);
             break;
         case secResultFailed:
         case secResultTooMany:
@@ -211,6 +208,10 @@ namespace RFB
     }
 
     void ProtocolConnection::processInit() {
+        writer_ = std::make_shared<ProtocolWriter>(*this);
+        reader_ = std::make_shared<ProtocolReader>(*this);
+        writer_->initClient(shared_);
         reader_->readServerInitInfo();
+        protocolState_ = NORMAL;
     }
 }

@@ -25,8 +25,10 @@ namespace RFB
         void setDesktopSize(uint16 width, uint16 height);
 
         void setPixelFormat(const PixelFormat &format) { pixelFormat_ = format; }
+        const PixelFormat &getPixelFormat() { return pixelFormat_; }
 
         void setName(const std::string name) { name_ = name; }
+        const std::string &getName() { return name_; }
 
     private:
         int majorVersion_;

@@ -36,4 +36,18 @@ namespace RFB
         blueShift_ = buffer.readOne<uint8>();
         buffer.skip(3);
     }
+
+    void PixelFormat::write(HOutBuffer &buffer) {
+        buffer.writeOne(&bitsPer_);
+        buffer.writeOne(&depth_);
+        buffer.writeOne(&bigEndian_);
+        buffer.writeOne(&trueColor_);
+        buffer.writeOne(&redMax_);
+        buffer.writeOne(&greenMax_);
+        buffer.writeOne(&blueMax_);
+        buffer.writeOne(&redShift_);
+        buffer.writeOne(&greenShift_);
+        buffer.writeOne(&blueShift_);
+        buffer.pad(3);
+    }
 }

@@ -27,7 +27,7 @@ namespace RFB
         INVALID
     };
 
-    class ProtocolConnection
+    class ProtocolConnection final
     {
     public:
         ProtocolConnection(const char *host, int port);

@@ -5,7 +5,15 @@ namespace RFB
 {
     class ProtocolConnection;
 
-    class ProtocolReader
+    enum MessageForRead
+    {
+        FramebufferUpdate = 0,
+        SetColorMapEntries = 1,
+        Bell = 2,
+        ServerCutText = 3
+    };
+
+    class ProtocolReader final
     {
     public:
         ProtocolReader(ProtocolConnection &connection);

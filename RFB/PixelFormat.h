@@ -16,6 +16,7 @@ namespace RFB
         bool equal(const PixelFormat& other) const;
 
         void read(HInBuffer &buffer);
+        void write(HOutBuffer &buffer);
 
     private:
         uint8 bitsPer_;
