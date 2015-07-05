@@ -11,16 +11,16 @@ namespace RFB
     }
 
     void RREDecoder::readRect(const MATH::Rect &block, DataHandler &handle) {
-        switch (handle.pixelSize()) {
+        switch (handle.getPixelSize()) {
             case 8:
-                rreDecode<uint8>(block, handle.getBuffer(), handle);
+                rreDecode<uint8>(block, handle.getInBuffer(), handle);
                 break;
             case 16:
-                rreDecode<uint16>(block, handle.getBuffer(), handle);
+                rreDecode<uint16>(block, handle.getInBuffer(), handle);
                 break;
             case 32:
             default:
-                rreDecode<uint32>(block, handle.getBuffer(), handle);
+                rreDecode<uint32>(block, handle.getInBuffer(), handle);
                 break;
         }
     }

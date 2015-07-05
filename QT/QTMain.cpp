@@ -4,13 +4,16 @@
 
 #include "BASE/NativeApp.h"
 #include "../RFB/ProtocolConnection.h"
+#include "../RFB/DataHandler.h"
 
 int main(int argc, char *argv[])
 {
 #if defined(Q_OS_LINUX) && !defined(MAEMO)
     QApplication::setAttribute(Qt::AA_X11InitThreads, true);
 #endif
-    RFB::ProtocolConnection rfb("192.168.1.103", 5900);
+
+    RFB::DataHandler *handler = NULLPTR;
+    RFB::ProtocolConnection rfb("192.168.1.103", 5900, *handler);
     while (true)
         rfb.process();
 

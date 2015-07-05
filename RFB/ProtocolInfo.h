@@ -3,6 +3,7 @@
 
 #include "BASE/Honey.h"
 #include "PixelFormat.h"
+#include "MATH/HRect.h"
 
 namespace RFB
 {
@@ -23,9 +24,10 @@ namespace RFB
         int minorVerison() { return minorVersion_; }
 
         void setDesktopSize(uint16 width, uint16 height);
+        MATH::Rect getDesktopSize() { return MATH::Rect(0, 0, width_, height_); }
 
         void setPixelFormat(const PixelFormat &format) { pixelFormat_ = format; }
-        const PixelFormat &getPixelFormat() { return pixelFormat_; }
+        PixelFormat &getPixelFormat() { return pixelFormat_; }
 
         void setName(const std::string name) { name_ = name; }
         const std::string &getName() { return name_; }

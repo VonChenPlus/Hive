@@ -4,7 +4,7 @@
 #include <algorithm>
 
 #include "BASE/Honey.h"
-#include "MATH/NRect.h"
+#include "MATH/HRect.h"
 #include "BASE/HBuffer.h"
 #include "../RFB/DataHandler.h"
 #include "../RFB/Decoder.h"

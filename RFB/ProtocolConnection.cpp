@@ -5,11 +5,12 @@ using UTILS::STRING::StringFromFormat;
 
 namespace RFB
 {
-    ProtocolConnection::ProtocolConnection(const char *host, int port)
+    ProtocolConnection::ProtocolConnection(const char *host, int port, DataHandler &dataHandler)
         : closed_(false)
         , sock_(host, port)
         , inBuffer_(sock_.getSock())
-        , outBuffer_(sock_.getSock()) {
+        , outBuffer_(sock_.getSock())
+        , dataHandler_(dataHandler) {
         if (!TCPSocket::isConnected(sock_.getSock())) {
             throw _HException_Normal("RFB Protocol Connect Failed!");
         }

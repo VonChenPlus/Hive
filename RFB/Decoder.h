@@ -1,7 +1,7 @@
 #ifndef DECODER_H
 #define DECODER_H
 
-#include "MATH/NRect.h"
+#include "MATH/HRect.h"
 #include "../RFB/DataHandler.h"
 
 namespace RFB

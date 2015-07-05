@@ -12,6 +12,7 @@
 #include "ProtocolSecurity.h"
 #include "ProtocolWriter.h"
 #include "ProtocolReader.h"
+#include "DataHandler.h"
 
 namespace RFB
 {
@@ -30,7 +31,7 @@ namespace RFB
     class ProtocolConnection final
     {
     public:
-        ProtocolConnection(const char *host, int port);
+        ProtocolConnection(const char *host, int port, DataHandler &dataHandler);
         ~ProtocolConnection();
 
         void process();
@@ -40,6 +41,8 @@ namespace RFB
         HOutBuffer &getOutBuffer() { return outBuffer_; }
 
         ProtocolInfo &getProtocolInfo() { return protocolInfo_; }
+
+        DataHandler &getDataHandler() { return dataHandler_; }
 
     private:
         void initialize();
@@ -71,6 +74,8 @@ namespace RFB
 
         ProtocolState protocolState_;
         ProtocolInfo protocolInfo_;
+
+        DataHandler &dataHandler_;
     };
 }
 
