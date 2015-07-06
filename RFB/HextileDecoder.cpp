@@ -4,6 +4,10 @@
 
 namespace RFB
 {
+    Decoder* HextileDecoder::Create() {
+        return new HextileDecoder();
+    }
+
     HextileDecoder::HextileDecoder() {
     }
 

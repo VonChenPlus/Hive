@@ -4,6 +4,10 @@
 
 namespace RFB
 {
+    Decoder* RawDecoder::Create() {
+        return new RawDecoder();
+    }
+
     RawDecoder::RawDecoder() {
 
     }

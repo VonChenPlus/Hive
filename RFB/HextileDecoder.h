@@ -14,12 +14,14 @@ namespace RFB
     class HextileDecoder final : public Decoder
     {
     public:
-        HextileDecoder();
+        static Decoder* Create();
         ~HextileDecoder();
 
         void readRect(const MATH::Rect &block, DataHandler &handle) override;
 
     private:
+        HextileDecoder();
+
         enum HEXTILETYPE : int
         {
             HEXTILERAW = 1 << 0,

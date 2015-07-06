@@ -12,12 +12,14 @@ namespace RFB
     class RawDecoder final : public Decoder
     {
     public:
-        RawDecoder();
+        static Decoder* Create();
         ~RawDecoder();
 
         void readRect(const MATH::Rect &block, DataHandler &handle) override;
 
     private:
+        RawDecoder();
+
         template <typename PIXEL, int BLOCKSIZE = 16>
         void rawDecode(const MATH::Rect &blocks, HInBuffer &inBuffer,
                            HBYTE *interBuffer, RFB::DataHandler &handler) {

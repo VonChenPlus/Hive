@@ -13,12 +13,14 @@ namespace RFB
     class ZRLEDecoder final : public Decoder
     {
     public:
-        ZRLEDecoder();
+        static Decoder* Create();
         ~ZRLEDecoder();
 
         void readRect(const MATH::Rect &block, DataHandler &handle) override;
 
     private:
+        ZRLEDecoder();
+
         template <typename PIXEL, int BLOCKSIZE = 64>
         void ZRLEDecode(const MATH::Rect &blocks, HInBuffer &inBuffer,
                            HBYTE *interBuffer, RFB::DataHandler &handler) {

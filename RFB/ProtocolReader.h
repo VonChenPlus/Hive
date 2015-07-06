@@ -4,7 +4,8 @@
 #include "BASE/Honey.h"
 #include "MATH/Point.h"
 #include "MATH/HRect.h"
-#include "Encoder.h"
+#include "DataHandler.h"
+#include "Decoder.h"
 
 namespace RFB
 {
@@ -35,6 +36,8 @@ namespace RFB
     private:
         ProtocolConnection &connection_;
         int updateRectsLeft_;
+
+        Decoder *decoder_[encodingMax + 1];
     };
 }
 

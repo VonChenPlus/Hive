@@ -2,6 +2,10 @@
 
 namespace RFB
 {
+    Decoder* RREDecoder::Create() {
+        return new RREDecoder();
+    }
+
     RREDecoder::RREDecoder() {
 
     }

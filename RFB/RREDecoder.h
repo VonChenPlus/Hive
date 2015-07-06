@@ -12,12 +12,14 @@ namespace RFB
     class RREDecoder final : public Decoder
     {
     public:
-        RREDecoder();
+        static Decoder* Create();
         ~RREDecoder();
 
         void readRect(const MATH::Rect &block, DataHandler &handle) override;
 
     private:
+        RREDecoder();
+
         template <typename PIXEL>
         void rreDecode(const MATH::Rect &blocks, HInBuffer &inBuffer, RFB::DataHandler &handler) {
             int nSubrects = 0;

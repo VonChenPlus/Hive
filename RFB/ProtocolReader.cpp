@@ -110,9 +110,13 @@ namespace RFB
         default:
             if (encoding > encodingMax)
                 throw _HException_Normal("Unknown rect encoding");
-            // TODO
+            if (!decoder_[encoding])
+                decoder_[encoding] = Decoder::CraeteDecoder(encoding);
+            decoder_[encoding]->readRect(rect, dataHandler);
             break;
         }
+
+        dataHandler.endRect(rect, encoding);
     }
 
     void ProtocolReader::readCopyRect(const MATH::Rect rect) {

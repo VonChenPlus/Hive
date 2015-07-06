@@ -2,6 +2,10 @@
 
 namespace RFB
 {
+    Decoder* ZRLEDecoder::Create() {
+        return new ZRLEDecoder();
+    }
+
     ZRLEDecoder::ZRLEDecoder() {
     }
 
