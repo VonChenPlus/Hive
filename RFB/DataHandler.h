@@ -4,7 +4,7 @@
 #include "BASE/Honey.h"
 #include "MATH/HRect.h"
 #include "BASE/HBuffer.h"
-#include "MATH/Point.h"
+#include "MATH/Vector.h"
 #include "Encoder.h"
 
 namespace RFB
@@ -37,7 +37,7 @@ namespace RFB
         virtual HInBuffer &getInBuffer() = 0;
 
         virtual void setDesktopSize(uint16 width, uint16 height) = 0;
-        virtual void setCursor(uint16 width, uint16 height, const MATH::Point &hostspot,
+        virtual void setCursor(uint16 width, uint16 height, const MATH::Vector2f &hostspot,
                                const HBYTE *data, const HBYTE *mask) = 0;
 
         virtual void beginRect(const MATH::Rect &rect, Encoding encoding) = 0;

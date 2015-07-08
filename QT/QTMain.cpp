@@ -5,6 +5,7 @@
 #include "BASE/NativeApp.h"
 #include "../RFB/ProtocolConnection.h"
 #include "../RFB/DataHandler.h"
+#include "MATH/MathDef.h"
 
 int main(int argc, char *argv[])
 {

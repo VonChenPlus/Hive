@@ -2,7 +2,7 @@
 #define PROTOCOLREADER_H
 
 #include "BASE/Honey.h"
-#include "MATH/Point.h"
+#include "MATH/Vector.h"
 #include "MATH/HRect.h"
 #include "DataHandler.h"
 #include "Decoder.h"
@@ -29,7 +29,7 @@ namespace RFB
         void readMessage();
 
     private:
-        void readCursor(uint16 width, uint16 height, const MATH::Point &hostpot);
+        void readCursor(uint16 width, uint16 height, const MATH::Vector2f &hostpot);
         void readRect(const MATH::Rect rect, Encoding encoding);
         void readCopyRect(const MATH::Rect rect);
 

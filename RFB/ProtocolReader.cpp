@@ -66,7 +66,7 @@ namespace RFB
                 protocolInfo.setDesktopSize(width, height);
                 break;
             case pseudoEncodingCursor:
-                readCursor(width, height, MATH::Point(xPos, yPos));
+                readCursor(width, height, MATH::Vector2f(xPos, yPos));
                 break;
             default:
                 readRect(MATH::Rect(xPos, yPos, xPos + width, yPos + height), encoding);
@@ -74,7 +74,7 @@ namespace RFB
         }
     }
 
-    void ProtocolReader::readCursor(uint16 width, uint16 height, const MATH::Point &hostpot) {
+    void ProtocolReader::readCursor(uint16 width, uint16 height, const MATH::Vector2f &hostpot) {
         HInBuffer &buffer = connection_.getInBuffer();
         DataHandler &dataHandler = connection_.getDataHandler();
         ProtocolInfo &protocolInfo = connection_.getProtocolInfo();
