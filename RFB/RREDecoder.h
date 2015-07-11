@@ -2,7 +2,7 @@
 #define RREDECODER_H
 
 #include "BASE/Honey.h"
-#include "MATH/HRect.h"
+#include "MATH/Rectangle.h"
 #include "BASE/HBuffer.h"
 #include "../RFB/DataHandler.h"
 #include "../RFB/Decoder.h"
@@ -15,13 +15,13 @@ namespace RFB
         static Decoder* Create();
         ~RREDecoder();
 
-        void readRect(const MATH::Rect &block, DataHandler &handle) override;
+        void readRect(const MATH::Recti &block, DataHandler &handle) override;
 
     private:
         RREDecoder();
 
         template <typename PIXEL>
-        void rreDecode(const MATH::Rect &blocks, HInBuffer &inBuffer, RFB::DataHandler &handler) {
+        void rreDecode(const MATH::Recti &blocks, HInBuffer &inBuffer, RFB::DataHandler &handler) {
             int nSubrects = 0;
             inBuffer.readOne(&nSubrects);
             PIXEL bg;
@@ -30,7 +30,7 @@ namespace RFB
 
             for (int index = 0; index < nSubrects; ++index) {
                 PIXEL pix;
-                MATH::Rect currBlock;
+                MATH::Recti currBlock;
                 inBuffer.readOne(&pix);
                 uint16 xPos, yPos, width, height;
                 inBuffer.readOne(&xPos);

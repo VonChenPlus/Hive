@@ -2,7 +2,7 @@
 #define DATAHANDLER_H
 
 #include "BASE/Honey.h"
-#include "MATH/HRect.h"
+#include "MATH/Rectangle.h"
 #include "BASE/HBuffer.h"
 #include "MATH/Vector.h"
 #include "Encoder.h"
@@ -40,12 +40,12 @@ namespace RFB
         virtual void setCursor(uint16 width, uint16 height, const MATH::Vector2f &hostspot,
                                const HBYTE *data, const HBYTE *mask) = 0;
 
-        virtual void beginRect(const MATH::Rect &rect, Encoding encoding) = 0;
-        virtual void endRect(const MATH::Rect &rect, Encoding encoding) = 0;
-        virtual void copyRect(const MATH::Rect &rect, uint16 srcX, uint16 srcY) = 0;
+        virtual void beginRect(const MATH::Recti &rect, Encoding encoding) = 0;
+        virtual void endRect(const MATH::Recti &rect, Encoding encoding) = 0;
+        virtual void copyRect(const MATH::Recti &rect, uint16 srcX, uint16 srcY) = 0;
 
-        virtual void handleImage(const MATH::Rect &block, HBYTE *buffer) = 0;
-        virtual void handleFill(const MATH::Rect &block, int buffer) = 0;
+        virtual void handleImage(const MATH::Recti &block, HBYTE *buffer) = 0;
+        virtual void handleFill(const MATH::Recti &block, int buffer) = 0;
 
     protected:
         size_t pixelSize_;

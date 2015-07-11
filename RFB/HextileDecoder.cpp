@@ -14,7 +14,7 @@ namespace RFB
     HextileDecoder::~HextileDecoder() {
     }
 
-    void HextileDecoder::readRect(const MATH::Rect &block, DataHandler &handle) {
+    void HextileDecoder::readRect(const MATH::Recti &block, DataHandler &handle) {
         HBYTE buffer[16 * 16 * 4];
         switch (handle.getPixelSize()) {
             case 8:

@@ -2,7 +2,7 @@
 #define RAWDECODER_H
 
 #include "BASE/Honey.h"
-#include "MATH/HRect.h"
+#include "MATH/Rectangle.h"
 #include "BASE/HBuffer.h"
 #include "../RFB/DataHandler.h"
 #include "../RFB/Decoder.h"
@@ -15,15 +15,15 @@ namespace RFB
         static Decoder* Create();
         ~RawDecoder();
 
-        void readRect(const MATH::Rect &block, DataHandler &handle) override;
+        void readRect(const MATH::Recti &block, DataHandler &handle) override;
 
     private:
         RawDecoder();
 
         template <typename PIXEL, int BLOCKSIZE = 16>
-        void rawDecode(const MATH::Rect &blocks, HInBuffer &inBuffer,
+        void rawDecode(const MATH::Recti &blocks, HInBuffer &inBuffer,
                            HBYTE *interBuffer, RFB::DataHandler &handler) {
-            MATH::Rect currBlock;
+            MATH::Recti currBlock;
 
             for (currBlock.topLeft.y = blocks.topLeft.y; currBlock.topLeft.y < blocks.bottomRight.y; currBlock.topLeft.y += BLOCKSIZE) {
                 currBlock.bottomRight.y = std::min(blocks.bottomRight.y, currBlock.topLeft.y + BLOCKSIZE);

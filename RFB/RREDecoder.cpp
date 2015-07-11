@@ -14,7 +14,7 @@ namespace RFB
 
     }
 
-    void RREDecoder::readRect(const MATH::Rect &block, DataHandler &handle) {
+    void RREDecoder::readRect(const MATH::Recti &block, DataHandler &handle) {
         switch (handle.getPixelSize()) {
             case 8:
                 rreDecode<uint8>(block, handle.getInBuffer(), handle);

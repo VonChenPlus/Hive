@@ -4,7 +4,7 @@
 #include <algorithm>
 
 #include "BASE/Honey.h"
-#include "MATH/HRect.h"
+#include "MATH/Rectangle.h"
 #include "BASE/HBuffer.h"
 #include "../RFB/DataHandler.h"
 #include "../RFB/Decoder.h"
@@ -17,7 +17,7 @@ namespace RFB
         static Decoder* Create();
         ~HextileDecoder();
 
-        void readRect(const MATH::Rect &block, DataHandler &handle) override;
+        void readRect(const MATH::Recti &block, DataHandler &handle) override;
 
     private:
         HextileDecoder();
@@ -32,9 +32,9 @@ namespace RFB
         };
 
         template <typename PIXEL, int BLOCKSIZE = 16>
-        void hextileDecode(const MATH::Rect &blocks, HInBuffer &inBuffer,
+        void hextileDecode(const MATH::Recti &blocks, HInBuffer &inBuffer,
                            HBYTE *interBuffer, RFB::DataHandler &handler) {
-            MATH::Rect currBlock;
+            MATH::Recti currBlock;
             PIXEL bg = 0;
             PIXEL fg = 0;
 

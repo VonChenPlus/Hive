@@ -3,7 +3,7 @@
 
 #include "BASE/Honey.h"
 #include "MATH/Vector.h"
-#include "MATH/HRect.h"
+#include "MATH/Rectangle.h"
 #include "DataHandler.h"
 #include "Decoder.h"
 
@@ -30,8 +30,8 @@ namespace RFB
 
     private:
         void readCursor(uint16 width, uint16 height, const MATH::Vector2f &hostpot);
-        void readRect(const MATH::Rect rect, Encoding encoding);
-        void readCopyRect(const MATH::Rect rect);
+        void readRect(const MATH::Recti rect, Encoding encoding);
+        void readCopyRect(const MATH::Recti rect);
 
     private:
         ProtocolConnection &connection_;

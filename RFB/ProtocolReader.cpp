@@ -69,7 +69,7 @@ namespace RFB
                 readCursor(width, height, MATH::Vector2f(xPos, yPos));
                 break;
             default:
-                readRect(MATH::Rect(xPos, yPos, xPos + width, yPos + height), encoding);
+                readRect(MATH::Recti(xPos, yPos, xPos + width, yPos + height), encoding);
             }
         }
     }
@@ -88,10 +88,10 @@ namespace RFB
         dataHandler.setCursor(width, height, hostpot, data.c_str(), mask.c_str());
     }
 
-    void ProtocolReader::readRect(const MATH::Rect rect, Encoding encoding) {
+    void ProtocolReader::readRect(const MATH::Recti rect, Encoding encoding) {
         ProtocolInfo &protocolInfo = connection_.getProtocolInfo();
         DataHandler &dataHandler = connection_.getDataHandler();
-        MATH::Rect desktopSize = protocolInfo.getDesktopSize();
+        MATH::Recti desktopSize = protocolInfo.getDesktopSize();
 
         if (rect.empty())
             throw _HException_Normal("Warning: zero size rect");
@@ -119,7 +119,7 @@ namespace RFB
         dataHandler.endRect(rect, encoding);
     }
 
-    void ProtocolReader::readCopyRect(const MATH::Rect rect) {
+    void ProtocolReader::readCopyRect(const MATH::Recti rect) {
         HInBuffer &buffer = connection_.getInBuffer();
         DataHandler &dataHandler = connection_.getDataHandler();
 

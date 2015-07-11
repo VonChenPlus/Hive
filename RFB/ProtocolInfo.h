@@ -3,7 +3,7 @@
 
 #include "BASE/Honey.h"
 #include "PixelFormat.h"
-#include "MATH/HRect.h"
+#include "MATH/Rectangle.h"
 
 namespace RFB
 {
@@ -24,7 +24,7 @@ namespace RFB
         int minorVerison() { return minorVersion_; }
 
         void setDesktopSize(uint16 width, uint16 height);
-        MATH::Rect getDesktopSize() { return MATH::Rect(0, 0, width_, height_); }
+        MATH::Recti getDesktopSize() { return MATH::Recti(0, 0, width_, height_); }
 
         void setPixelFormat(const PixelFormat &format) { pixelFormat_ = format; }
         PixelFormat &getPixelFormat() { return pixelFormat_; }

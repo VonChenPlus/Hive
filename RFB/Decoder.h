@@ -1,7 +1,7 @@
 #ifndef DECODER_H
 #define DECODER_H
 
-#include "MATH/HRect.h"
+#include "MATH/Rectangle.h"
 #include "../RFB/DataHandler.h"
 
 namespace RFB
@@ -12,7 +12,7 @@ namespace RFB
         Decoder();
         virtual ~Decoder();
 
-        virtual void readRect(const MATH::Rect &block, DataHandler &handle) = 0;
+        virtual void readRect(const MATH::Recti &block, DataHandler &handle) = 0;
 
         typedef Decoder* (*DecoderCreateFnType)();
         static Decoder *CraeteDecoder(Encoding encoding);
