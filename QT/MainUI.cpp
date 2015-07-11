@@ -24,7 +24,7 @@ using UI::Theme;
 #include "GRAPH/UI/UIContext.h"
 using UI::UIContext;
 #include "MATH/Bounds.h"
-using MATH::Bounds;
+using MATH::Boundsf;
 #include "MATH/Matrix.h"
 using MATH::Matrix4x4;
 #include "GRAPH/THIN3D/Thin3D.h"
@@ -135,7 +135,7 @@ bool MainUI::updateScreenScale(int width, int height) {
         // Modifying the bounds here can be used to "inset" the whole image to gain borders for TV overscan etc.
         // The UI now supports any offset but not the EmuScreen yet.
         if (GLOBAL::_UIContext)
-            GLOBAL::uiContext().setBounds(Bounds(0, 0, GLOBAL::dpXRes(), GLOBAL::dpYRes()));
+            GLOBAL::uiContext().setBounds(Boundsf(0, 0, GLOBAL::dpXRes(), GLOBAL::dpYRes()));
 
         return true;
     }

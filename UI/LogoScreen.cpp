@@ -2,7 +2,7 @@
 #include "GRAPH/UI/UIContext.h"
 #include "GRAPH/UI/ScreenManager.h"
 #include "MATH/Bounds.h"
-using MATH::Bounds;
+using MATH::Boundsf;
 #include "GRAPH/GFX/DrawBuffer.h"
 using GFX::DrawBuffer;
 using GFX::ALIGN_CENTER;
@@ -42,7 +42,7 @@ void LogoScreen::render() {
     UIScreen::render();
     UIContext &dc = *screenManager()->getUIContext();
 
-    const Bounds &bounds = dc.getBounds();
+    const Boundsf &bounds = dc.getBounds();
 
     dc.begin();
     float t = (float)frames_ / 60.0f;
