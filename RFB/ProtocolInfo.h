@@ -32,6 +32,12 @@ namespace RFB
         void setName(const std::string name) { name_ = name; }
         const std::string &getName() { return name_; }
 
+        void supportsLocalCursor(bool support) { supportsLocalCursor_ = support; }
+        bool supportsLocalCursor() { return supportsLocalCursor_; }
+
+        void supportsDesktopResize(bool support) { supportsDesktopResize_ = support; }
+        bool supportsDesktopResize() { return supportsDesktopResize_; }
+
     private:
         int majorVersion_;
         int minorVersion_;
@@ -40,6 +46,9 @@ namespace RFB
         uint16 height_;
 
         PixelFormat pixelFormat_;
+
+        bool supportsLocalCursor_;
+        bool supportsDesktopResize_;
 
         std::string name_;
     };

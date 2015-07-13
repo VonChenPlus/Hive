@@ -29,13 +29,17 @@ namespace RFB
         void readMessage();
 
     private:
+        void readFramebufferUpdate();
+        void readSetColorMapEntries();
+        void readBell();
+        void readServerCutText();
         void readCursor(uint16 width, uint16 height, const MATH::Vector2f &hostpot);
         void readRect(const MATH::Recti rect, Encoding encoding);
         void readCopyRect(const MATH::Recti rect);
 
     private:
         ProtocolConnection &connection_;
-        int updateRectsLeft_;
+        uint16 updateRectsLeft_;
 
         Decoder *decoder_[encodingMax + 1];
     };

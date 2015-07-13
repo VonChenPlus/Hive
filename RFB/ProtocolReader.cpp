@@ -43,12 +43,16 @@ namespace RFB
             MessageForRead type = static_cast<MessageForRead>(buffer.readOne<uint8>());
             switch (type) {
             case FramebufferUpdate :
+                readFramebufferUpdate();
                 break;
             case SetColorMapEntries:
+                readSetColorMapEntries();
                 break;
             case Bell:
+                readBell();
                 break;
             case ServerCutText:
+                readServerCutText();
                 break;
             default:
                 throw _HException_Normal("Unknowd message Type");
@@ -71,6 +75,41 @@ namespace RFB
             default:
                 readRect(MATH::Recti(xPos, yPos, xPos + width, yPos + height), encoding);
             }
+        }
+    }
+
+    void ProtocolReader::readFramebufferUpdate() {
+        HInBuffer &buffer = connection_.getInBuffer();
+
+        buffer.skip(1);
+        updateRectsLeft_ = buffer.readOne<uint16>();
+    }
+
+    void ProtocolReader::readSetColorMapEntries() {
+        throw _HException_Normal("setColourMapEntries called");
+    }
+
+    void ProtocolReader::readBell() {
+        DataHandler &dataHandler = connection_.getDataHandler();
+
+        dataHandler.bell();
+    }
+
+    void ProtocolReader::readServerCutText() {
+        HInBuffer &buffer = connection_.getInBuffer();
+        DataHandler &dataHandler = connection_.getDataHandler();
+
+        buffer.skip(3);
+        uint32 length = buffer.readOne<uint32>();
+        if (length > 256 * 1024) {
+            buffer.skip(length);
+            throw _HException_Normal("cut text too long - ignoring\n");
+        }
+        else {
+            std::string cutText;
+            cutText.resize(length + 1);
+            buffer.readAny(length, &cutText[0]);
+            dataHandler.serverCutText(cutText);
         }
     }
 

@@ -40,6 +40,9 @@ namespace RFB
         virtual void setCursor(uint16 width, uint16 height, const MATH::Vector2f &hostspot,
                                const HBYTE *data, const HBYTE *mask) = 0;
 
+        virtual void bell() = 0;
+        virtual void serverCutText(const std::string &cutText) = 0;
+
         virtual void beginRect(const MATH::Recti &rect, Encoding encoding) = 0;
         virtual void endRect(const MATH::Recti &rect, Encoding encoding) = 0;
         virtual void copyRect(const MATH::Recti &rect, uint16 srcX, uint16 srcY) = 0;

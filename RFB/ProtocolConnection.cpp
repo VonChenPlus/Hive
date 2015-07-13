@@ -211,7 +211,7 @@ namespace RFB
     void ProtocolConnection::processInit() {
         writer_ = std::make_shared<ProtocolWriter>(*this);
         reader_ = std::make_shared<ProtocolReader>(*this);
-        writer_->initClient(shared_);
+        writer_->writeInitClient(shared_);
         reader_->readServerInitInfo();
         protocolState_ = NORMAL;
     }

@@ -2,6 +2,7 @@
 #define PROTOCOLWRITER_H
 
 #include "BASE/Honey.h"
+#include "DataHandler.h"
 
 namespace RFB
 {
@@ -25,9 +26,16 @@ namespace RFB
         ProtocolWriter(ProtocolConnection &connection);
         ~ProtocolWriter();
 
-        void initClient(bool shared);
-        void setPixelFormat(PixelFormat &foramt);
-        void setEncodings(uint16 nEncodings, uint32 *encodings);
+        void writeInitClient(bool shared);
+        void writeSetPixelFormat(PixelFormat &foramt);
+        void writeSetEncodings(Encoding preferredEncoding, bool useCopyRect);
+        void writeFramebufferUpdateRequest(const MATH::Recti& rect, bool incremental);
+        void writeKeyEvent(uint32 key, bool down);
+        void writeMouseEvent(const MATH::Vector2i &pos, uint8 buttonMask);
+        void writeClientCutText(const std::string &cutText);
+
+    private:
+        void writeSetEncodings(uint16 nEncodings, Encoding *encodings);
 
     private:
         ProtocolConnection &connection_;

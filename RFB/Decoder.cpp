@@ -14,6 +14,10 @@ namespace RFB
     Decoder::~Decoder() {
     }
 
+    bool Decoder::Supported(Encoding encoding) {
+        return encoding < encodingMax && DecoderCreateFns[encoding];
+    }
+
     Decoder *Decoder::CraeteDecoder(Encoding encoding) {
         if (encoding < encodingMax && DecoderCreateFns[encoding]) {
             return DecoderCreateFns[encoding]();
