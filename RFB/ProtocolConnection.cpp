@@ -1,6 +1,6 @@
 #include "ProtocolConnection.h"
 using IO::TCPSocket;
-#include "UTILS/STRING/HString.h"
+#include "UTILS/STRING/StringUtils.h"
 using UTILS::STRING::StringFromFormat;
 
 namespace RFB

@@ -3,7 +3,7 @@
 #include "IO/FDInBuffer.h"
 #include "IO/FDOutBuffer.h"
 #include "Encoder.h"
-#include "UTILS/STRING/HString.h"
+#include "UTILS/STRING/StringUtils.h"
 using UTILS::STRING::StringFromFormat;
 
 namespace RFB
