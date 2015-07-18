@@ -38,6 +38,7 @@ namespace RFB
             processInit();
             break;
         case NORMAL:
+            reader_->readMessage();
             break;
         case UNINITIALISED:
             throw _HException_Normal("Protocol not initialised yet!");
