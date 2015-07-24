@@ -26,7 +26,7 @@ using UI::UIContext;
 #include "MATH/Bounds.h"
 using MATH::Boundsf;
 #include "MATH/Matrix.h"
-using MATH::Matrix4x4;
+using MATH::Matrix4;
 #include "GRAPH/THIN3D/Thin3D.h"
 using THIN3D::Thin3DTexture;
 using THIN3D::Thin3DContext;
@@ -231,8 +231,8 @@ void MainUI::updateRunLoop()
     NativeUpdate(inputstate_);
 
     // Apply the UIContext bounds as a 2D transformation matrix.
-    Matrix4x4 ortho;
-    ortho.setOrtho(0.0f, GLOBAL::dpXRes(), GLOBAL::dpYRes(), 0.0f, -1.0f, 1.0f);
+    Matrix4 ortho;
+    Matrix4::createOrthographicOffCenter(0.0f, GLOBAL::dpXRes(), GLOBAL::dpYRes(), 0.0f, -1.0f, 1.0f, &ortho);
     GLOBAL::drawBuffer2D().setDrawMatrix(ortho);
     GLOBAL::drawBuffer2DFront().setDrawMatrix(ortho);
 
