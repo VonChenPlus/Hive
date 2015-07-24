@@ -29,11 +29,11 @@ namespace RFB
             inBuffer.readOne(&length);
             ZlibInBuffer zlibBuffer(&inBuffer);
 
-            for (currBlock.topLeft.y = blocks.topLeft.y; currBlock.topLeft.y < blocks.bottomRight.y; currBlock.topLeft.y += BLOCKSIZE) {
-                currBlock.bottomRight.y = std::min(blocks.bottomRight.y, currBlock.topLeft.y + BLOCKSIZE);
+            for (currBlock.origin.y = blocks.origin.y; currBlock.origin.y < blocks.bottom(); currBlock.origin.y += BLOCKSIZE) {
+                currBlock.bottom(std::min(blocks.bottom(), currBlock.origin.y + BLOCKSIZE));
 
-                for (currBlock.topLeft.x = blocks.topLeft.x; currBlock.topLeft.x < blocks.bottomRight.x; currBlock.topLeft.x += BLOCKSIZE) {
-                    currBlock.bottomRight.x = std::min(blocks.bottomRight.x, currBlock.topLeft.x + BLOCKSIZE);
+                for (currBlock.origin.x = blocks.origin.x; currBlock.origin.x < blocks.right(); currBlock.origin.x += BLOCKSIZE) {
+                    currBlock.right(std::min(blocks.right(), currBlock.origin.x + BLOCKSIZE));
 
                     uint8 mode = 0;
                     zlibBuffer.readOne(&mode);

@@ -6,6 +6,7 @@
 #include "../RFB/ProtocolConnection.h"
 #include "../RFB/DataHandler.h"
 #include "MATH/MathDef.h"
+#include "MATH/Size.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +15,8 @@ int main(int argc, char *argv[])
 #endif
 
     QApplication a(argc, argv);
+
+    MATH::Sizef size;
 
     QSize res = QApplication::desktop()->screenGeometry().size();
     if (res.width() < res.height())

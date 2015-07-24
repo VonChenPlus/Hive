@@ -134,9 +134,9 @@ namespace RFB
 
         if (rect.empty())
             throw _HException_Normal("Warning: zero size rect");
-        if (rect.bottomRight.x > desktopSize.width() || rect.bottomRight.y > desktopSize.height()) {
+        if (rect.right() > desktopSize.width() || rect.bottom() > desktopSize.height()) {
             throw _HException_Normal(StringFromFormat("Rect too big: %dx%d at %d,%d exceeds %dx%d\n",
-                                     rect.width(), rect.height(), rect.topLeft.x, rect.topLeft.y,
+                                     rect.width(), rect.height(), rect.x(), rect.y(),
                                      desktopSize.width(), desktopSize.height()));
         }
 

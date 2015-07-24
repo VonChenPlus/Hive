@@ -62,8 +62,8 @@ namespace RFB
 
         buffer.writeOne(static_cast<uint8>(FramebufferUpdateRequest));
         buffer.writeOne(static_cast<uint8>(incremental));
-        buffer.writeOne(static_cast<uint16>(rect.topLeft.x));
-        buffer.writeOne(static_cast<uint16>(rect.topLeft.y));
+        buffer.writeOne(static_cast<uint16>(rect.x()));
+        buffer.writeOne(static_cast<uint16>(rect.y()));
         buffer.writeOne(static_cast<uint16>(rect.width()));
         buffer.writeOne(static_cast<uint16>(rect.height()));
     }
