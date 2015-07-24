@@ -73,7 +73,7 @@ namespace RFB
                 readCursor(width, height, MATH::Vector2f(xPos, yPos));
                 break;
             default:
-                readRect(MATH::Recti(xPos, yPos, xPos + width, yPos + height), encoding);
+                readRect(MATH::Recti(xPos, yPos, width, height), encoding);
             }
         }
     }
@@ -134,9 +134,9 @@ namespace RFB
 
         if (rect.empty())
             throw _HException_Normal("Warning: zero size rect");
-        if (rect.right() > desktopSize.width() || rect.bottom() > desktopSize.height()) {
+        if (rect.maxX() > desktopSize.width() || rect.maxY() > desktopSize.height()) {
             throw _HException_Normal(StringFromFormat("Rect too big: %dx%d at %d,%d exceeds %dx%d\n",
-                                     rect.width(), rect.height(), rect.x(), rect.y(),
+                                     rect.width(), rect.height(), rect.minX(), rect.minY(),
                                      desktopSize.width(), desktopSize.height()));
         }
 

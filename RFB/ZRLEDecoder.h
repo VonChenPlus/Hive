@@ -24,16 +24,16 @@ namespace RFB
         template <typename PIXEL, int BLOCKSIZE = 64>
         void ZRLEDecode(const MATH::Recti &blocks, HInBuffer &inBuffer,
                            HBYTE *interBuffer, RFB::DataHandler &handler) {
-            MATH::Recti currBlock;
             int length = 0;
             inBuffer.readOne(&length);
             ZlibInBuffer zlibBuffer(&inBuffer);
 
-            for (currBlock.origin.y = blocks.origin.y; currBlock.origin.y < blocks.bottom(); currBlock.origin.y += BLOCKSIZE) {
-                currBlock.bottom(std::min(blocks.bottom(), currBlock.origin.y + BLOCKSIZE));
-
-                for (currBlock.origin.x = blocks.origin.x; currBlock.origin.x < blocks.right(); currBlock.origin.x += BLOCKSIZE) {
-                    currBlock.right(std::min(blocks.right(), currBlock.origin.x + BLOCKSIZE));
+            for (int y = blocks.minY(); y < blocks.maxY(); y += BLOCKSIZE) {
+                for (int x = blocks.minX(); x < blocks.maxX(); x += BLOCKSIZE) {
+                    MATH::Recti currBlock(MATH::Vector2i(x,y),
+                                          MATH::Vector2i(
+                                              std::min(blocks.maxX(), x + BLOCKSIZE)
+                                            , std::min(blocks.maxY(), y + BLOCKSIZE)));
 
                     uint8 mode = 0;
                     zlibBuffer.readOne(&mode);
