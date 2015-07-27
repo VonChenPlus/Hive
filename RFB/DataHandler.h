@@ -31,8 +31,8 @@ namespace RFB
         }
         virtual ~DataHandler() {}
 
-        void setPixelSize(Size pixelSize) { pixelSize_ = pixelSize; }
-        Size getPixelSize() const { return pixelSize_; }
+        void setPixelSize(size_t pixelSize) { pixelSize_ = pixelSize; }
+        size_t getPixelSize() const { return pixelSize_; }
 
         virtual HInBuffer &getInBuffer() = 0;
 

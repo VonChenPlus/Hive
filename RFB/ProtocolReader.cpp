@@ -118,8 +118,8 @@ namespace RFB
         DataHandler &dataHandler = connection_.getDataHandler();
         ProtocolInfo &protocolInfo = connection_.getProtocolInfo();
 
-        Size dataLength = width * height * protocolInfo.getPixelFormat().bitsPer() / 8;
-        Size maskLength = (width + 7) / 8 * height;
+        size_t dataLength = width * height * protocolInfo.getPixelFormat().bitsPer() / 8;
+        size_t maskLength = (width + 7) / 8 * height;
         std::string data; data.resize(dataLength + 1);
         std::string mask; mask.resize(maskLength + 1);
         buffer.readAny(dataLength, &data[0]);
