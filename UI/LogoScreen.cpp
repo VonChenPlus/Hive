@@ -6,7 +6,6 @@ using MATH::Boundsf;
 #include "GRAPH/GFX/DrawBuffer.h"
 using GFX::DrawBuffer;
 using GFX::ALIGN_CENTER;
-#include "UTILS/COLOR/Color.h"
 using UI::InputState;
 using UI::KeyInput;
 using UI::DEVICE_ID_MOUSE;
@@ -58,11 +57,13 @@ void LogoScreen::render() {
 
     char temp[256];
     snprintf(temp, sizeof(temp), "Created by Feng Chen");
-    dc.draw()->drawImage(I_ICON, bounds.centerX() - 80, bounds.centerY() - 30, 1.2f, UTILS::COLOR::ColorAlpha(0xFFFFFFFF, alphaText), ALIGN_CENTER);
-    dc.draw()->drawImage(I_LOGO, bounds.centerX() + 20, bounds.centerY() - 10, 1.2f, UTILS::COLOR::ColorAlpha(0xFFFFFFFF, alphaText), ALIGN_CENTER);
+    GRAPH::Color4B color = 0xFFFFFFFF;
+    color.alpha = alphaText;
+    dc.draw()->drawImage(I_ICON, bounds.centerX() - 80, bounds.centerY() - 30, 1.2f, color, ALIGN_CENTER);
+    dc.draw()->drawImage(I_LOGO, bounds.centerX() + 20, bounds.centerY() - 10, 1.2f, color, ALIGN_CENTER);
     dc.setFontScale(1.0f, 1.0f);
     dc.setFontStyle(dc.theme->uiFont);
-    dc.drawText(temp, bounds.centerX(), bounds.centerY() + 40, UTILS::COLOR::ColorAlpha(0xFFFFFFFF, alphaText), ALIGN_CENTER);
+    dc.drawText(temp, bounds.centerX(), bounds.centerY() + 40, color, ALIGN_CENTER);
 
     dc.end();
     dc.flush();

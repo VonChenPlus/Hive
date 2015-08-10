@@ -124,7 +124,7 @@ namespace RFB
         std::string mask; mask.resize(maskLength + 1);
         buffer.readAny(dataLength, &data[0]);
         buffer.readAny(maskLength, &mask[0]);
-        dataHandler.setCursor(width, height, hostpot, data.c_str(), mask.c_str());
+        dataHandler.setCursor(width, height, hostpot, (const HBYTE *)data.c_str(), (const HBYTE *)mask.c_str());
     }
 
     void ProtocolReader::readRect(const MATH::Recti rect, Encoding encoding) {
