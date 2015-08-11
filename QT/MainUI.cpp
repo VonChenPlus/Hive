@@ -12,7 +12,7 @@ using UI::TOUCH_MOVE;
 using UI::KeyInput;
 using UI::DEVICE_ID_KEYBOARD;
 #include "NKCodeFromQt.h"
-#include "UTILS/TIME/HTime.h"
+#include "UTILS/TIME/TimeUtils.h"
 using UTILS::TIME::TimeUpdate;
 #include "GRAPH/GFX/DrawBuffer.h"
 using GFX::DrawBuffer;
