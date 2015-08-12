@@ -32,8 +32,8 @@ namespace RFB
                 for (int x = blocks.minX(); x < blocks.maxX(); x += BLOCKSIZE) {
                     MATH::Recti currBlock(MATH::Vector2i(x,y),
                                           MATH::Vector2i(
-                                              std::min(blocks.maxX(), x + BLOCKSIZE)
-                                            , std::min(blocks.maxY(), y + BLOCKSIZE)));
+                                              MATH::MATH_MIN(blocks.maxX(), x + BLOCKSIZE)
+                                            , MATH::MATH_MIN(blocks.maxY(), y + BLOCKSIZE)));
 
                     uint8 mode = 0;
                     zlibBuffer.readOne(&mode);

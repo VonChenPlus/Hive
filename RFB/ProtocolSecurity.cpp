@@ -41,7 +41,7 @@ namespace RFB
 
         // Calculate the correct response
         uint8 key[8] = {0};
-        size_t pwdLen = std::min<size_t>(strlen(passwd), 8);
+        size_t pwdLen = MATH::MATH_MIN<size_t>(strlen(passwd), 8);
         for (size_t index = 0; index < pwdLen; ++index) {
             key[index] = passwd[index];
         }
