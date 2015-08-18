@@ -58,7 +58,7 @@ void LogoScreen::render() {
     char temp[256];
     snprintf(temp, sizeof(temp), "Created by Feng Chen");
     GRAPH::Color4B color = 0xFFFFFFFF;
-    color.alpha = alphaText;
+    color = GRAPH::Color4B::ColorAlpha(color, alphaText);
     dc.draw()->drawImage(I_ICON, bounds.centerX() - 80, bounds.centerY() - 30, 1.2f, color, ALIGN_CENTER);
     dc.draw()->drawImage(I_LOGO, bounds.centerX() + 20, bounds.centerY() - 10, 1.2f, color, ALIGN_CENTER);
     dc.setFontScale(1.0f, 1.0f);
