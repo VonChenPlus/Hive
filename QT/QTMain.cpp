@@ -7,6 +7,34 @@
 #include "../RFB/DataHandler.h"
 #include "MATH/MathDef.h"
 #include "MATH/Size.h"
+#include "GRAPH/BASE/Application.h"
+#include "GRAPH/BASE/Director.h"
+#include "GRAPH/RENDERER/GLView.h"
+
+class  AppDelegate : private GRAPH::Application
+{
+public:
+    AppDelegate();
+    virtual ~AppDelegate();
+
+    virtual bool applicationDidFinishLaunching() {
+        // initialize director
+        auto director = GRAPH::Director::getInstance();
+        auto glview = director->getOpenGLView();
+        if(!glview) {
+            glview = GRAPH::GLViewImpl::create("Cpp Tests");
+            director->setOpenGLView(glview);
+        }
+    }
+
+    virtual void applicationDidEnterBackground() {
+
+    }
+
+    virtual void applicationWillEnterForeground() {
+
+    }
+};
 
 int main(int argc, char *argv[])
 {
