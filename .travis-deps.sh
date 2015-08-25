@@ -9,6 +9,6 @@ if [ "$TRAVIS_OS_NAME" = "linux" -o -z "$TRAVIS_OS_NAME" ]; then
     sudo add-apt-repository ppa:ubuntu-sdk-team/ppa -y
     sudo apt-get -qq update
     sudo apt-get -qq install qt5-qmake qtbase5-dev qtdeclarative5-dev
-    sudo apt-get -qq install g++-4.9 xorg-dev libglu1-mesa-dev libxcursor-dev libc6-dev-amd64
+    sudo apt-get -qq install g++-4.9 xorg-dev libglu1-mesa-dev libxcursor-dev libc6-dev
     sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90
 fi
