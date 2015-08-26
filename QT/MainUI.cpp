@@ -65,6 +65,13 @@ namespace GLOBAL
 MainUI::MainUI(QWidget *parent)
     : QGLWidget(parent) {
 
+    //QGLContext *glcontext = context();
+    //QGLFormat format = glcontext->format();
+    //int redbits = format.redBufferSize();
+    //int bluebits = format.blueBufferSize();
+    //int greenbits = format.greenBufferSize();
+    //int depthbits = format.depthBufferSize();
+    //int redbits = format.stencilBufferSize();
     setAttribute(Qt::WA_AcceptTouchEvents);
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     setAttribute(Qt::WA_LockLandscapeOrientation);

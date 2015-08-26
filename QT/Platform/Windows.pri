@@ -7,6 +7,4 @@ INCLUDEPATH += $$P
 	LIBS += -lwinmm -lws2_32 -lShell32 -lAdvapi32
         win32:CONFIG(release, debug|release): LIBS += $$P/Honey/release/Honey.lib
         else:win32:CONFIG(debug, debug|release): LIBS += $$P/Honey/debug/Honey.lib
-        LIBS += $$P/Honey/EXTERNALS/freetype2/library/windows/freetype26.lib
-        LIBS += $$P/Honey/EXTERNALS/glfw/library/windows/glfw3.lib
 }

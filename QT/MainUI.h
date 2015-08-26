@@ -2,11 +2,9 @@
 #define MAINUI_H
 
 #include "EXTERNALS/glew/GL/glew.h"
-
 #include <QTouchEvent>
 #include <QMouseEvent>
 #include <QGLWidget>
-
 #include "GRAPH/UI/InputState.h"
 
 class MainUI final : public QGLWidget
