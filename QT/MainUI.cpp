@@ -16,7 +16,6 @@ using UI::DEVICE_ID_KEYBOARD;
 using UTILS::TIME::TimeUpdate;
 #include "GRAPH/GFX/DrawBuffer.h"
 using GFX::DrawBuffer;
-#include "GRAPH/GFX/Texture2D.h"
 using GFX::Atlas;
 using GFX::AtlasImage;
 #include "GRAPH/UI/Theme.h"
