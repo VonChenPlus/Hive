@@ -34,7 +34,7 @@ namespace RFB
         conn.getInBuffer().readAny(vncAuthChallengeSize, challenge);
 
         char *passwd;
-        pwdGetter_->getUserPasswd(NULLPTR, &passwd);
+        pwdGetter_->getUserPasswd(nullptr, &passwd);
 
         if (!passwd)
             throw _HException_Normal("UnHandler Exception!");

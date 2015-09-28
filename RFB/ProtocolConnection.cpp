@@ -68,7 +68,7 @@ namespace RFB
           case secTypeNone:
             return std::make_shared<ProtocolSecurityNone>();
           case secTypeVncAuth:
-            return std::make_shared<ProtocolSecurityVncAuth>((UserPasswdGetter *)NULLPTR);
+            return std::make_shared<ProtocolSecurityVncAuth>((UserPasswdGetter *)nullptr);
           default:
             throw _HException_Normal("Unsupported secType?");
         }

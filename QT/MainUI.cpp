@@ -218,7 +218,7 @@ void MainUI::initializeGL()
     GLOBAL::uiContext().init(&GLOBAL::thin3DContext(),
         GLOBAL::thin3DContext().getShaderSetPreset(T3DShaderSetPreset::SS_TEXTURE_COLOR_2D),
         GLOBAL::thin3DContext().getShaderSetPreset(T3DShaderSetPreset::SS_COLOR_2D),
-        NULLPTR, &GLOBAL::drawBuffer2D(), &GLOBAL::drawBuffer2DFront(), new QTTextDrawer(&GLOBAL::thin3DContext()));
+        nullptr, &GLOBAL::drawBuffer2D(), &GLOBAL::drawBuffer2DFront(), new QTTextDrawer(&GLOBAL::thin3DContext()));
     if (GLOBAL::uiContext().text())
         GLOBAL::uiContext().text()->setFont("Tahoma", 20, 0);
 
