@@ -5,7 +5,6 @@
 #include <QTouchEvent>
 #include <QMouseEvent>
 #include <QGLWidget>
-#include "GRAPH/UI/InputState.h"
 
 class MainUI final : public QGLWidget
 {
@@ -18,15 +17,7 @@ signals:
     void doubleClick();
     void newFrame();
 
-protected:
-    void resizeEvent(QResizeEvent * e)
-    {
-        updateScreenScale(e->size().width(), e->size().height());
-    }
-
 private:
-    bool updateScreenScale(int width, int height);
-
     void timerEvent(QTimerEvent *) {
         updateGL();
         emit newFrame();
@@ -38,9 +29,6 @@ private:
     void paintGL() override;
 
     void updateRunLoop();
-
-private:
-    UI::InputState inputstate_;
 };
 
 #endif // MAINUI_H
