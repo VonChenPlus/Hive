@@ -1,4 +1,7 @@
 #include "MainUI.h"
+#include "BASE/AutoreleasePool.h"
+#include "GRAPH/Director.h"
+#include "GRAPH/RenderView.h"
 
 MainUI::MainUI(QWidget *parent)
     : QGLWidget(parent) {
@@ -40,6 +43,13 @@ bool MainUI::event(QEvent *e) {
 
 void MainUI::initializeGL() {
     glewInit();
+    auto renderView = new(std::nothrow) GRAPH::RenderView();
+    renderView->setFrameSize(this->width(), this->height());
+    renderView->autorelease();
+
+    GRAPH::Director::getInstance().setRenderView(renderView);
+    GRAPH::Director::getInstance().getRenderView()->setDesignResolutionSize(this->width(), this->height(), GRAPH::ResolutionPolicy::SHOW_ALL);
+
 }
 
 void MainUI::paintGL() {
@@ -47,4 +57,6 @@ void MainUI::paintGL() {
 }
 
 void MainUI::updateRunLoop() {
+    GRAPH::Director::getInstance().mainLoop();
+    PoolManager::getInstance().getCurrentPool()->clear();
 }
