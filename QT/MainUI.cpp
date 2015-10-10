@@ -2,12 +2,12 @@
 #include "BASE/AutoreleasePool.h"
 #include "GRAPH/Director.h"
 #include "GRAPH/RenderView.h"
-#include "GRAPH\UI\Layer.h"
-#include "GRAPH\Scene.h"
-#include "GRAPH\Director.h"
-#include "GRAPH\RenderView.h"
-#include "GRAPH\UI\CONTROLS\Label.h"
-#include "GRAPH\Sprite.h"
+#include "GRAPH/UI/Layer.h"
+#include "GRAPH/Scene.h"
+#include "GRAPH/Director.h"
+#include "GRAPH/RenderView.h"
+#include "GRAPH/UI/CONTROLS/Label.h"
+#include "GRAPH/Sprite.h"
 
 namespace GRAPH
 {
