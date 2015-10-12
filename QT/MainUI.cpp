@@ -8,6 +8,7 @@
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UI/CONTROLS/Label.h"
 #include "GRAPH/Sprite.h"
+#include "GRAPH/RENDERER/Texture2D.h"
 
 namespace GRAPH
 {
@@ -22,7 +23,7 @@ namespace GRAPH
 
             auto visibleSize = Director::getInstance().getRenderView()->getVisibleSize();
             auto origin = Director::getInstance().getRenderView()->getVisibleOrigin();
-            auto label = Label::createWithSystemFont("Hello World", "arial.ttf", 51);
+            auto label = Label::createWithSystemFont("Hello World", "arial.ttf", 24);
 
             // position the label on the center of the screen
             label->setPosition(origin.x + visibleSize.width / 2,
@@ -31,13 +32,14 @@ namespace GRAPH
             this->addChild(label, 1);
 
             // add "HelloWorld" splash screen"
-            auto sprite = Sprite::create("HelloWorld.png");
+            auto sprite = Sprite::create("C:\\HelloWorld.png");
 
             // position the sprite on the center of the screen
             sprite->setPosition(MATH::Vector2f(visibleSize / 2) + origin);
 
             // add the sprite as a child to this layer
             this->addChild(sprite);
+            return true;
         }
 
         static Scene* scene() {
@@ -70,6 +72,29 @@ namespace GRAPH
                 }
         }
     };
+
+    HData getTextureDataForText(const char * text, const FontDefinition& textDefinition, TextAlign align, int &width, int &height, bool& hasPremultipliedAlpha)
+    {
+        QFont* qfont = new QFont();
+        qfont->setPointSize(textDefinition.fontSize);
+        QFontMetrics fm(*qfont);
+        QSize size = fm.size(0, QString::fromUtf8(text));
+        QImage image(size.width(), size.height(), QImage::Format_ARGB32_Premultiplied);
+        if (image.isNull())
+            return HData();
+        image.fill(255);
+        QPainter painter;
+        painter.begin(&image);
+        painter.setFont(*qfont);
+        painter.setPen(QColor(textDefinition.fontFillColor.red, textDefinition.fontFillColor.green, textDefinition.fontFillColor.blue));
+        painter.drawText(image.rect(), Qt::AlignTop | Qt::AlignLeft, QString::fromUtf8(text));
+        painter.end();
+        HData ret;
+        ret.copy(image.bits(), image.byteCount());
+        width = size.width();
+        height = size.height();
+        return ret;
+    }
 }
 
 MainUI::MainUI(QWidget *parent)
@@ -112,6 +137,9 @@ bool MainUI::event(QEvent *e) {
 
 void MainUI::initializeGL() {
     glewInit();
+    
+    GRAPH::Texture2D::getTextureDataForText = GRAPH::getTextureDataForText;
+
     auto renderView = new(std::nothrow) GRAPH::RenderView();
     renderView->setFrameSize(this->width(), this->height());
     renderView->autorelease();

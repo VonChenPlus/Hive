@@ -31,7 +31,7 @@ void MainWindow::setZoom(int zoom) {
     if (zoom < 1) zoom = 1;
     if (zoom > 4) zoom = 4;
 
-    uigl_->setFixedSize(480 * zoom, 272 * zoom);
+    uigl_->setFixedSize(480 * zoom, 320 * zoom);
     setFixedSize(sizeHint());
 }
 
