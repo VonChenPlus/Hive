@@ -31,14 +31,6 @@ namespace GRAPH
 
             this->addChild(label, 1);
 
-            // add "HelloWorld" splash screen"
-            auto sprite = Sprite::create("C:\\HelloWorld.png");
-
-            // position the sprite on the center of the screen
-            sprite->setPosition(MATH::Vector2f(visibleSize / 2) + origin);
-
-            // add the sprite as a child to this layer
-            this->addChild(sprite);
             return true;
         }
 
