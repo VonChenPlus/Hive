@@ -8,7 +8,7 @@
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UI/CONTROLS/Label.h"
 #include "GRAPH/Sprite.h"
-#include "GRAPH/RENDERER/Texture2D.h"
+#include "GRAPH/UNITY3D/Texture2D.h"
 
 namespace GRAPH
 {
