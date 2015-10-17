@@ -21,18 +21,18 @@ namespace RFB
         delete zipstream_;
     }
 
-    void ZlibInBuffer::read(size_t length, HBYTE *dest, bool wait) {
+    void ZlibInBuffer::read(uint64 length, HBYTE *dest, bool wait) {
         checkBuffer(length);
         HBuffer::read(length, dest, wait);
     }
 
-    void ZlibInBuffer::fillBuffer(size_t, bool wait) {
+    void ZlibInBuffer::fillBuffer(uint64, bool wait) {
         rawBuffer_.clear();
-        const size_t BLOCKSIZE = 8192;
+        const uint64 BLOCKSIZE = 8192;
         inBuffer_->readAny(BLOCKSIZE, rawBuffer_, wait);
         zipstream_->next_in = (unsigned char*)rawBuffer_.data();
         zipstream_->avail_in = (uInt)rawBuffer_.size();
-        size_t curLen = size();
+        uint64 curLen = size();
         zipstream_->next_out = (unsigned char*)&data_[0] + curLen;
         this->appendBufferSize(BLOCKSIZE * 2);
         zipstream_->avail_out = uInt(size() - curLen);

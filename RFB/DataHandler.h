@@ -31,8 +31,8 @@ namespace RFB
         }
         virtual ~DataHandler() {}
 
-        void setPixelSize(size_t pixelSize) { pixelSize_ = pixelSize; }
-        size_t getPixelSize() const { return pixelSize_; }
+        void setPixelSize(uint64 pixelSize) { pixelSize_ = pixelSize; }
+        uint64 getPixelSize() const { return pixelSize_; }
 
         virtual HInBuffer &getInBuffer() = 0;
 
@@ -51,7 +51,7 @@ namespace RFB
         virtual void handleFill(const MATH::Recti &block, int buffer) = 0;
 
     protected:
-        size_t pixelSize_;
+        uint64 pixelSize_;
         const HInBuffer &inBuffer_;
     };
 }

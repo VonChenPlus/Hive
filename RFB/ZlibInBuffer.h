@@ -12,10 +12,10 @@ namespace RFB
         ZlibInBuffer(HInBuffer *inBuffer);
         ~ZlibInBuffer();
 
-        void read(size_t length, HBYTE *dest, bool wait = true);
+        void read(uint64 length, HBYTE *dest, bool wait = true);
 
     private:
-        void fillBuffer(size_t length, bool wait = true);
+        void fillBuffer(uint64 length, bool wait = true);
 
     private:
         HInBuffer *inBuffer_;

@@ -41,12 +41,12 @@ namespace RFB
 
         // Calculate the correct response
         uint8 key[8] = {0};
-        size_t pwdLen = MATH::MATH_MIN<size_t>(strlen(passwd), 8);
-        for (size_t index = 0; index < pwdLen; ++index) {
+        uint64 pwdLen = MATH::MATH_MIN<uint64>(strlen(passwd), 8);
+        for (uint64 index = 0; index < pwdLen; ++index) {
             key[index] = passwd[index];
         }
         deskey(key, EN0);
-        for (size_t index = 0; index < vncAuthChallengeSize; index += 8)
+        for (uint64 index = 0; index < vncAuthChallengeSize; index += 8)
             des(challenge+index, challenge+index);
 
         // Return the response to the server
