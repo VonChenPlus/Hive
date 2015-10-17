@@ -8,7 +8,7 @@
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UI/CONTROLS/Label.h"
 #include "GRAPH/Sprite.h"
-#include "GRAPH/UNITY3D/Texture2D.h"
+#include "GRAPH/UNITY3D/GLTexture.h"
 
 namespace GRAPH
 {
@@ -130,7 +130,7 @@ bool MainUI::event(QEvent *e) {
 void MainUI::initializeGL() {
     glewInit();
     
-    GRAPH::Texture2D::getTextureDataForText = GRAPH::getTextureDataForText;
+    GRAPH::GLTexture::getTextureDataForText = GRAPH::getTextureDataForText;
 
     auto renderView = new(std::nothrow) GRAPH::RenderView();
     renderView->setFrameSize(this->width(), this->height());
