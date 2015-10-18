@@ -18,6 +18,7 @@ install:
 before_build:
 - cmd: >-
     cd QT
+    
     call GenVCProj.bat
 
 build:
