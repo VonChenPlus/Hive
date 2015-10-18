@@ -1,0 +1,25 @@
+version: 1.0.{build}
+
+platform:
+  - x64
+
+configuration: Release
+
+clone_depth: 5
+
+clone_folder: C:\Project\Hive
+
+environment:
+  QTDIR: C:\Qt\5.4\msvc2013_opengl
+
+install:
+	- cmd: git submodule update --init --recursive --depth 20
+
+before_build:
+- cmd: >-
+    cd QT
+    call GenVCProj.bat
+
+build:
+  project: C:\Project\Hive\QT\HiveQt.sln
+  verbosity: normal
