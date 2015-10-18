@@ -31,9 +31,3 @@
 *.sdf
 *.suo
 *.user
-
-# Temp Generate Files
-Hive.vcxproj
-Hive.vcxproj.filters
-HiveQt.sln
-Hive_resource.rc
