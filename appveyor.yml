@@ -18,8 +18,10 @@ install:
 before_build:
 - cmd: >-
     cd QT
-    
+
     call GenVCProj.bat
+
+    cat HiveQt.sln
 
 build:
   project: C:\Project\Hive\QT\HiveQt.sln
