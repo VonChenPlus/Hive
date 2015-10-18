@@ -31,3 +31,7 @@
 *.sdf
 *.suo
 *.user
+
+# Temp Generate Files
+Hive.vcxproj.filters
+Hive_resource.rc
