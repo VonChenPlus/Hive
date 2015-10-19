@@ -1,9 +1,10 @@
 #include "LogoLayer.h"
 #include "UI/UIAtlas.h"
 #include "GRAPH/Director.h"
-#include "GRAPH/RenderView.h"
 #include "GRAPH/UI/CONTROLS/Label.h"
 #include "GRAPH/UNITY3D/GLTexture.h"
+#include "GRAPH/UNITY3D/Renderer.h"
+#include "GRAPH/UNITY3D/GLShader.h"
 
 extern const AtlasImage *UIImages;
 extern const uint8 *getUIAtlas(uint64 &size);
@@ -15,11 +16,11 @@ bool LogoLayer::init() {
 
     auto visibleSize = GRAPH::Director::getInstance().getRenderView()->getVisibleSize();
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
-    auto label = GRAPH::Label::createWithSystemFont("Hello World", "arial.ttf", 24);
+    auto label = GRAPH::Label::createWithSystemFont("Created by Feng Chen", "arial.ttf", 24);
 
     // position the label on the center of the screen
     label->setPosition(origin.x + visibleSize.width / 2,
-        origin.y + visibleSize.height - label->getContentSize().height);
+        origin.y + visibleSize.height / 2 + label->getContentSize().height);
 
     this->addChild(label, 1);
 
@@ -27,9 +28,37 @@ bool LogoLayer::init() {
     uint64 uiAtlasSize = 0;
     const uint8 *uiAtlas = getUIAtlas(uiAtlasSize);
     image->initWithImageData(uiAtlas, uiAtlasSize);
-    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIData"), sizeof(UIImages) / sizeof(AtlasImage));
+    setGLShader(GRAPH::GLShaderCache::getInstance().getGLShader(GRAPH::GLShader::SHADER_NAME_POSITION_TEXTURE));
+    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIData"), 10);
+    uiAtlas_->retain();
+    SAFE_RELEASE(image);
+
+    GRAPH::Color4B color = 0xFFFFFFFF;
+    GRAPH::V3F_C4B_T2F_Quad quads [] =
+    {
+        {
+            { MATH::Vector3f(0, 0, 0), color, GRAPH::Tex2F(0.957031f, 0.158203f), },                // bottom left
+            { MATH::Vector3f(origin.x + visibleSize.width / 2, 0, 0), color, GRAPH::Tex2F(0.957031f, 0.292968f), },            // bottom right
+            { MATH::Vector3f(0, origin.y + visibleSize.height / 2, 0), color, GRAPH::Tex2F(0.824218f, 0.158203f), },            // top left
+            { MATH::Vector3f(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2, 0), color, GRAPH::Tex2F(0.824218f, 0.292968f), },    // top right
+        },
+    };
+
+    uiAtlas_->updateQuad(&quads[0], 0);
 
     return true;
+}
+
+void LogoLayer::draw(GRAPH::Renderer* renderer, const MATH::Matrix4& transform, uint32_t flags) {
+    customCommand_.init(_globalZOrder);
+    customCommand_.func = std::bind(&LogoLayer::onDraw, this, transform, flags);
+    renderer->addCommand(&customCommand_);
+}
+
+void LogoLayer::onDraw(const MATH::Matrix4& transform, uint32_t flags) {
+    getGLShader()->use();
+    getGLShader()->setUniformsForBuiltins(transform);
+    uiAtlas_->drawQuads();
 }
 
 GRAPH::Scene* LogoLayer::scene() {
