@@ -1,70 +1,13 @@
 #include "MainUI.h"
+#include "UI/LogoLayer.h"
+#include "BASE/HData.h"
 #include "BASE/AutoreleasePool.h"
 #include "GRAPH/Director.h"
 #include "GRAPH/RenderView.h"
-#include "GRAPH/UI/Layer.h"
-#include "GRAPH/Scene.h"
-#include "GRAPH/Director.h"
-#include "GRAPH/RenderView.h"
-#include "GRAPH/UI/CONTROLS/Label.h"
-#include "GRAPH/Sprite.h"
 #include "GRAPH/UNITY3D/GLTexture.h"
 
 namespace GRAPH
 {
-    class HelloWorld : public Layer
-    {
-    public:
-        virtual bool init() override {
-            if (!Layer::init())
-            {
-                return false;
-            }
-
-            auto visibleSize = Director::getInstance().getRenderView()->getVisibleSize();
-            auto origin = Director::getInstance().getRenderView()->getVisibleOrigin();
-            auto label = Label::createWithSystemFont("Hello World", "arial.ttf", 24);
-
-            // position the label on the center of the screen
-            label->setPosition(origin.x + visibleSize.width / 2,
-                origin.y + visibleSize.height - label->getContentSize().height);
-
-            this->addChild(label, 1);
-
-            return true;
-        }
-
-        static Scene* scene() {
-            // 'scene' is an autorelease object
-            auto scene = Scene::create();
-
-            // 'layer' is an autorelease object
-            HelloWorld *layer = HelloWorld::create();
-
-            // add layer as a child to scene
-            scene->addChild(layer);
-
-            // return the scene
-            return scene;
-        }
-
-        // a selector callback
-        void menuCloseCallback(HObject* sender);
-
-        static HelloWorld* create() {
-            HelloWorld *pRet = new(std::nothrow) HelloWorld(); \
-                if (pRet && pRet->init()) {
-                    pRet->autorelease();
-                    return pRet;
-                }
-                else {
-                    delete pRet;
-                    pRet = NULL;
-                    return NULL;
-                }
-        }
-    };
-
     HData getTextureDataForText(const char * text, const FontDefinition& textDefinition, TextAlign align, int &width, int &height, bool& hasPremultipliedAlpha)
     {
         QFont* qfont = new QFont();
@@ -140,7 +83,7 @@ void MainUI::initializeGL() {
     GRAPH::Director::getInstance().getRenderView()->setDesignResolutionSize(this->width(), this->height(), GRAPH::ResolutionPolicy::SHOW_ALL);
 
     // create a scene. it's an autorelease object
-    auto scene = GRAPH::HelloWorld::scene();
+    auto scene = LogoLayer::scene();
 
     // run
     GRAPH::Director::getInstance().runWithScene(scene);
