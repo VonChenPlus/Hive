@@ -1,5 +1,5 @@
 #include "MainUI.h"
-#include "UI/LogoLayer.h"
+#include "../UI/LogoLayer.h"
 #include "BASE/HData.h"
 #include "BASE/AutoreleasePool.h"
 #include "GRAPH/Director.h"
