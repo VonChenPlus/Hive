@@ -1,5 +1,5 @@
 #include "LogoLayer.h"
-#include "UI/UIAtlas.h"
+#include "../UI/UIAtlas.h"
 #include "GRAPH/Director.h"
 #include "GRAPH/UI/CONTROLS/Label.h"
 #include "GRAPH/UNITY3D/GLTexture.h"
