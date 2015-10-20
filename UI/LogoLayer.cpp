@@ -5,6 +5,7 @@
 #include "GRAPH/UNITY3D/GLTexture.h"
 #include "GRAPH/UNITY3D/Renderer.h"
 #include "GRAPH/UNITY3D/GLShader.h"
+#include "MATH/Size.h"
 
 extern const AtlasImage *UIImages;
 extern const uint8 *getUIAtlas(uint64 &size);
@@ -34,13 +35,14 @@ bool LogoLayer::init() {
     SAFE_RELEASE(image);
 
     GRAPH::Color4B color = 0xFFFFFFFF;
+    MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
     GRAPH::V3F_C4B_T2F_Quad quads [] =
     {
         {
-            { MATH::Vector3f(0, 0, 0), color, GRAPH::Tex2F(0.957031f, 0.158203f), },                // bottom left
-            { MATH::Vector3f(origin.x + visibleSize.width / 2, 0, 0), color, GRAPH::Tex2F(0.957031f, 0.292968f), },            // bottom right
-            { MATH::Vector3f(0, origin.y + visibleSize.height / 2, 0), color, GRAPH::Tex2F(0.824218f, 0.158203f), },            // top left
-            { MATH::Vector3f(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2, 0), color, GRAPH::Tex2F(0.824218f, 0.292968f), },    // top right
+            { MATH::Vector3f(center.width - 80, center.height - 80, 0), color, GRAPH::Tex2F(0.824218f, 0.292968f), },
+            { MATH::Vector3f(center.width - 80, center.height, 0), color, GRAPH::Tex2F(0.824218f, 0.158203f), },
+            { MATH::Vector3f(center.width, center.height - 80, 0), color, GRAPH::Tex2F(0.957031f, 0.292968f), },
+            { MATH::Vector3f(center.width, center.height, 0), color, GRAPH::Tex2F(0.957031f, 0.158203f), },
         },
     };
 
