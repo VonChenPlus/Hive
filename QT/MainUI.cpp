@@ -12,6 +12,7 @@ namespace GRAPH
     {
         QFont* qfont = new QFont();
         qfont->setPointSize(textDefinition.fontSize);
+        qfont->setFamily(textDefinition.fontName.c_str());
         QFontMetrics fm(*qfont);
         QSize size = fm.size(0, QString::fromUtf8(text));
         QImage image(size.width(), size.height(), QImage::Format_ARGB32_Premultiplied);
@@ -28,6 +29,7 @@ namespace GRAPH
         ret.copy(image.bits(), image.byteCount());
         width = size.width();
         height = size.height();
+        hasPremultipliedAlpha = false;
         return ret;
     }
 }
