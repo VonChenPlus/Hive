@@ -32,6 +32,7 @@ bool LogoLayer::init() {
     // position the label on the center of the screen
     uiLabel_->setPosition(center.width,
         center.height - 40);
+    uiLabel_->updateDisplayedOpacity(0.0f);
     this->addChild(uiLabel_, 1);
 
     IMAGE::ImageObject *image = new IMAGE::ImageObject();
@@ -39,7 +40,7 @@ bool LogoLayer::init() {
     const uint8 *uiAtlas = getUIAtlasData(uiAtlasSize);
     image->initWithImageData(uiAtlas, uiAtlasSize);
     setGLShader(GRAPH::GLShaderCache::getInstance().getGLShader(GRAPH::GLShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
-    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIAtlas"), 3 * 4);
+    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIAtlas"), 2 * 4);
     uiAtlas_->retain();
     SAFE_RELEASE(image);
 
