@@ -13,6 +13,7 @@ class LogoLayer : public GRAPH::UI::Layer
 public:
     virtual bool init() override;
     virtual void draw(GRAPH::Renderer* renderer, const MATH::Matrix4& transform, uint32_t flags) override;
+    virtual void update(float delta) override;
 
     static GRAPH::Scene* scene();
     static LogoLayer* create();
@@ -23,6 +24,7 @@ protected:
 private:
     GRAPH::TextureAtlas *uiAtlas_;
     GRAPH::CustomCommand customCommand_;
+    int frames_;
 };
 
 #endif // LOGOLAYER_H

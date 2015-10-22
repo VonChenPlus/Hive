@@ -16,6 +16,8 @@ bool LogoLayer::init() {
         return false;
     }
 
+    frames_ = 0;
+
     auto visibleSize = GRAPH::Director::getInstance().getRenderView()->getVisibleSize();
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
     MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
@@ -30,36 +32,12 @@ bool LogoLayer::init() {
     uint64 uiAtlasSize = 0;
     const uint8 *uiAtlas = getUIAtlas(uiAtlasSize);
     image->initWithImageData(uiAtlas, uiAtlasSize);
-    setGLShader(GRAPH::GLShaderCache::getInstance().getGLShader(GRAPH::GLShader::SHADER_NAME_POSITION_TEXTURE));
+    setGLShader(GRAPH::GLShaderCache::getInstance().getGLShader(GRAPH::GLShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
     uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIData"), 20);
     uiAtlas_->retain();
     SAFE_RELEASE(image);
-    GRAPH::Color4B color = 0xFFFFFFFF;
-    GRAPH::V3F_C4B_T2F_Quad quads [] =
-    {
-        {
-            { MATH::Vector3f(origin.x, origin.y, 0), color, GRAPH::Tex2F(0.254883f, 0.360352f), },
-            { MATH::Vector3f(origin.x, origin.y + visibleSize.height, 0), color, GRAPH::Tex2F(0.254883f, 0.239258f), },
-            { MATH::Vector3f(origin.x + visibleSize.width, origin.y, 0), color, GRAPH::Tex2F(0.463867f, 0.360352f), },
-            { MATH::Vector3f(origin.x + visibleSize.width, origin.y + visibleSize.height, 0), color, GRAPH::Tex2F(0.463867f, 0.239258f), },
-        },
-        {
-            { MATH::Vector3f(center.width - 130, center.height - 20, 0), color, GRAPH::Tex2F(0.824218f, 0.292968f), },
-            { MATH::Vector3f(center.width - 130, center.height + 60, 0), color, GRAPH::Tex2F(0.824218f, 0.158203f), },
-            { MATH::Vector3f(center.width - 50, center.height - 20, 0), color, GRAPH::Tex2F(0.957031f, 0.292968f), },
-            { MATH::Vector3f(center.width - 50, center.height + 60, 0), color, GRAPH::Tex2F(0.957031f, 0.158203f), },
-        },
-        { 
-            { MATH::Vector3f(center.width - 50, center.height - 20, 0), color, GRAPH::Tex2F(0.498046f, 0.300781f), },
-            { MATH::Vector3f(center.width - 50, center.height + 23, 0), color, GRAPH::Tex2F(0.498046f, 0.230468f), },
-            { MATH::Vector3f(center.width + 78, center.height - 20, 0), color, GRAPH::Tex2F(0.707031f, 0.300781f), },
-            { MATH::Vector3f(center.width + 78, center.height + 23, 0), color, GRAPH::Tex2F(0.707031f, 0.230468f), },
-        },
-    };
 
-    for (uint64 index = 0; index < sizeof(quads) / sizeof(GRAPH::V3F_C4B_T2F_Quad); ++index) {
-        uiAtlas_->updateQuad(&quads[index], index);
-    }
+    scheduleUpdate();
 
     return true;
 }
@@ -70,9 +48,52 @@ void LogoLayer::draw(GRAPH::Renderer* renderer, const MATH::Matrix4& transform, 
     renderer->addCommand(&customCommand_);
 }
 
+void LogoLayer::update(float delta) {
+    frames_++;
+    frames_ = MATH::MATH_MIN(360, frames_);
+}
+
 void LogoLayer::onDraw(const MATH::Matrix4& transform, uint32_t flags) {
     getGLShader()->use();
     getGLShader()->setUniformsForBuiltins(transform);
+
+    float rate = (float) frames_ / 60.0f;
+    float alpha = rate;
+    if (rate > 1.0f)
+        alpha = 1.0f;
+    if (rate > 2.0f)
+        alpha = 6.0f - rate;
+
+    auto visibleSize = GRAPH::Director::getInstance().getRenderView()->getVisibleSize();
+    auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
+    MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
+    GRAPH::Color4B color = 0xFFFFFFFF;
+    color = GRAPH::Color4B::ColorAlpha(color, alpha);
+    GRAPH::V3F_C4B_T2F_Quad quads [] =
+    {
+        {
+            { MATH::Vector3f(origin.x, origin.y, 0), 0xFFFFFFFF, GRAPH::Tex2F(0.254883f, 0.360352f), },
+            { MATH::Vector3f(origin.x, origin.y + visibleSize.height, 0), 0xFFFFFFFF, GRAPH::Tex2F(0.254883f, 0.239258f), },
+            { MATH::Vector3f(origin.x + visibleSize.width, origin.y, 0), 0xFFFFFFFF, GRAPH::Tex2F(0.463867f, 0.360352f), },
+            { MATH::Vector3f(origin.x + visibleSize.width, origin.y + visibleSize.height, 0), 0xFFFFFFFF, GRAPH::Tex2F(0.463867f, 0.239258f), },
+        },
+        {
+            { MATH::Vector3f(center.width - 130, center.height - 20, 0), color, GRAPH::Tex2F(0.824218f, 0.292968f), },
+            { MATH::Vector3f(center.width - 130, center.height + 60, 0), color, GRAPH::Tex2F(0.824218f, 0.158203f), },
+            { MATH::Vector3f(center.width - 50, center.height - 20, 0), color, GRAPH::Tex2F(0.957031f, 0.292968f), },
+            { MATH::Vector3f(center.width - 50, center.height + 60, 0), color, GRAPH::Tex2F(0.957031f, 0.158203f), },
+        },
+        {
+            { MATH::Vector3f(center.width - 50, center.height - 20, 0), color, GRAPH::Tex2F(0.498046f, 0.300781f), },
+            { MATH::Vector3f(center.width - 50, center.height + 23, 0), color, GRAPH::Tex2F(0.498046f, 0.230468f), },
+            { MATH::Vector3f(center.width + 78, center.height - 20, 0), color, GRAPH::Tex2F(0.707031f, 0.300781f), },
+            { MATH::Vector3f(center.width + 78, center.height + 23, 0), color, GRAPH::Tex2F(0.707031f, 0.230468f), },
+        },
+    };
+
+    for (uint64 index = 0; index < sizeof(quads) / sizeof(GRAPH::V3F_C4B_T2F_Quad); ++index) {
+        uiAtlas_->updateQuad(&quads[index], index);
+    }
     uiAtlas_->drawQuads();
 }
 
