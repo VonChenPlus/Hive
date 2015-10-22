@@ -4,6 +4,7 @@
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UNITY3D/GLShader.h"
 #include "GRAPH/UNITY3D/GLTexture.h"
+#include "GRAPH/UNITY3D/GLTextureAtlas.h"
 #include "GRAPH/UNITY3D/Renderer.h"
 #include "UTILS/TIME/TimeUtils.h"
 #include "UTILS/RANDOM/RandomUtils.h"
@@ -20,7 +21,7 @@ bool Background::init() {
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
 
     setGLShader(GRAPH::GLShaderCache::getInstance().getGLShader(GRAPH::GLShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
-    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->getTextureForKey("UIAtlas"), 101 * 4);
+    uiAtlas_ = GRAPH::GLTextureAtlas::createWithTexture(GRAPH::TextureCache::getInstance().getTextureForKey("UIAtlas"), 101 * 4);
     uiAtlas_->retain();
 
     GRAPH::Color4B color = 0xFFFFFFFF;
@@ -54,7 +55,7 @@ static inline void Rotated(float *v, float angle, float xc, float yc) {
     v[1] = x * sa + y *  ca + yc;
 }
 
-void Background::update(float delta) {
+void Background::update(float) {
     auto visibleSize = GRAPH::Director::getInstance().getRenderView()->getVisibleSize();
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
 
@@ -115,7 +116,7 @@ void Background::update(float delta) {
     }
 }
 
-void Background::onDraw(const MATH::Matrix4& transform, uint32_t flags) {
+void Background::onDraw(const MATH::Matrix4& transform, uint32_t) {
     getGLShader()->use();
     getGLShader()->setUniformsForBuiltins(transform);
     uiAtlas_->drawQuads();

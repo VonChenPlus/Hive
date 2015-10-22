@@ -5,6 +5,7 @@
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UI/CONTROLS/UILabel.h"
 #include "GRAPH/UNITY3D/GLTexture.h"
+#include "GRAPH/UNITY3D/GLTextureAtlas.h"
 #include "GRAPH/UNITY3D/Renderer.h"
 #include "GRAPH/UNITY3D/GLShader.h"
 #include "MATH/Size.h"
@@ -40,7 +41,7 @@ bool LogoLayer::init() {
     const uint8 *uiAtlas = getUIAtlasData(uiAtlasSize);
     image->initWithImageData(uiAtlas, uiAtlasSize);
     setGLShader(GRAPH::GLShaderCache::getInstance().getGLShader(GRAPH::GLShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
-    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIAtlas"), 2 * 4);
+    uiAtlas_ = GRAPH::GLTextureAtlas::createWithTexture(GRAPH::TextureCache::getInstance().addImage(image, "UIAtlas"), 2 * 4);
     uiAtlas_->retain();
     SAFE_RELEASE(image);
 
@@ -59,7 +60,7 @@ void LogoLayer::draw(GRAPH::Renderer* renderer, const MATH::Matrix4& transform, 
     renderer->addCommand(&customCommand_);
 }
 
-void LogoLayer::update(float delta) {
+void LogoLayer::update(float) {
     frames_++;
     frames_ = MATH::MATH_MIN(180, frames_);
 
@@ -99,7 +100,7 @@ void LogoLayer::update(float delta) {
     }
 }
 
-void LogoLayer::onDraw(const MATH::Matrix4& transform, uint32_t flags) {
+void LogoLayer::onDraw(const MATH::Matrix4& transform, uint32_t) {
     getGLShader()->use();
     getGLShader()->setUniformsForBuiltins(transform);
     uiAtlas_->drawQuads();

@@ -8,7 +8,7 @@
 
 namespace GRAPH
 {
-    HData getTextureDataForText(const char * text, const FontDefinition& textDefinition, TextAlign align, int &width, int &height, bool& hasPremultipliedAlpha)
+    HData getTextureDataForText(const char * text, const FontDefinition& textDefinition, TextAlign, int &width, int &height, bool& hasPremultipliedAlpha)
     {
         QFont* qfont = new QFont();
         qfont->setPointSize(textDefinition.fontSize);

@@ -15,7 +15,7 @@ protected:
     void onDraw(const MATH::Matrix4& transform, uint32_t flags);
 
 private:
-    GRAPH::TextureAtlas *uiAtlas_;
+    GRAPH::GLTextureAtlas *uiAtlas_;
     GRAPH::CustomCommand customCommand_;
 };
 
