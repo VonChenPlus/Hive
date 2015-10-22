@@ -9,38 +9,42 @@ struct AtlasImage
 };
 
 // IMAGES_ui
-#define I_SOLIDWHITE 0
-#define I_H 1
-#define I_I 2
-#define I_V 3
-#define I_E 4
-#define I_SELECT 5
-#define I_START 6
-#define I_ARROW 7
-#define I_DIR 8
-#define I_ROUND 9
-#define I_RECT 10
-#define I_STICK 11
-#define I_STICK_BG 12
-#define I_SHOULDER 13
-#define I_DIR_LINE 14
-#define I_ROUND_LINE 15
-#define I_RECT_LINE 16
-#define I_SHOULDER_LINE 17
-#define I_STICK_LINE 18
-#define I_STICK_BG_LINE 19
-#define I_CHECKEDBOX 20
-#define I_BG 21
-#define I_BG_GOLD 22
-#define I_L 23
-#define I_R 24
-#define I_DROP_SHADOW 25
-#define I_LINES 26
-#define I_GRID 27
-#define I_LOGO 28
-#define I_ICON 29
-#define I_FOLDER 30
-#define I_UP_DIRECTORY 31
-#define I_GEAR 32
+enum
+{
+    I_SOLIDWHITE = 0,
+    I_H = 1,
+    I_I = 2,
+    I_V = 3,
+    I_E = 4,
+    I_SELECT = 5,
+    I_START = 6,
+    I_ARROW = 7,
+    I_DIR = 8,
+    I_ROUND = 9,
+    I_RECT = 10,
+    I_STICK = 11,
+    I_STICK_BG = 12,
+    I_SHOULDER = 13,
+    I_DIR_LINE = 14,
+    I_ROUND_LINE = 15,
+    I_RECT_LINE = 16,
+    I_SHOULDER_LINE = 17,
+    I_STICK_LINE = 18,
+    I_STICK_BG_LINE = 19,
+    I_CHECKEDBOX = 20,
+    I_BG = 21,
+    I_BG_GOLD = 22,
+    I_L = 23,
+    I_R = 24,
+    I_DROP_SHADOW = 25,
+    I_LINES = 26,
+    I_GRID = 27,
+    I_LOGO = 28,
+    I_ICON = 29,
+    I_FOLDER = 30,
+    I_UP_DIRECTORY = 31,
+    I_GEAR = 32,
+    I_MAX
+};
 
 #endif // UIATLAS_H

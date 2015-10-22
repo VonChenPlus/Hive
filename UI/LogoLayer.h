@@ -6,7 +6,14 @@
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UNITY3D/RenderCommand.h"
 
-class GRAPH::TextureAtlas;
+namespace GRAPH
+{
+    class TextureAtlas;
+    namespace UI
+    {
+        class Label;
+    }
+}
 
 class LogoLayer : public GRAPH::UI::Layer
 {
@@ -24,6 +31,7 @@ protected:
 private:
     GRAPH::TextureAtlas *uiAtlas_;
     GRAPH::CustomCommand customCommand_;
+    GRAPH::UI::Label *uiLabel_;
     int frames_;
 };
 

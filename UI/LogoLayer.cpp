@@ -8,8 +8,8 @@
 #include "MATH/Size.h"
 #include <QString>
 
-extern const AtlasImage *UIImages;
-extern const uint8 *getUIAtlas(uint64 &size);
+extern const AtlasImage *getUIAtlas();
+extern const uint8 *getUIAtlasData(uint64 &size);
 
 bool LogoLayer::init() {
     if (!Layer::init()) {
@@ -22,18 +22,18 @@ bool LogoLayer::init() {
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
     MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
 
-    auto label = GRAPH::UI::Label::createWithSystemFont("Created by Feng Chen", "", 20);
+    uiLabel_ = GRAPH::UI::Label::createWithSystemFont("Created by Feng Chen", "", 20);
     // position the label on the center of the screen
-    label->setPosition(center.width,
+    uiLabel_->setPosition(center.width,
         center.height - 40);
-    this->addChild(label, 1);
+    this->addChild(uiLabel_, 1);
 
     IMAGE::ImageObject *image = new IMAGE::ImageObject();
     uint64 uiAtlasSize = 0;
-    const uint8 *uiAtlas = getUIAtlas(uiAtlasSize);
+    const uint8 *uiAtlas = getUIAtlasData(uiAtlasSize);
     image->initWithImageData(uiAtlas, uiAtlasSize);
     setGLShader(GRAPH::GLShaderCache::getInstance().getGLShader(GRAPH::GLShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
-    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIData"), 20);
+    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIData"), I_MAX * 4);
     uiAtlas_->retain();
     SAFE_RELEASE(image);
 
@@ -50,50 +50,53 @@ void LogoLayer::draw(GRAPH::Renderer* renderer, const MATH::Matrix4& transform, 
 
 void LogoLayer::update(float delta) {
     frames_++;
-    frames_ = MATH::MATH_MIN(360, frames_);
-}
-
-void LogoLayer::onDraw(const MATH::Matrix4& transform, uint32_t flags) {
-    getGLShader()->use();
-    getGLShader()->setUniformsForBuiltins(transform);
+    frames_ = MATH::MATH_MIN(180, frames_);
 
     float rate = (float) frames_ / 60.0f;
     float alpha = rate;
     if (rate > 1.0f)
         alpha = 1.0f;
     if (rate > 2.0f)
-        alpha = 6.0f - rate;
+        alpha = 3.0f - rate;
 
     auto visibleSize = GRAPH::Director::getInstance().getRenderView()->getVisibleSize();
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
     MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
     GRAPH::Color4B color = 0xFFFFFFFF;
     color = GRAPH::Color4B::ColorAlpha(color, alpha);
+
+    uiLabel_->updateDisplayedOpacity(color.alpha);
+
     GRAPH::V3F_C4B_T2F_Quad quads [] =
     {
         {
-            { MATH::Vector3f(origin.x, origin.y, 0), 0xFFFFFFFF, GRAPH::Tex2F(0.254883f, 0.360352f), },
-            { MATH::Vector3f(origin.x, origin.y + visibleSize.height, 0), 0xFFFFFFFF, GRAPH::Tex2F(0.254883f, 0.239258f), },
-            { MATH::Vector3f(origin.x + visibleSize.width, origin.y, 0), 0xFFFFFFFF, GRAPH::Tex2F(0.463867f, 0.360352f), },
-            { MATH::Vector3f(origin.x + visibleSize.width, origin.y + visibleSize.height, 0), 0xFFFFFFFF, GRAPH::Tex2F(0.463867f, 0.239258f), },
+            { MATH::Vector3f(origin.x, origin.y, 0), 0xFFFFFFFF, GRAPH::Tex2F(getUIAtlas()[I_BG].u1, getUIAtlas()[I_BG].v2), },
+            { MATH::Vector3f(origin.x, origin.y + visibleSize.height, 0), 0xFFFFFFFF, GRAPH::Tex2F(getUIAtlas()[I_BG].u1, getUIAtlas()[I_BG].v1), },
+            { MATH::Vector3f(origin.x + visibleSize.width, origin.y, 0), 0xFFFFFFFF, GRAPH::Tex2F(getUIAtlas()[I_BG].u2, getUIAtlas()[I_BG].v2), },
+            { MATH::Vector3f(origin.x + visibleSize.width, origin.y + visibleSize.height, 0), 0xFFFFFFFF, GRAPH::Tex2F(getUIAtlas()[I_BG].u2, getUIAtlas()[I_BG].v1), },
         },
         {
-            { MATH::Vector3f(center.width - 130, center.height - 20, 0), color, GRAPH::Tex2F(0.824218f, 0.292968f), },
-            { MATH::Vector3f(center.width - 130, center.height + 60, 0), color, GRAPH::Tex2F(0.824218f, 0.158203f), },
-            { MATH::Vector3f(center.width - 50, center.height - 20, 0), color, GRAPH::Tex2F(0.957031f, 0.292968f), },
-            { MATH::Vector3f(center.width - 50, center.height + 60, 0), color, GRAPH::Tex2F(0.957031f, 0.158203f), },
+            { MATH::Vector3f(center.width - 130, center.height - 20, 0), color, GRAPH::Tex2F(getUIAtlas()[I_ICON].u1, getUIAtlas()[I_ICON].v2), },
+            { MATH::Vector3f(center.width - 130, center.height + 60, 0), color, GRAPH::Tex2F(getUIAtlas()[I_ICON].u1, getUIAtlas()[I_ICON].v1), },
+            { MATH::Vector3f(center.width - 50, center.height - 20, 0), color, GRAPH::Tex2F(getUIAtlas()[I_ICON].u2, getUIAtlas()[I_ICON].v2), },
+            { MATH::Vector3f(center.width - 50, center.height + 60, 0), color, GRAPH::Tex2F(getUIAtlas()[I_ICON].u2, getUIAtlas()[I_ICON].v1), },
         },
         {
-            { MATH::Vector3f(center.width - 50, center.height - 20, 0), color, GRAPH::Tex2F(0.498046f, 0.300781f), },
-            { MATH::Vector3f(center.width - 50, center.height + 23, 0), color, GRAPH::Tex2F(0.498046f, 0.230468f), },
-            { MATH::Vector3f(center.width + 78, center.height - 20, 0), color, GRAPH::Tex2F(0.707031f, 0.300781f), },
-            { MATH::Vector3f(center.width + 78, center.height + 23, 0), color, GRAPH::Tex2F(0.707031f, 0.230468f), },
+            { MATH::Vector3f(center.width - 50, center.height - 20, 0), color, GRAPH::Tex2F(getUIAtlas()[I_LOGO].u1, getUIAtlas()[I_LOGO].v2), },
+            { MATH::Vector3f(center.width - 50, center.height + 23, 0), color, GRAPH::Tex2F(getUIAtlas()[I_LOGO].u1, getUIAtlas()[I_LOGO].v1), },
+            { MATH::Vector3f(center.width + 78, center.height - 20, 0), color, GRAPH::Tex2F(getUIAtlas()[I_LOGO].u2, getUIAtlas()[I_LOGO].v2), },
+            { MATH::Vector3f(center.width + 78, center.height + 23, 0), color, GRAPH::Tex2F(getUIAtlas()[I_LOGO].u2, getUIAtlas()[I_LOGO].v1), },
         },
     };
 
     for (uint64 index = 0; index < sizeof(quads) / sizeof(GRAPH::V3F_C4B_T2F_Quad); ++index) {
         uiAtlas_->updateQuad(&quads[index], index);
     }
+}
+
+void LogoLayer::onDraw(const MATH::Matrix4& transform, uint32_t flags) {
+    getGLShader()->use();
+    getGLShader()->setUniformsForBuiltins(transform);
     uiAtlas_->drawQuads();
 }
 

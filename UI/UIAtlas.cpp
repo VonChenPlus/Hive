@@ -1,7 +1,7 @@
 #include "UIAtlas.h"
 #include "BASE/Honey.h"
 
-const AtlasImage UIImages[] = {
+const AtlasImage UIAtlas[] = {
     { 0.180664f, 0.448242f, 0.209961f, 0.477539f, 16, 16, "I_SOLIDWHITE" },
     { 0.657227f, 0.491211f, 0.727539f, 0.561523f, 37, 37, "I_H" },
     { 0.747070f, 0.323242f, 0.821289f, 0.397461f, 39, 39, "I_I" },
@@ -37,7 +37,9 @@ const AtlasImage UIImages[] = {
     { 0.879883f, 0.106445f, 0.940430f, 0.166992f, 32, 32, "I_GEAR" },
 };
 
-const uint8 UIAtlas [] = {
+const AtlasImage *getUIAtlas() { return UIAtlas; }
+
+const uint8 UIAtlasData [] = {
     0x89,
     0x50,0x4e,0x47,0xd,0xa,0x1a,0xa,0x0,0x0,0x0,0xd,0x49,0x48,0x44,0x52,0x0,
     0x0,0x2,0x0,0x0,0x0,0x2,0x0,0x8,0x6,0x0,0x0,0x0,0xf4,0x78,0xd4,0xfa,
@@ -6169,5 +6171,5 @@ const uint8 UIAtlas [] = {
     0x0,0x0,0x49,0x45,0x4e,0x44,0xae,0x42,0x60,0x82
 };
 
-const uint8 *getUIAtlas(uint64 &size) { size = sizeof(UIAtlas);  return UIAtlas; }
+const uint8 *getUIAtlasData(uint64 &size) { size = sizeof(UIAtlasData);  return UIAtlasData; }
 
