@@ -1,7 +1,7 @@
 #include "LogoLayer.h"
 #include "../UI/UIAtlas.h"
 #include "GRAPH/Director.h"
-#include "GRAPH/UI/CONTROLS/Label.h"
+#include "GRAPH/UI/CONTROLS/UILabel.h"
 #include "GRAPH/UNITY3D/GLTexture.h"
 #include "GRAPH/UNITY3D/Renderer.h"
 #include "GRAPH/UNITY3D/GLShader.h"
@@ -20,7 +20,7 @@ bool LogoLayer::init() {
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
     MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
 
-    auto label = GRAPH::Label::createWithSystemFont("Created by Feng Chen", "", 20);
+    auto label = GRAPH::UI::Label::createWithSystemFont("Created by Feng Chen", "", 20);
     // position the label on the center of the screen
     label->setPosition(center.width,
         center.height - 40);

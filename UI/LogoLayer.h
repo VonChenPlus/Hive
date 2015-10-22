@@ -2,13 +2,13 @@
 #define LOGOLAYER_H
 
 #include "GRAPH/Scene.h"
-#include "GRAPH/UI/Layer.h"
+#include "GRAPH/UI/UILayer.h"
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UNITY3D/RenderCommand.h"
 
 class GRAPH::TextureAtlas;
 
-class LogoLayer : public GRAPH::Layer
+class LogoLayer : public GRAPH::UI::Layer
 {
 public:
     virtual bool init() override;
