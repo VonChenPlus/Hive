@@ -22,11 +22,7 @@ bool Background::init() {
     uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->getTextureForKey("UIAtlas"), 101 * 4);
     uiAtlas_->retain();
 
-    auto visibleSize = GRAPH::Director::getInstance().getRenderView()->getVisibleSize();
-    auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
-    MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
     GRAPH::Color4B color = 0xFFFFFFFF;
-
     GRAPH::V3F_C4B_T2F_Quad quads [] =
     {
         {
