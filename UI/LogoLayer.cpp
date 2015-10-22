@@ -1,6 +1,8 @@
 #include "LogoLayer.h"
+#include "../UI/Background.h"
 #include "../UI/UIAtlas.h"
 #include "GRAPH/Director.h"
+#include "GRAPH/RenderView.h"
 #include "GRAPH/UI/CONTROLS/UILabel.h"
 #include "GRAPH/UNITY3D/GLTexture.h"
 #include "GRAPH/UNITY3D/Renderer.h"
@@ -10,6 +12,10 @@
 
 extern const AtlasImage *getUIAtlas();
 extern const uint8 *getUIAtlasData(uint64 &size);
+
+LogoLayer::~LogoLayer() {
+    uiAtlas_->release();
+}
 
 bool LogoLayer::init() {
     if (!Layer::init()) {
@@ -33,9 +39,13 @@ bool LogoLayer::init() {
     const uint8 *uiAtlas = getUIAtlasData(uiAtlasSize);
     image->initWithImageData(uiAtlas, uiAtlasSize);
     setGLShader(GRAPH::GLShaderCache::getInstance().getGLShader(GRAPH::GLShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
-    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIData"), I_MAX * 4);
+    uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::Director::getInstance().getTextureCache()->addImage(image, "UIAtlas"), 3 * 4);
     uiAtlas_->retain();
     SAFE_RELEASE(image);
+
+    auto background = new Background();
+    background->init();
+    this->addChild(background);
 
     scheduleUpdate();
 
@@ -69,12 +79,6 @@ void LogoLayer::update(float delta) {
 
     GRAPH::V3F_C4B_T2F_Quad quads [] =
     {
-        {
-            { MATH::Vector3f(origin.x, origin.y, 0), 0xFFFFFFFF, GRAPH::Tex2F(getUIAtlas()[I_BG].u1, getUIAtlas()[I_BG].v2), },
-            { MATH::Vector3f(origin.x, origin.y + visibleSize.height, 0), 0xFFFFFFFF, GRAPH::Tex2F(getUIAtlas()[I_BG].u1, getUIAtlas()[I_BG].v1), },
-            { MATH::Vector3f(origin.x + visibleSize.width, origin.y, 0), 0xFFFFFFFF, GRAPH::Tex2F(getUIAtlas()[I_BG].u2, getUIAtlas()[I_BG].v2), },
-            { MATH::Vector3f(origin.x + visibleSize.width, origin.y + visibleSize.height, 0), 0xFFFFFFFF, GRAPH::Tex2F(getUIAtlas()[I_BG].u2, getUIAtlas()[I_BG].v1), },
-        },
         {
             { MATH::Vector3f(center.width - 130, center.height - 20, 0), color, GRAPH::Tex2F(getUIAtlas()[I_ICON].u1, getUIAtlas()[I_ICON].v2), },
             { MATH::Vector3f(center.width - 130, center.height + 60, 0), color, GRAPH::Tex2F(getUIAtlas()[I_ICON].u1, getUIAtlas()[I_ICON].v1), },
