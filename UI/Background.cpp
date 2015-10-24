@@ -41,7 +41,7 @@ bool Background::init() {
 }
 
 void Background::draw(GRAPH::Renderer* renderer, const MATH::Matrix4& transform, uint32_t flags) {
-    customCommand_.init(_globalZOrder - 1);
+    customCommand_.init(globalZOrder_ - 1);
     customCommand_.func = std::bind(&Background::onDraw, this, transform, flags);
     renderer->addCommand(&customCommand_);
 }

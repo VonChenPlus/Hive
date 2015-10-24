@@ -55,7 +55,7 @@ bool LogoLayer::init() {
 }
 
 void LogoLayer::draw(GRAPH::Renderer* renderer, const MATH::Matrix4& transform, uint32_t flags) {
-    customCommand_.init(_globalZOrder);
+    customCommand_.init(globalZOrder_);
     customCommand_.func = std::bind(&LogoLayer::onDraw, this, transform, flags);
     renderer->addCommand(&customCommand_);
 }
