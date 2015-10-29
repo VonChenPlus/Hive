@@ -7,7 +7,7 @@
 
 namespace GRAPH
 {
-    class GLTextureAtlas;
+    class TextureAtlas;
     namespace UI
     {
         class Label;
@@ -30,7 +30,7 @@ protected:
 
 
 private:
-    GRAPH::GLTextureAtlas *uiAtlas_;
+    GRAPH::TextureAtlas *uiAtlas_;
     GRAPH::CustomCommand customCommand_;
     GRAPH::UI::Label *uiLabel_;
     int frames_;
