@@ -3,7 +3,7 @@
 #include "GRAPH/Director.h"
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UNITY3D/Unity3DGLShader.h"
-#include "GRAPH/UNITY3D/GLTexture.h"
+#include "GRAPH/UNITY3D/Unity3DGLTexture.h"
 #include "GRAPH/UNITY3D/TextureAtlas.h"
 #include "GRAPH/UNITY3D/Renderer.h"
 #include "UTILS/TIME/TimeUtils.h"

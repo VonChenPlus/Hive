@@ -4,7 +4,7 @@
 #include "BASE/AutoreleasePool.h"
 #include "GRAPH/Director.h"
 #include "GRAPH/RenderView.h"
-#include "GRAPH/UNITY3D/GLTexture.h"
+#include "GRAPH/UNITY3D/Unity3DGLTexture.h"
 
 namespace GRAPH
 {
