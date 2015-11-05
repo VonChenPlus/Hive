@@ -10,7 +10,7 @@ namespace GRAPH
     HData StringToTexture(void *loaderOwner, const char * text, uint32 &width, uint32 &height, bool& hasPremultipliedAlpha)
     {
         QFont* qfont = new QFont();
-        qfont->setPointSize(35);
+        qfont->setPointSize(20);
         qfont->setFamily("");
         QFontMetrics fm(*qfont);
         QSize size = fm.size(0, QString::fromUtf8(text));
