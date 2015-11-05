@@ -4,15 +4,14 @@
 #include "BASE/AutoreleasePool.h"
 #include "GRAPH/Director.h"
 #include "GRAPH/RenderView.h"
-#include "GRAPH/UNITY3D/Unity3DGLTexture.h"
 
 namespace GRAPH
 {
-    HData getTextureDataForText(const char * text, const FontDefinition& textDefinition, TextAlign, int &width, int &height, bool& hasPremultipliedAlpha)
+    HData StringToTexture(void *loaderOwner, const char * text, uint32 &width, uint32 &height, bool& hasPremultipliedAlpha)
     {
         QFont* qfont = new QFont();
-        qfont->setPointSize(textDefinition.fontSize);
-        qfont->setFamily(textDefinition.fontName.c_str());
+        qfont->setPointSize(35);
+        qfont->setFamily("");
         QFontMetrics fm(*qfont);
         QSize size = fm.size(0, QString::fromUtf8(text));
         QImage image(size.width(), size.height(), QImage::Format_ARGB32_Premultiplied);
@@ -22,7 +21,7 @@ namespace GRAPH
         QPainter painter;
         painter.begin(&image);
         painter.setFont(*qfont);
-        painter.setPen(QColor(textDefinition.fontFillColor.red, textDefinition.fontFillColor.green, textDefinition.fontFillColor.blue));
+        painter.setPen(QColor(0xFF, 0xFF, 0xFF));
         painter.drawText(image.rect(), Qt::AlignTop | Qt::AlignLeft, QString::fromUtf8(text));
         painter.end();
         HData ret;
@@ -75,8 +74,6 @@ bool MainUI::event(QEvent *e) {
 void MainUI::initializeGL() {
     glewInit();
     
-    GRAPH::GLTexture::getTextureDataForText = GRAPH::getTextureDataForText;
-
     auto renderView = new(std::nothrow) GRAPH::RenderView();
     renderView->setFrameSize(this->width(), this->height());
     renderView->autorelease();

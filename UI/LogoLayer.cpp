@@ -4,15 +4,19 @@
 #include "GRAPH/Director.h"
 #include "GRAPH/RenderView.h"
 #include "GRAPH/UI/CONTROLS/UILabel.h"
-#include "GRAPH/UNITY3D/Unity3DGLTexture.h"
 #include "GRAPH/UNITY3D/TextureAtlas.h"
 #include "GRAPH/UNITY3D/Renderer.h"
 #include "GRAPH/UNITY3D/Unity3DGLShader.h"
+#include "GRAPH/UNITY3D/Unity3DGLTexture.h"
 #include "MATH/Size.h"
 #include <QString>
 
 extern const AtlasImage *getUIAtlas();
 extern const uint8 *getUIAtlasData(uint64 &size);
+namespace GRAPH
+{
+    extern HData StringToTexture(void *loaderOwner, const char * text, uint32 &width, uint32 &height, bool& hasPremultipliedAlpha);
+}
 
 LogoLayer::~LogoLayer() {
     uiAtlas_->release();
@@ -29,7 +33,7 @@ bool LogoLayer::init() {
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
     MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
 
-    uiLabel_ = GRAPH::UI::Label::createWithSystemFont("Created by Feng Chen", "", 20);
+    uiLabel_ = GRAPH::UI::Label::createWithCustomLoader("Created by Feng Chen", GRAPH::StringToTexture, nullptr);
     // position the label on the center of the screen
     uiLabel_->setPosition(center.width,
         center.height - 40);
