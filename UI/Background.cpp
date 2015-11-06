@@ -2,7 +2,7 @@
 #include "../UI/UIAtlas.h"
 #include "GRAPH/Director.h"
 #include "GRAPH/RenderView.h"
-#include "GRAPH/UNITY3D/Unity3DShaderCache.h"
+#include "GRAPH/UNITY3D/ShaderCache.h"
 #include "GRAPH/UNITY3D/TextureCache.h"
 #include "GRAPH/UNITY3D/TextureAtlas.h"
 #include "GRAPH/UNITY3D/Renderer.h"
@@ -20,7 +20,7 @@ bool Background::init() {
     auto visibleSize = GRAPH::Director::getInstance().getRenderView()->getVisibleSize();
     auto origin = GRAPH::Director::getInstance().getRenderView()->getVisibleOrigin();
 
-    setU3DShader(GRAPH::Unity3DShaderCache::getInstance().getU3DShader(GRAPH::Unity3DShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
+    setU3DShader(GRAPH::ShaderCache::getInstance().getU3DShader(GRAPH::Unity3DShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
     uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::TextureCache::getInstance().getTextureForKey("UIAtlas"), 101 * 4);
     uiAtlas_->retain();
 

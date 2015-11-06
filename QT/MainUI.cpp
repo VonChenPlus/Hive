@@ -7,7 +7,7 @@
 
 namespace GRAPH
 {
-    HData StringToTexture(void *loaderOwner, const char * text, uint32 &width, uint32 &height, bool& hasPremultipliedAlpha)
+    HData StringToTexture(void *, const char * text, uint32 &width, uint32 &height, bool& hasPremultipliedAlpha)
     {
         QFont* qfont = new QFont();
         qfont->setPointSize(20);

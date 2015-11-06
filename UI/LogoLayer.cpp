@@ -6,7 +6,7 @@
 #include "GRAPH/UI/CONTROLS/UILabel.h"
 #include "GRAPH/UNITY3D/TextureAtlas.h"
 #include "GRAPH/UNITY3D/Renderer.h"
-#include "GRAPH/UNITY3D/Unity3DShaderCache.h"
+#include "GRAPH/UNITY3D/ShaderCache.h"
 #include "GRAPH/UNITY3D/TextureCache.h"
 #include "MATH/Size.h"
 #include <QString>
@@ -44,7 +44,7 @@ bool LogoLayer::init() {
     uint64 uiAtlasSize = 0;
     const uint8 *uiAtlas = getUIAtlasData(uiAtlasSize);
     image->initWithImageData(uiAtlas, uiAtlasSize);
-    setU3DShader(GRAPH::Unity3DShaderCache::getInstance().getU3DShader(GRAPH::Unity3DShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
+    setU3DShader(GRAPH::ShaderCache::getInstance().getU3DShader(GRAPH::Unity3DShader::SHADER_NAME_POSITION_TEXTURE_COLOR));
     uiAtlas_ = GRAPH::TextureAtlas::createWithTexture(GRAPH::TextureCache::getInstance().addImage(image, "UIAtlas"), 2 * 4);
     uiAtlas_->retain();
     SAFE_RELEASE(image);
