@@ -19,7 +19,8 @@ namespace GRAPH
 }
 
 LogoLayer::~LogoLayer() {
-    uiAtlas_->release();
+    SAFE_RELEASE(uiLabel_);
+    SAFE_RELEASE(uiAtlas_);
 }
 
 bool LogoLayer::init() {
@@ -34,6 +35,7 @@ bool LogoLayer::init() {
     MATH::Sizef center(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
 
     uiLabel_ = GRAPH::UI::Label::createWithCustomLoader("Created by Feng Chen", GRAPH::StringToTexture, nullptr);
+    uiLabel_->retain();
     // position the label on the center of the screen
     uiLabel_->setPosition(center.width,
         center.height - 40);

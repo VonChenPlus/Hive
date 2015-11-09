@@ -7,6 +7,7 @@
 class Background : public GRAPH::Node
 {
 public:
+    ~Background();
     virtual bool init() override;
     virtual void draw(GRAPH::Renderer* renderer, const MATH::Matrix4& transform, uint32_t flags) override;
     virtual void update(float delta) override;

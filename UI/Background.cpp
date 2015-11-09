@@ -12,6 +12,10 @@
 extern const AtlasImage *getUIAtlas();
 extern const uint8 *getUIAtlasData(uint64 &size);
 
+Background::~Background() {
+    SAFE_RELEASE(uiAtlas_);
+}
+
 bool Background::init() {
     if (!Node::init()) {
         return false;

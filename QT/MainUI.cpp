@@ -86,6 +86,8 @@ void MainUI::initializeGL() {
 
     // run
     GRAPH::Director::getInstance().runWithScene(scene);
+
+    scene->release();
 }
 
 void MainUI::paintGL() {
