@@ -83,10 +83,8 @@ void MainUI::initializeGL() {
 
     // create a scene. it's an autorelease object
     auto scene = LogoLayer::scene();
-
     // run
     GRAPH::Director::getInstance().runWithScene(scene);
-
     scene->release();
 }
 
