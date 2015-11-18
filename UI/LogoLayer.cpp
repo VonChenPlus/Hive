@@ -134,7 +134,6 @@ LogoLayer* LogoLayer::create() {
         }
         else {
             delete pRet;
-            pRet = NULL;
-            return NULL;
+            return nullptr;
         }
 }
