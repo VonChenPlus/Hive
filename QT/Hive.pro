@@ -23,12 +23,10 @@ greaterThan(QT_MAJOR_VERSION,4) {
 
 # Main
 SOURCES += $$P/QT/*.cpp \
-    $$P/UI/*.cpp \
-    $$P/RFB/*.cpp
+    $$P/UI/*.cpp
 
 HEADERS += $$P/QT/*.h \
-    $$P/UI/*.h \
-    $$P/RFB/*.h
+    $$P/UI/*.h
 
 INCLUDEPATH += $$P/Honey
 
