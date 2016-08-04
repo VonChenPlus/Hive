@@ -6,4 +6,4 @@ Who know this is what can be do.
 Hive is licensed under the Mit. 
 
 ### Build Minimal Dependencies
-* **Qt 5.3(64-bit OpenGL)
+* Qt 5.3(64-bit OpenGL)
